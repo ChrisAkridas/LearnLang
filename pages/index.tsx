@@ -1,44 +1,43 @@
-import { Todo } from "../utils/types"
-import Link from "next/link"
+import { Meetup } from "@/types";
+import { connectDB } from "@/utils/mongodb";
 
 // Define the components props
-interface IndexProps {
+interface HomePageProps {
   children?: React.ReactNode;
-  todos: Array<Todo>;
+  meetups: Meetup[]
 }
 
 // define the page component
-function Index(props: IndexProps) {
-  const { todos } = props
-
+const HomePage: React.FC<HomePageProps> = (props) => {
   return (
     <div>
-      <h1>My Todo List</h1>
-      <h2>Click On Todo to see it individually</h2>
-      {/* MAPPING OVER THE TODOS */}
-      {todos.map(t => (
-        <div key={t._id}>
-          <Link href={`/todos/${t._id}`}>
-            <h3 style={{ cursor: "pointer" }}>
-              {t.item} - {t.completed ? "completed" : "incomplete"}
-            </h3>
-          </Link>
-        </div>
-      ))}
+      <h1>Home Page</h1>
+      <h2>{props.meetups[2].title}</h2>
     </div>
-  )
-}
+  );
+};
 
 // GET PROPS FOR SERVER SIDE RENDERING
 export async function getServerSideProps() {
   // get todo data from API
-  const res = await fetch(process.env.API_URL as string)
-  const todos = await res.json()
+  const { client, db, collection } = await connectDB("test", "meetups");
+  const findResults = await collection.find({}).toArray();
+  const meetups = findResults.map((el) => ({
+    id: el._id.toString(),
+    title: el.title,
+    image: el.image,
+    address: el.address,
+    description: el.description,
+  }));
 
+  console.log("filtered data", meetups);
+  client.close();
   // return props
   return {
-    props: { todos },
-  }
+    props: {
+      meetups: meetups
+    },
+  };
 }
 
-export default Index
+export default HomePage;
