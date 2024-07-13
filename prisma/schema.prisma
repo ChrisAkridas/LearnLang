@@ -16,7 +16,7 @@ datasource db {
 model Lesson {
   id           String       @id @default(uuid())
   title        String
-  lessonNumber Int          @unique @default(autoincrement())
+  lessonNumber Int          @default(autoincrement())
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now())
   vocabulary   Vocabulary[]
@@ -27,15 +27,15 @@ model Vocabulary {
   english   String
   greek     String
   greeklish String
-  lesson    Lesson @relation(fields: [lessonId], references: [id])
+  lesson    Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   lessonId  String
 }
 
 model User {
-  id         String  @id @default(uuid())
-  first_name String
-  last_name  String
-  email      String  @unique
-  country    String?
-  bio        String?
+  id        String  @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String  @unique
+  country   String?
+  bio       String?
 }

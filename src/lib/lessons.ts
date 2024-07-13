@@ -1,4 +1,4 @@
-const lessons = [
+export const lessons = [
   {
     title: "Personal pronouns",
     vocabulary: [
