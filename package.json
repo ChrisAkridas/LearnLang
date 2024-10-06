@@ -9,11 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.11.8",
     "@apollo/server": "^4.11.0",
     "@as-integrations/next": "^3.1.0",
     "@prisma/client": "^5.20.0",
-    "@vercel/postgres": "^0.8.0",
+    "@vercel/postgres": "^0.10.0",
     "cva": "^0.0.0",
     "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6",

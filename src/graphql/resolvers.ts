@@ -1,77 +1,60 @@
-// import { Context } from "@/pages/api/graphql";
+import { Context } from "@/pages/api/graphql";
 
-// export const resolvers = {
-//   Query: {
-//     novel: async (_parent: any, args: any, context: Context) => {
-//       return await context.prisma.novel.findUnique({
-//         where: {
-//           id: args.id,
-//         },
-//       });
-//     },
-//     novels: async (_parent: any, args: any, context: Context) => {
-//       return await context.prisma.novel.findMany({
-//         include: {
-//           author: true,
-//         },
-//       });
-//     },
-//   },
+export const resolvers = {
+  Query: {
+    // * Query for LESSONS
+    lessons: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.lesson.findMany({
+        include: {
+          vocabulary: true,
+        },
+      });
+    },
+    lesson: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.lesson.findUnique({
+        where: {
+          id: args.id,
+        },
+        include: {
+          vocabulary: true,
+        },
+      });
+    },
 
-//   // Novel: {
-//   //   authors: async (_parent: any, args: any, context: Context) => {
-//   //     return await context.prisma.author.findMany({
-//   //       where: {
-//   //         novelId: _parent.id,
-//   //       },
-//   //     });
-//   //   },
-//   // },
+    // * Query for WORDS
 
-//   Mutation: {
-//     addNovel: async (_parent: any, args: any, context: Context) => {
-//       return await context.prisma.novel.create({
-//         data: {
-//           title: args.title,
-//         },
-//       });
-//     },
+    words: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.vocabulary.findMany();
+    },
+    word: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.vocabulary.findUnique({
+        where: {
+          id: args.id,
+        },
+      });
+    },
 
-//     updateNovel: async (_parent: any, args: any, context: Context) => {
-//       return await context.prisma.novel.update({
-//         where: {
-//           id: args.id,
-//         },
-//         data: {
-//           title: args.title,
-//           image: args.image,
-//         },
-//       });
-//     },
+    // * Query for USERS
 
-//     deleteNovel: async (_parent: any, args: any, context: Context) => {
-//       return await context.prisma.novel.delete({
-//         where: {
-//           id: args.id,
-//         },
-//       });
-//     },
+    users: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.user.findMany();
+    },
+    user: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.user.findUnique({
+        where: {
+          id: args.id,
+        },
+      });
+    },
+  },
 
-//     addAuthor: async (_parent: any, args: any, context: Context) => {
-//       return await context.prisma.author.create({
-//         data: {
-//           name: args.name,
-//           novelId: args.novelId,
-//         },
-//       });
-//     },
-
-//     deleteAuthor: async (_parent: any, args: any, context: Context) => {
-//       return await context.prisma.author.delete({
-//         where: {
-//           id: args.id,
-//         },
-//       });
-//     },
-//   },
-// };
+  Mutation: {
+    deleteUser: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.user.delete({
+        where: {
+          id: args.id,
+        },
+      });
+    },
+  },
+};

@@ -14,7 +14,7 @@ type Lesson {
   lessonNumber: Int!
   createdAt: String
   updatedAt: String
-  vocabulary: [Vocabulary]!
+  vocabulary: [Vocabulary!]!
 }
 
 type Vocabulary {
@@ -24,21 +24,18 @@ type Vocabulary {
   greeklist: String
 }
 
-# type Author {
-#   id: ID!
-#   name: String
-# }
+type Query {
+  lessons: [Lesson]
+  lesson(id: ID!): Lesson
 
-# type Query {
-#   novel(id: ID!): Novel
-#   novels: [Novel]
-# }
+  words: [Vocabulary]
+  word(id: ID!): Vocabulary
+  
+  users: [User]
+  user(id: ID!): User
+}
 
-# type Mutation {
-#   addNovel(title: String, image: String): Novel
-#   updateNovel(id: ID!, image: String, title: String): Novel
-#   deleteNovel(id:ID!): Novel
-#   addAuthor(novelId: ID!, name: String): Author
-#   deleteAuthor(id: ID!): Author
-# }
+type Mutation {
+  deleteUser(id: ID!): User
+}
 `;
