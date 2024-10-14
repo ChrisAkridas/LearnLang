@@ -31,3 +31,13 @@
 //     }
 //   }
 // `;
+
+export const GET_LESSONS = `
+  query Lessons {
+    lessons {
+      id
+      title
+      lessonNumber
+    }
+  }
+`;

@@ -1,10 +1,15 @@
 "use server";
 
-import fetchGraphQL from "./graphql";
-import { GET_NOVELS } from "@/graphql/queries";
+import { type Lesson } from "@/graphql/gql_types";
+import fetchGraphQL from "./fetchGQL";
+import { GET_LESSONS } from "@/graphql/queries";
 
-export async function getLessons() {
-  const data = await fetchGraphQL(GET_NOVELS);
-
-  return data;
+export async function fetchLessons() {
+  try {
+    const { lessons } = await fetchGraphQL(GET_LESSONS);
+    return lessons as Lesson[];
+  } catch (error) {
+    console.error("Failed to fetch lessons", error);
+    return [];
+  }
 }
