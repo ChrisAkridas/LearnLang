@@ -10,7 +10,7 @@ export default async function Home() {
       {lessons.map((it) => {
         return (
           <Link key={it.id} href={`lesson/${it.id}`} draggable={false}>
-            <Card className="flex group items-center justify-between text-opacity-80 hover:text-opacity-100 hover:bg-slate-50 hover:shadow-md hover:-translate-y-1">
+            <Card className="flex group items-center justify-between text-opacity-80 hover:text-opacity-100 hover:bg-blue-50 hover:shadow-md hover:-translate-y-1">
               <CardHeader>
                 <CardTitle>{it.title}</CardTitle>
                 <span className="text-sm">Lesson {it.lessonNumber}</span>
