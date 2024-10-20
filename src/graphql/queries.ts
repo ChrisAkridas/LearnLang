@@ -41,3 +41,18 @@ export const GET_LESSONS = `
     }
   }
 `;
+
+export const GET_LESSON = `
+query Lessons($id: ID!) {
+    lesson(id: $id) {
+      id
+      title
+      lessonNumber
+      vocabulary {
+        english
+        greek
+        greeklist
+      }
+    }
+  }
+`;
