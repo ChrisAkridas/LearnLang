@@ -2,7 +2,7 @@ export type Vocabulary = {
   id: string;
   english: string;
   greek: string;
-  greeklist: string;
+  greeklish: string;
 };
 
 export type Lesson = {

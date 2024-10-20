@@ -21,7 +21,7 @@ type Vocabulary {
   id: ID!
   english: String
   greek: String
-  greeklist: String
+  greeklish: String
 }
 
 type Query {

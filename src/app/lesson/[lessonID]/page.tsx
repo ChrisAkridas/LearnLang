@@ -46,7 +46,7 @@ export default async function Lesson({ params }: LessonProps) {
             <div key={lesson.id} className="flex gap-8">
               <div>{word.english}</div>
               <div>{word.greek}</div>
-              <div>{word.greeklist}</div>
+              <div>{word.greeklish}</div>
             </div>
           ))}
         </section>

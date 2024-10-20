@@ -51,7 +51,7 @@ query Lessons($id: ID!) {
       vocabulary {
         english
         greek
-        greeklist
+        greeklish
       }
     }
   }
