@@ -3,6 +3,7 @@ import type { Lesson } from "@/graphql/gql_types";
 // External
 // Internal
 import { fetchLessons, fetchLesson } from "@/lib/actions";
+import Games from "./Games";
 
 // The segments that are not statically generated will return a 404 error
 export const dynamicParams = false;
@@ -32,25 +33,15 @@ export default async function Lesson({ params }: LessonProps) {
   const { lessonID } = params;
 
   const lesson = await fetchLesson(lessonID);
+  if (!lesson || !lesson?.vocabulary) {
+    // throw new Error("Lesson not found");
+    return <div>Lesson not found</div>;
+  }
 
   return (
-    <div>
-      <h1>Lesson: {lessonID}</h1>
-
-      <section className="mt-10">
-        <div>{lesson?.title}</div>
-        <div>Lesson No.{lesson?.lessonNumber}</div>
-
-        <section>
-          {lesson?.vocabulary?.map((word) => (
-            <div key={lesson.id} className="flex gap-8">
-              <div>{word.english}</div>
-              <div>{word.greek}</div>
-              <div>{word.greeklish}</div>
-            </div>
-          ))}
-        </section>
-      </section>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-2xl">{lesson?.title}</h1>
+      <Games data={lesson?.vocabulary} />
     </div>
   );
 }

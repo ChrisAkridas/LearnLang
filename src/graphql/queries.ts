@@ -49,6 +49,7 @@ query Lessons($id: ID!) {
       title
       lessonNumber
       vocabulary {
+        id
         english
         greek
         greeklish

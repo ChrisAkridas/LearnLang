@@ -1,6 +1,6 @@
-type Lessons = {
-  id: string;
-  title: string;
-  lesson_in: string;
-  vocabulary: { english: string; greek: string; greeklish: string }[];
+export type Exercise = "multiple" | "fill" | "matching";
+
+export type ExerciseValue = {
+  value: Exercise;
+  label: string;
 };

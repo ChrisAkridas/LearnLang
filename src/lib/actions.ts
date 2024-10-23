@@ -20,7 +20,7 @@ export async function fetchLessons() {
 export async function fetchLesson(id: string) {
   try {
     const { lesson } = await fetchGraphQL(GET_LESSON, { id });
-    return lesson as Lesson;
+    return lesson as Partial<Lesson>;
   } catch (error) {
     console.error("Failed to fetch lesson", error);
     return null;
