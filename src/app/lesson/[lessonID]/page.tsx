@@ -3,7 +3,7 @@ import type { Lesson } from "@/graphql/gql_types";
 // External
 // Internal
 import { fetchLessons, fetchLesson } from "@/lib/actions";
-import Games from "./Games";
+import Games from "./components/Games";
 
 // The segments that are not statically generated will return a 404 error
 export const dynamicParams = false;
@@ -18,9 +18,9 @@ export async function generateStaticParams() {
         lessonID: lesson.id,
       },
     }));
+  } else {
+    return [];
   }
-
-  return [];
 }
 
 interface LessonProps {

@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
+import { Multiple } from "./Multiple";
 
 // Internal
 const exercises: Record<Exercise, ExerciseValue> = {
@@ -80,6 +81,7 @@ export default function Games({ data }: GameProps) {
           </button>
         </div> */}
       </main>
+      {/* <Multiple /> */}
     </>
   );
 }
