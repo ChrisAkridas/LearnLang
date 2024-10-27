@@ -4,6 +4,7 @@ import type { Lesson } from "@/graphql/gql_types";
 // Internal
 import { fetchLessons, fetchLesson } from "@/lib/actions";
 import Games from "./components/Games";
+import { notFound } from "next/navigation";
 
 // The segments that are not statically generated will return a 404 error
 export const dynamicParams = false;
@@ -14,9 +15,7 @@ export async function generateStaticParams() {
 
   if (lessons) {
     return lessons.map((lesson: Pick<Lesson, "id">) => ({
-      params: {
-        lessonID: lesson.id,
-      },
+      lessonID: lesson.id,
     }));
   } else {
     return [];
@@ -34,8 +33,7 @@ export default async function Lesson({ params }: LessonProps) {
 
   const lesson = await fetchLesson(lessonID);
   if (!lesson || !lesson?.vocabulary) {
-    // throw new Error("Lesson not found");
-    return <div>Lesson not found</div>;
+    return notFound();
   }
 
   return (

@@ -1,5 +1,6 @@
 // Types
 // External
+import { notFound } from "next/navigation";
 import { Card, CardHeader, CardTitle } from "@/components/ui/Card";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -8,6 +9,8 @@ import { fetchLessons } from "@/lib/actions";
 
 export default async function Home() {
   const lessons = await fetchLessons();
+  if (!lessons) notFound();
+
   return (
     <main className="grid grid-cols-3 gap-4 w-5/6 m-auto pt-10">
       {lessons &&
