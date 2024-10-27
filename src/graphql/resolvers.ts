@@ -1,5 +1,4 @@
-import { Context } from "@/pages/api/graphql";
-import { Lesson } from "./gql_types";
+import { Context } from "@/app/api/graphql/route";
 
 export const resolvers = {
   Query: {

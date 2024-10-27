@@ -31,15 +31,16 @@ interface LessonProps {
 export default async function Lesson({ params }: LessonProps) {
   const { lessonID } = params;
 
-  const lesson = await fetchLesson(lessonID);
-  if (!lesson || !lesson?.vocabulary) {
-    return notFound();
-  }
+  // const lesson = await fetchLesson(lessonID);
+  // if (!lesson || !lesson?.vocabulary) {
+  //   return notFound();
+  // }
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl">{lesson?.title}</h1>
-      <Games data={lesson?.vocabulary} />
+      {lessonID}
+      {/* <h1 className="text-2xl">{lesson?.title}</h1>
+      <Games data={lesson?.vocabulary ?? []} /> */}
     </div>
   );
 }

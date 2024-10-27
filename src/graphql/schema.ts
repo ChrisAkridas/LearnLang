@@ -1,41 +1,41 @@
 export const typeDefs = `#graphql
-type User {
-  id: ID!
-  first_name: String!
-  last_name: String!
-  email: String!
-  country: String
-  bio: String
-}
+  type User {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    email: String!
+    country: String
+    bio: String
+  }
 
-type Lesson {
-  id: ID!
-  title: String!
-  lessonNumber: Int!
-  createdAt: String
-  updatedAt: String
-  vocabulary: [Vocabulary!]!
-}
+  type Lesson {
+    id: ID!
+    title: String!
+    lessonNumber: Int!
+    createdAt: String
+    updatedAt: String
+    vocabulary: [Vocabulary!]!
+  }
 
-type Vocabulary {
-  id: ID!
-  english: String
-  greek: String
-  greeklish: String
-}
+  type Vocabulary {
+    id: ID!
+    english: String
+    greek: String
+    greeklish: String
+  }
 
-type Query {
-  lessons: [Lesson]
-  lesson(id: ID!): Lesson
+  type Query {
+    lessons: [Lesson]
+    lesson(id: ID!): Lesson
 
-  words: [Vocabulary]
-  word(id: ID!): Vocabulary
-  
-  users: [User]
-  user(id: ID!): User
-}
+    words: [Vocabulary]
+    word(id: ID!): Vocabulary
 
-type Mutation {
-  deleteUser(id: ID!): User
-}
+    users: [User]
+    user(id: ID!): User
+  }
+
+  type Mutation {
+    deleteUser(id: ID!): User
+  }
 `;
