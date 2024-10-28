@@ -1,5 +1,9 @@
-import { prisma } from "@/../prisma/db";
-import { PrismaClient } from "@prisma/client";
+// Types
+import type { PrismaClient } from "@prisma/client";
+// External
+
+// Internal
+import prismaClient from "@/../prisma/db";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { ApolloServer } from "@apollo/server";
 import { NextRequest } from "next/server";
@@ -16,7 +20,7 @@ const GQL_Server = new ApolloServer({
 });
 
 const handler = startServerAndCreateNextHandler(GQL_Server, {
-  context: async (req, res) => ({ req, res, prisma }),
+  context: async (req, res) => ({ req, res, prisma: prismaClient }),
 });
 
 export { handler as GET, handler as POST };
