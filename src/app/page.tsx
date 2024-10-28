@@ -5,10 +5,20 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/Card";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 // Internal
-import { fetchLessons } from "@/lib/actions";
+// import { fetchLessons } from "@/lib/actions";
+import prismaClient from "../../prisma/db";
 
 export default async function Home() {
-  const lessons = await fetchLessons();
+  // const lessons = await fetchLessons();
+  const lessons = await prismaClient.lesson.findMany({
+    select: {
+      id: true,
+      title: true,
+      lessonNumber: true,
+    },
+  });
+
+  console.log(lessons);
   if (!lessons) notFound();
 
   return (
