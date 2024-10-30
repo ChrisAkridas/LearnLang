@@ -2,9 +2,9 @@
 
 // Types
 import type { Exercise, ExerciseValue } from "@/types/types";
-import { Vocabulary } from "@/graphql/gql_types";
+import type { GetLessonNonNull } from "@/lib/actions";
 // External
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -13,24 +13,39 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
-import { Multiple } from "./Multiple";
-
 // Internal
-const exercises: Record<Exercise, ExerciseValue> = {
-  multiple: { value: "multiple", label: "Multiple Choise" },
-  fill: { value: "fill", label: "Fill in the blanks" },
-  matching: { value: "matching", label: "Matching words" },
-};
+import Multiple from "./Multiple";
+// import FillGaps from "./FillGaps";
+// import Matching from "./Matching";
 
 interface GameProps {
-  data: Vocabulary[];
+  data: GetLessonNonNull["vocabulary"];
 }
 export default function Games({ data }: GameProps) {
+  const exercises = useMemo(() => {
+    console.log("create exercises");
+    return {
+      multiple: {
+        value: "multiple",
+        label: "Multiple Choise",
+        content: <Multiple data={data} />,
+      },
+      fill: {
+        value: "fill",
+        label: "Fill in the blanks",
+        content: <div>Fill in the blanks component</div>,
+      },
+      matching: {
+        value: "matching",
+        label: "Matching words",
+        content: <div>Matching words component</div>,
+      },
+    } as Record<Exercise, ExerciseValue>;
+  }, [data]);
+
   const [activeExercise, setActiveExercise] = useState<ExerciseValue>(
     exercises.multiple
   );
-  // const [activeIndex, setActiveIndex] = useState<number>(0);
-
   return (
     <>
       <Select
@@ -54,34 +69,7 @@ export default function Games({ data }: GameProps) {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <main className="text-center">
-        Selected Exercise is: {activeExercise.label}
-        {/* {data.map((it) => {
-          return (
-            <div key={it.id} className="flex gap-4">
-              <div>{it.english}</div>
-              <div>{it.greek}</div>
-              <div>{it.greeklish}</div>
-            </div>
-          );
-        })} */}
-        {/* <div className="flex justify-center mt-10">
-          <div>{data[activeIndex].greek}</div>
-          <div>{data[activeIndex].english}</div>
-          <div>{data[activeIndex].greeklish}</div>
-          <button
-            className="ms-2 px-4 py-1 bg-blue-200 rounded-sm"
-            onClick={() => {
-              if (activeIndex >= 0 && activeIndex < data.length - 1) {
-                setActiveIndex(activeIndex + 1);
-              }
-            }}
-          >
-            Next
-          </button>
-        </div> */}
-      </main>
-      {/* <Multiple /> */}
+      <section>{activeExercise.content}</section>
     </>
   );
 }
