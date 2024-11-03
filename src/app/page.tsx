@@ -18,7 +18,6 @@ export default async function Home() {
     },
   });
 
-  console.log(lessons);
   if (!lessons) notFound();
 
   return (

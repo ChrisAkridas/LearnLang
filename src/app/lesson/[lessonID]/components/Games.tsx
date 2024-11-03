@@ -23,7 +23,6 @@ interface GameProps {
 }
 export default function Games({ data }: GameProps) {
   const exercises = useMemo(() => {
-    console.log("create exercises");
     return {
       multiple: {
         value: "multiple",
@@ -33,12 +32,15 @@ export default function Games({ data }: GameProps) {
       fill: {
         value: "fill",
         label: "Fill in the blanks",
-        content: <div>Fill in the blanks component</div>,
+        // TODO: Create FillGaps component
+        content: (
+          <div className="mx-auto w-fit">Fill in the blanks component</div>
+        ),
       },
       matching: {
         value: "matching",
         label: "Matching words",
-        content: <div>Matching words component</div>,
+        content: <div className="mx-auto w-fit">Matching words component</div>, // TODO: Create Matching component
       },
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
