@@ -4,10 +4,27 @@ import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
 import { useEffect, useMemo, useReducer, useState } from "react";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/Card";
 
 type Action = {
   type: "CHECK_ANSWER" | "NEXT_WORD";
@@ -18,7 +35,7 @@ type Action = {
 type LessonStats = {
   word: GetLessonNonNull["vocabulary"][0];
   timeToComplete?: string;
-  answerId?: string;
+  answer?: GetLessonNonNull["vocabulary"][0];
   correct?: boolean;
 };
 
@@ -35,12 +52,12 @@ function reducer(state: State, action: Action) {
       if (action.payload === undefined) return state;
       console.log("in the dispatcher", action);
 
-      const answer = action.payload.id;
-      const correct = state.activeWord.id === answer;
+      const answer = action.payload;
+      const correct = state.activeWord.id === answer.id;
       const updatedStats = state.stats.toSpliced(state.activeIndex, 1, {
         ...state.stats[state.activeIndex],
         timeToComplete: action.time,
-        answerId: answer,
+        answer,
         correct,
       });
       return {
@@ -111,7 +128,7 @@ export default function Multiple({ data }: MultipleProps) {
               key={word.id}
               variant="outline"
               className={`${
-                state.showAlert === true && word.id === activeWordStats.answerId
+                state.showAlert === true && word.id === activeWordStats.word.id
                   ? activeWordStats.correct
                     ? "bg-green-500 "
                     : "bg-red-500 text-white"
@@ -158,17 +175,95 @@ export default function Multiple({ data }: MultipleProps) {
                 </AlertDescription>
               </div>
             </div>
-            <Button
-              disabled={activeIndex === maxIndex}
-              className="w-fit self-end"
-              variant="outline"
-              onClick={() => {
-                setIsTicking(true);
-                dispatch({ type: "NEXT_WORD" });
-              }}
-            >
-              Continue
-            </Button>
+            {activeIndex < maxIndex ? (
+              <Button
+                className="w-fit self-end"
+                variant="outline"
+                onClick={() => {
+                  setIsTicking(true);
+                  dispatch({ type: "NEXT_WORD" });
+                }}
+              >
+                Continue
+              </Button>
+            ) : (
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <Button variant="outline">Review Lesson</Button>
+                </DrawerTrigger>
+                <DrawerContent className="h-3/4">
+                  <DrawerHeader>
+                    <DrawerTitle>Summary</DrawerTitle>
+                    <DrawerDescription>
+                      <div className="flex mt-4">
+                        <div className="me-2">Correct Answers:</div>
+                        <div className="flex gap-1">
+                          <span>
+                            {state.stats.reduce((sum, currentValue) => {
+                              if (currentValue.correct) {
+                                return sum + 1;
+                              } else {
+                                return sum;
+                              }
+                            }, 0)}
+                          </span>
+                          <span>/</span>
+                          <span>{state.stats.length}</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-1">
+                        <span>Total time:</span>
+                        <span>
+                          {state.stats.reduce(
+                            (sum, currentValue) =>
+                              sum + Number(currentValue.timeToComplete),
+                            0
+                          )}
+                        </span>
+                        <span>sec(s)</span>
+                      </div>
+                      <div className="mt-4 grid grid-cols-5 gap-2">
+                        {state.stats.map((it) => {
+                          return (
+                            <Card
+                              key={it.word.id}
+                              className={`${
+                                it.correct
+                                  ? "bg-green-200 border-green-400"
+                                  : "bg-red-200 border-red-400"
+                              } border-2`}
+                            >
+                              <CardHeader className="relative">
+                                <Badge
+                                  variant="secondary"
+                                  className="absolute border border-neutral-400 top-1 right-1"
+                                >
+                                  {it.timeToComplete} sec(s)
+                                </Badge>
+                                <CardTitle>Word: {it.word.english}</CardTitle>
+                                <CardDescription>
+                                  Answer: {it.answer?.greek}
+                                </CardDescription>
+                              </CardHeader>
+                            </Card>
+                          );
+                        })}
+                      </div>
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <DrawerFooter className="flex-row justify-center">
+                    <Button className="bg-blue-300 text-black">
+                      Next Lesson
+                    </Button>
+                    <DrawerClose>
+                      <Button variant="outline" className="bg-slate-300">
+                        Cancel
+                      </Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
+            )}
           </div>
         </Alert>
       )}
