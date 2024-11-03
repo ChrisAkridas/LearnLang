@@ -13,8 +13,8 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Badge } from "@/components/ui/badge";
+} from "@/components/ui/Drawer";
+import { Badge } from "@/components/ui/Badge";
 import { Check, X } from "lucide-react";
 import { useEffect, useMemo, useReducer, useState } from "react";
 // Internal
@@ -187,7 +187,7 @@ export default function Multiple({ data }: MultipleProps) {
                 Continue
               </Button>
             ) : (
-              <Drawer>
+              <Drawer defaultOpen={false}>
                 <DrawerTrigger asChild>
                   <Button variant="outline">Review Lesson</Button>
                 </DrawerTrigger>
