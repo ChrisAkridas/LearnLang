@@ -128,7 +128,8 @@ export default function Multiple({ data }: MultipleProps) {
               key={word.id}
               variant="outline"
               className={`${
-                state.showAlert === true && word.id === activeWordStats.word.id
+                state.showAlert === true &&
+                word.id === state.stats[activeIndex].answer?.id
                   ? activeWordStats.correct
                     ? "bg-green-500 "
                     : "bg-red-500 text-white"
