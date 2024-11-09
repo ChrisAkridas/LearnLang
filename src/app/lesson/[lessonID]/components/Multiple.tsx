@@ -17,6 +17,7 @@ import {
 import { Badge } from "@/components/ui/Badge";
 import { Check, X } from "lucide-react";
 import { useEffect, useMemo, useReducer, useState } from "react";
+import Link from "next/link";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
 import {
@@ -50,7 +51,6 @@ function reducer(state: State, action: Action) {
   switch (action.type) {
     case "CHECK_ANSWER": {
       if (action.payload === undefined) return state;
-      console.log("in the dispatcher", action);
 
       const answer = action.payload;
       const correct = state.activeWord.id === answer.id;
@@ -82,8 +82,9 @@ function reducer(state: State, action: Action) {
 
 interface MultipleProps {
   data: GetLessonNonNull["vocabulary"];
+  nextLessonId: string;
 }
-export default function Multiple({ data }: MultipleProps) {
+export default function Multiple({ data, nextLessonId }: MultipleProps) {
   const initialState: State = {
     activeIndex: 0,
     activeWord: data[0],
@@ -93,7 +94,6 @@ export default function Multiple({ data }: MultipleProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
 
-  console.log(state);
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
   const maxIndex = data.length - 1;
@@ -109,7 +109,6 @@ export default function Multiple({ data }: MultipleProps) {
     if (isTicking) {
       intervalID = setInterval(() => {
         time++;
-        console.log(time);
       }, 1000);
     }
     return () => {
@@ -136,7 +135,6 @@ export default function Multiple({ data }: MultipleProps) {
                   : ""
               } shadow-md`}
               onClick={() => {
-                console.log("You select: ", word);
                 setIsTicking(false);
                 dispatch({
                   type: "CHECK_ANSWER",
@@ -253,9 +251,11 @@ export default function Multiple({ data }: MultipleProps) {
                     </DrawerDescription>
                   </DrawerHeader>
                   <DrawerFooter className="flex-row justify-center">
-                    <Button className="bg-blue-300 text-black">
-                      Next Lesson
-                    </Button>
+                    <Link href={`${nextLessonId}`}>
+                      <Button className="bg-blue-300 text-black">
+                        Next Lesson
+                      </Button>
+                    </Link>
                     <DrawerClose>
                       <Button variant="outline" className="bg-slate-300">
                         Cancel

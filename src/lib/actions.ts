@@ -1,5 +1,6 @@
 "use server";
 
+import { log } from "console";
 // Types
 // External
 // Internal
@@ -26,6 +27,7 @@ export async function getLesson(id: string) {
       },
       select: {
         title: true,
+        lessonNumber: true,
         vocabulary: {
           select: {
             id: true,
@@ -42,4 +44,38 @@ export async function getLesson(id: string) {
     return null;
   }
 }
-export type GetLessonNonNull = NonNullable<Awaited<ReturnType<typeof getLesson>>>;
+export type GetLessonNonNull = NonNullable<
+  Awaited<ReturnType<typeof getLesson>>
+>;
+
+export async function getLessonsIds() {
+  try {
+    const lessons = await prismaClient.lesson.findMany({
+      select: {
+        id: true,
+      },
+    });
+    return lessons;
+  } catch (error) {
+    console.error("Error fetching lessons", error);
+    return null;
+  }
+}
+
+export async function getNextLessonId(lessonNumber: number) {
+  try {
+    const id = await prismaClient.lesson.findFirst({
+      where: {
+        lessonNumber: lessonNumber + 1,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return id;
+  } catch (error) {
+    console.error("Error fetching next lesson", error);
+    return null;
+  }
+}

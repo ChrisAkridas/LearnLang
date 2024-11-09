@@ -20,14 +20,15 @@ import Multiple from "./Multiple";
 
 interface GameProps {
   data: GetLessonNonNull["vocabulary"];
+  nextLessonId: string;
 }
-export default function Games({ data }: GameProps) {
+export default function Games({ data, nextLessonId }: GameProps) {
   const exercises = useMemo(() => {
     return {
       multiple: {
         value: "multiple",
         label: "Multiple Choise",
-        content: <Multiple data={data} />,
+        content: <Multiple data={data} nextLessonId={nextLessonId} />,
       },
       fill: {
         value: "fill",

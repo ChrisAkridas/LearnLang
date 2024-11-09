@@ -18,12 +18,8 @@ export function generateWordsPool<K>(
   }
 
   let pool = new Array(array[activeIndex]);
-  // console.log(pool);
-
   let wrongAnswers = array.toSpliced(activeIndex, 1);
-
   wrongAnswers = shuffleArray(wrongAnswers);
-  // console.log(wrongAnswers);
   for (let i = 0; i <= poolSize - 2; i++) {
     pool.push(wrongAnswers[i]);
   }
@@ -40,5 +36,3 @@ export function shuffleArray<T>(array: T[]): T[] {
   }
   return array;
 }
-
-// export function checkValidity(activeWord) {}
