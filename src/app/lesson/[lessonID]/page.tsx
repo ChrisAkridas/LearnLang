@@ -1,7 +1,7 @@
 // Types
 // External
-// Internal
 import { notFound } from "next/navigation";
+// Internal
 import { getLessonsIds, getLesson, getNextLessonId } from "@/lib/actions";
 import Games from "./components/Games";
 
@@ -25,7 +25,7 @@ interface LessonProps {
 }
 
 export default async function Lesson({ params }: LessonProps) {
-  const { lessonID } = params;
+  const { lessonID } = await params;
   const lesson = await getLesson(lessonID);
   if (!lesson) notFound();
 
