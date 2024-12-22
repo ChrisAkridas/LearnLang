@@ -6,16 +6,10 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 // Internal
 import prismaClient from "../../prisma/db";
+import { getLessons } from "@/lib/actions";
 
 export default async function Home() {
-  const lessons = await prismaClient.lesson.findMany({
-    select: {
-      id: true,
-      title: true,
-      lessonNumber: true,
-    },
-  });
-
+  const lessons = await getLessons();
   if (!lessons) notFound();
 
   return (

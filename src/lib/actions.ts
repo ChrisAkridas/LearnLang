@@ -1,6 +1,5 @@
 "use server";
 
-import { log } from "console";
 // Types
 // External
 // Internal
@@ -47,6 +46,18 @@ export async function getLesson(id: string) {
 export type GetLessonNonNull = NonNullable<
   Awaited<ReturnType<typeof getLesson>>
 >;
+
+export async function getLessons() {
+  const lessons = await prismaClient.lesson.findMany({
+      select: {
+        id: true,
+        title: true,
+        lessonNumber: true,
+      },
+    });
+
+    return lessons;
+}
 
 export async function getLessonsIds() {
   try {
