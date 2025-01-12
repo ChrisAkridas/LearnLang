@@ -16,7 +16,7 @@ import {
 // Internal
 import Multiple from "./Multiple";
 // import FillGaps from "./FillGaps";
-// import Matching from "./Matching";
+import Matching from "./Matching";
 
 interface GameProps {
   data: GetLessonNonNull["vocabulary"];
@@ -41,7 +41,7 @@ export default function Games({ data, nextLessonId }: GameProps) {
       matching: {
         value: "matching",
         label: "Matching words",
-        content: <div className="mx-auto w-fit">Matching words component</div>, // TODO: Create Matching component
+        content: <Matching  data={data} nextLessonId={nextLessonId}/>,
       },
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
