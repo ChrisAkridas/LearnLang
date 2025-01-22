@@ -20,12 +20,7 @@ import { useEffect, useMemo, useReducer, useState } from "react";
 import Link from "next/link";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/Card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 
 type Action = {
   type: "CHECK_ANSWER" | "NEXT_WORD";
@@ -102,7 +97,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
     return generateWordsPool(data, activeIndex, 5);
   }, [activeIndex, data]);
 
-  let time = 0;
+  let time = 0; // in seconds
 
   useEffect(() => {
     let intervalID: NodeJS.Timeout;
@@ -127,8 +122,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
               key={word.id}
               variant="outline"
               className={`${
-                state.showAlert === true &&
-                word.id === state.stats[activeIndex].answer?.id
+                state.showAlert === true && word.id === state.stats[activeIndex].answer?.id
                   ? activeWordStats.correct
                     ? "bg-green-500 "
                     : "bg-red-500 text-white"
@@ -150,10 +144,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
       </main>
 
       {state.showAlert && (
-        <Alert
-          variant={`${activeWordStats.correct ? "success" : "destructive"}`}
-          className="mt-10 max-w-2xl mx-auto"
-        >
+        <Alert variant={`${activeWordStats.correct ? "success" : "destructive"}`} className="mt-10 max-w-2xl mx-auto">
           <div className="flex justify-between">
             <div className="flex items-center gap-2">
               {activeWordStats.correct ? (
@@ -162,15 +153,9 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                 <X className="bg-red-500 rounded-full stroke-white p-0.5" />
               )}
               <div>
-                <AlertTitle>
-                  {activeWordStats.correct
-                    ? "Congratulations!"
-                    : "Correct answer is:"}
-                </AlertTitle>
+                <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
                 <AlertDescription>
-                  {activeWordStats.correct
-                    ? "Your answer is correct."
-                    : activeWordStats.word.greek}
+                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}
                 </AlertDescription>
               </div>
             </div>
@@ -213,11 +198,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                       <div className="flex gap-1">
                         <span>Total time:</span>
                         <span>
-                          {state.stats.reduce(
-                            (sum, currentValue) =>
-                              sum + Number(currentValue.timeToComplete),
-                            0
-                          )}
+                          {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0)}
                         </span>
                         <span>sec(s)</span>
                       </div>
@@ -227,22 +208,15 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                             <Card
                               key={it.word.id}
                               className={`${
-                                it.correct
-                                  ? "bg-green-200 border-green-400"
-                                  : "bg-red-200 border-red-400"
+                                it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
                               } border-2`}
                             >
                               <CardHeader className="relative">
-                                <Badge
-                                  variant="secondary"
-                                  className="absolute border border-neutral-400 top-1 right-1"
-                                >
+                                <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                                   {it.timeToComplete} sec(s)
                                 </Badge>
                                 <CardTitle>Word: {it.word.english}</CardTitle>
-                                <CardDescription>
-                                  Answer: {it.answer?.greek}
-                                </CardDescription>
+                                <CardDescription>Answer: {it.answer?.greek}</CardDescription>
                               </CardHeader>
                             </Card>
                           );
@@ -252,9 +226,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                   </DrawerHeader>
                   <DrawerFooter className="flex-row justify-center">
                     <Link href={`${nextLessonId}`}>
-                      <Button className="bg-blue-300 text-black">
-                        Next Lesson
-                      </Button>
+                      <Button className="bg-blue-300 text-black">Next Lesson</Button>
                     </Link>
                     <DrawerClose>
                       <Button variant="outline" className="bg-slate-300">
