@@ -2,6 +2,22 @@
 // Types
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
+import Link from "next/link";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/Drawer";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Check, X } from "lucide-react";
+
 import { twMerge } from "tailwind-merge";
 import { cva, type VariantProps } from "cva";
 // Internal
@@ -35,21 +51,18 @@ type Action = {
   type: "SELECT_GREEK_WORD" | "SELECT_ENG_WORD" | "RESET_SELECTIONS" | "RESET_ERROR" | "VALIDATE";
   payload?: GetLessonNonNull["vocabulary"][0];
   time?: string;
-  startTimer?: () => void;
-  clearTimer?: () => number;
 };
+
 function manageTimer() {
   let time = 0;
   let intervalId: NodeJS.Timeout;
 
-  console.log("in manageTimer => time: ", time);
-
   return (command: "START_TIMER" | "STOP_TIMER") => {
     if (command === "START_TIMER") {
       intervalId = setInterval(() => {
-        time++;
+        time += 100; // in ms
         console.log("time: ", time);
-      }, 1000);
+      }, 100);
     }
     if (command === "STOP_TIMER") {
       clearInterval(intervalId);
@@ -84,6 +97,7 @@ function reducer(state: State, action: Action) {
         const updatedStats = state.stats.toSpliced(foundIndex, 1, {
           ...state.stats[foundIndex],
           isCorrect: true,
+          time: (Number(state.stats[foundIndex].time) + Number(action.time)).toString(),
         } as Stat);
         return {
           selectedGreekWord: null,
@@ -92,10 +106,11 @@ function reducer(state: State, action: Action) {
           flashError: undefined,
         } as State;
       } else {
-        console.log("is Wrong...");
-        const updatedWord = state.stats.find((it) => it.word.id === state.selectedGreekWord?.id);
-        updatedWord?.wrongAnswers.push(state.selectedEnglishWord.id);
-        const updatedStats = state.stats.toSpliced(foundIndex, 1, updatedWord!);
+        const updatedStats = state.stats.toSpliced(foundIndex, 1, {
+          ...state.stats[foundIndex],
+          wrongAnswers: [...state.stats[foundIndex].wrongAnswers, state.selectedEnglishWord.id],
+          time: (Number(state.stats[foundIndex].time) + Number(action.time)).toString(),
+        });
         return {
           selectedEnglishWord: null,
           selectedGreekWord: null,
@@ -122,8 +137,10 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
     })),
     flashError: undefined,
   } as State);
+  const showDialog = state.stats.every((it) => it.isCorrect === true);
+  console.log("showDialog: ", showDialog);
 
-  const timeDispatcher = useCallback(manageTimer(), []);
+  const timeHandler = useCallback(manageTimer(), []);
 
   console.log("state: ", state);
 
@@ -136,7 +153,8 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
   }, [data]);
 
   if (state.selectedEnglishWord && state.selectedGreekWord) {
-    dispatch({ type: "VALIDATE" });
+    const time = timeHandler("STOP_TIMER");
+    dispatch({ type: "VALIDATE", time: time ? (time / 1000).toFixed(2).toString() : undefined });
   }
 
   useEffect(() => {
@@ -150,60 +168,127 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
   }, [state.flashError]);
 
   return (
-    <main>
-      <div className="mx-auto flex w-1/4 justify-between">
-        <section className={sectionCommonCls}>
-          {englishWords.map((it) => {            const isCorrect = state.stats.find((w) => w.word.id === it.id)?.isCorrect;
-            const isSelected = state.selectedEnglishWord && state.selectedEnglishWord.id === it.id ? true : false;
-            return (
-              <Word
-                key={it.id}
-                isSelected={isSelected}
-                isCorrect={isCorrect}
-                isWrong={state.flashError?.ids.includes(it.english)}
-                onClick={() => manageTimer()dispatch({ type: "SELECT_ENG_WORD", payload: it })}
-              >
-                {it.english}
-              </Word>
-            );
-          })}
-        </section>
-        <section className={sectionCommonCls}>
-          {greekWords.map((it) => {
-            const isCorrect = state.stats.find((w) => w.word.id === it.id)?.isCorrect;
-            const isSelected = state.selectedGreekWord && state.selectedGreekWord.id === it.id ? true : false;
+    <>
+      <main>
+        <div className="mx-auto flex w-1/4 justify-between">
+          <section className={sectionCommonCls}>
+            {englishWords.map((it) => {
+              const isCorrect = state.stats.find((w) => w.word.id === it.id)?.isCorrect;
+              const isSelected = state.selectedEnglishWord && state.selectedEnglishWord.id === it.id ? true : false;
+              return (
+                <Word
+                  key={`${it.id}-eng`}
+                  isSelected={isSelected}
+                  isCorrect={isCorrect}
+                  isWrong={state.flashError?.ids.includes(it.english)}
+                  onClick={() => {
+                    if (state.selectedEnglishWord && state.selectedEnglishWord.id === it.id) return;
+                    if (state.selectedEnglishWord == null && state.selectedGreekWord == null) {
+                      timeHandler("START_TIMER");
+                    } else if (state.selectedEnglishWord && state.selectedEnglishWord.id !== it.id) {
+                      timeHandler("STOP_TIMER");
+                      timeHandler("START_TIMER");
+                    }
 
-            console.log(isCorrect);
-            return (
-              <Word
-                key={it.id}
-                isSelected={isSelected}
-                isCorrect={isCorrect}
-                isWrong={state.flashError?.ids.includes(it.greek)}
-                onClick={() => dispatch({ type: "SELECT_GREEK_WORD", payload: it })}
-              >
-                {it.greek}
-              </Word>
-            );
-          })}
-        </section>
-        <button
-          onClick={() => {
-            const result = timeDispatcher("START_TIMER");
-          }}
-        >
-          Increase time(+)
-        </button>
-        <button
-          onClick={() => {
-            const elapsedTime = timeDispatcher("STOP_TIMER");
-            console.log("elapsedTime: ", elapsedTime);
-          }}
-        >
-          Clear time
-        </button>
-      </div>
-    </main>
+                    dispatch({
+                      type: "SELECT_ENG_WORD",
+                      payload: it,
+                    });
+                  }}
+                >
+                  {it.english}
+                </Word>
+              );
+            })}
+          </section>
+          <section className={sectionCommonCls}>
+            {greekWords.map((it) => {
+              const isCorrect = state.stats.find((w) => w.word.id === it.id)?.isCorrect;
+              const isSelected = state.selectedGreekWord && state.selectedGreekWord.id === it.id ? true : false;
+
+              return (
+                <Word
+                  key={`${it.id}-greek`}
+                  isSelected={isSelected}
+                  isCorrect={isCorrect}
+                  isWrong={state.flashError?.ids.includes(it.greek)}
+                  onClick={() => {
+                    if (state.selectedGreekWord && state.selectedGreekWord.id === it.id) return;
+                    if (state.selectedEnglishWord == null && state.selectedGreekWord == null) {
+                      timeHandler("START_TIMER");
+                    } else if (state.selectedGreekWord && state.selectedGreekWord.id !== it.id) {
+                      timeHandler("STOP_TIMER");
+                      timeHandler("START_TIMER");
+                    }
+                    dispatch({
+                      type: "SELECT_GREEK_WORD",
+                      payload: it,
+                    });
+                  }}
+                >
+                  {it.greek}
+                </Word>
+              );
+            })}
+          </section>
+        </div>
+      </main>
+      {showDialog && (
+        <Drawer defaultOpen={false}>
+          <DrawerTrigger asChild>
+            <Button variant="outline">Review Lesson</Button>
+          </DrawerTrigger>
+          <DrawerContent className="h-3/4">
+            <DrawerHeader>
+              <DrawerTitle>Summary</DrawerTitle>
+              <DrawerDescription>
+                <div className="flex gap-1">
+                  <span>Total time:</span>
+                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0)}</span>
+                  <span>sec(s)</span>
+                </div>
+                <div className="mt-4 grid grid-cols-5 gap-2">
+                  {state.stats.map((it) => {
+                    return (
+                      <Card
+                        key={it.word.id}
+                        className={`${
+                          it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
+                        } border-2`}
+                      >
+                        <CardHeader className="relative">
+                          <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                            {it.time ?? NaN} sec(s)
+                          </Badge>
+                          <CardTitle>Word: {it.word.english}</CardTitle>
+                          <CardDescription>Correct answer: {it.word.greek}</CardDescription>
+                          <CardDescription>
+                            Wrong answer{it.wrongAnswers.length > 1 ? "s" : ""}:{" "}
+                            {it.wrongAnswers.map((wrongAnswerId) => {
+                              return <span>{state.stats.find((w) => w.word.id === wrongAnswerId)?.word.greek} - </span>;
+                            })}
+                          </CardDescription>
+                        </CardHeader>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter className="flex-row justify-center">
+              <Link href={`${nextLessonId}`}>
+                <Button className="bg-blue-300 text-black hover:bg-blue-400">Next Lesson</Button>
+              </Link>
+              <DrawerClose>
+                <Button variant="outline" className="bg-slate-300 hover:bg-slate-400">
+                  Cancel
+                </Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      )}
+    </>
   );
 }
 
