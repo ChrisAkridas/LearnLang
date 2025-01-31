@@ -1,4 +1,6 @@
 // Types
+type Params = import("next/dist/server/request/params").Params;
+
 // External
 import { notFound } from "next/navigation";
 // Internal
@@ -19,14 +21,11 @@ export async function generateStaticParams() {
 }
 
 interface LessonProps {
-  params: {
-    lessonID: string;
-  };
+  params: Promise<Params>;
 }
-
 export default async function Lesson({ params }: LessonProps) {
   const { lessonID } = await params;
-  const lesson = await getLesson(lessonID);
+  const lesson = await getLesson(lessonID as string);
   if (!lesson) notFound();
 
   const nextIdData = await getNextLessonId(lesson.lessonNumber);
