@@ -16,8 +16,6 @@ import {
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { Check, X } from "lucide-react";
-
 import { twMerge } from "tailwind-merge";
 import { cva, type VariantProps } from "cva";
 // Internal
@@ -92,7 +90,7 @@ function reducer(state: State, action: Action) {
       if (state.selectedGreekWord == null || state.selectedEnglishWord == null) {
         return state;
       }
-      const foundIndex = state.stats.findIndex((it) => it.word.id === state.selectedGreekWord?.id);
+      const foundIndex = state.stats.findIndex((it) => it.word.id === state.selectedEnglishWord?.id);
       if (state.selectedGreekWord.id === state.selectedEnglishWord.id) {
         const updatedStats = state.stats.toSpliced(foundIndex, 1, {
           ...state.stats[foundIndex],
@@ -108,7 +106,7 @@ function reducer(state: State, action: Action) {
       } else {
         const updatedStats = state.stats.toSpliced(foundIndex, 1, {
           ...state.stats[foundIndex],
-          wrongAnswers: [...state.stats[foundIndex].wrongAnswers, state.selectedEnglishWord.id],
+          wrongAnswers: [...state.stats[foundIndex].wrongAnswers, state.selectedGreekWord.id],
           time: (Number(state.stats[foundIndex].time) + Number(action.time)).toString(),
         });
         return {
@@ -154,7 +152,10 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
 
   if (state.selectedEnglishWord && state.selectedGreekWord) {
     const time = timeHandler("STOP_TIMER");
-    dispatch({ type: "VALIDATE", time: time ? (time / 1000).toFixed(2).toString() : undefined });
+    dispatch({
+      type: "VALIDATE",
+      time: time ? (time / 1000).toFixed(2).toString() : undefined,
+    });
   }
 
   useEffect(() => {
@@ -245,28 +246,34 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
                 <div className="flex gap-1">
                   <span>Total time:</span>
                   <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0)}</span>
-                  <span>sec(s)</span>
+                  <span>
+                    sec
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0) > 1 ? "s" : null}
+                  </span>
                 </div>
                 <div className="mt-4 grid grid-cols-5 gap-2">
                   {state.stats.map((it) => {
                     return (
-                      <Card
-                        key={it.word.id}
-                        className={`${
-                          it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
-                        } border-2`}
-                      >
+                      <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
                         <CardHeader className="relative">
                           <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                            {it.time ?? NaN} sec(s)
+                            {Number(it.time).toFixed(2) ?? NaN} sec
+                            {Number(it.time) > 1 ? "s" : null}
                           </Badge>
                           <CardTitle>Word: {it.word.english}</CardTitle>
                           <CardDescription>Correct answer: {it.word.greek}</CardDescription>
                           <CardDescription>
                             Wrong answer{it.wrongAnswers.length > 1 ? "s" : ""}:{" "}
-                            {it.wrongAnswers.map((wrongAnswerId) => {
-                              return <span>{state.stats.find((w) => w.word.id === wrongAnswerId)?.word.greek} - </span>;
-                            })}
+                            {it.wrongAnswers.length > 0
+                              ? it.wrongAnswers.map((wrongAnswerId, index) => {
+                                  return (
+                                    <span key={index}>
+                                      {state.stats.find((w) => w.word.id === wrongAnswerId)?.word.greek}
+                                      {index + 1 < it.wrongAnswers.length ? ", " : null}
+                                    </span>
+                                  );
+                                })
+                              : " - "}
                           </CardDescription>
                         </CardHeader>
                       </Card>
