@@ -20,6 +20,7 @@ model Lesson {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @default(now())
   vocabulary   Vocabulary[]
+  fillBlanks   FillBlanks[]
 }
 
 model Vocabulary {
@@ -29,6 +30,16 @@ model Vocabulary {
   greeklish String
   lesson    Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   lessonId  String
+}
+
+model FillBlanks {
+  id       String   @id @default(uuid())
+  english  String
+  greek    String
+  pool     String[]
+  correct  String
+  lesson   Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId String
 }
 
 model User {
