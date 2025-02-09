@@ -13,6 +13,11 @@ export async function GET(request: NextRequest) {
               data: lesson.vocabulary,
             },
           },
+          fillBlanks: {
+            createMany: {
+              data: lesson.fillBlanks,
+            },
+          },
         },
       });
     }
