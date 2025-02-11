@@ -3,6 +3,7 @@ import prismaClient from "@/../prisma/db";
 import { lessons } from "@/lib/lessons";
 
 export async function GET(request: NextRequest) {
+  await prismaClient.lesson.deleteMany({});
   try {
     for (const lesson of lessons) {
       await prismaClient.lesson.create({
