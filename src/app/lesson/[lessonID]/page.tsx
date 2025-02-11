@@ -29,13 +29,13 @@ export default async function Lesson({ params }: LessonProps) {
   if (!lesson) notFound();
 
   const nextIdData = await getNextLessonId(lesson.lessonNumber);
-  let nextLessonId = "";
+  let nextLessonId: string | undefined = undefined;
   if (nextIdData) nextLessonId = nextIdData.id;
 
   return (
     <div>
       <h1 className="text-2xl">{lesson.title}</h1>
-      <Games data={lesson.vocabulary} nextLessonId={nextLessonId} />
+      <Games data={lesson} nextLessonId={nextLessonId} />
     </div>
   );
 }

@@ -25,7 +25,7 @@ import { useCallback, useEffect, useMemo, useReducer } from "react";
 const sectionCommonCls = "flex flex-col gap-2";
 interface MatchingProps {
   data: GetLessonNonNull["vocabulary"];
-  nextLessonId: string;
+  nextLessonId?: string;
 }
 
 type Stat = {
@@ -254,7 +254,12 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
                 <div className="mt-4 grid grid-cols-5 gap-2">
                   {state.stats.map((it) => {
                     return (
-                      <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                      <Card
+                        key={it.word.id}
+                        className={`${
+                          it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
+                        } border-2`}
+                      >
                         <CardHeader className="relative">
                           <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                             {Number(it.time).toFixed(2) ?? NaN} sec
@@ -283,8 +288,8 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
               </DrawerDescription>
             </DrawerHeader>
             <DrawerFooter className="flex-row justify-center">
-              <Link href={`${nextLessonId}`}>
-                <Button className="bg-blue-300 text-black hover:bg-blue-400">Next Lesson</Button>
+              <Link href={nextLessonId ? `${nextLessonId}` : "/"}>
+                <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
               </Link>
               <DrawerClose>
                 <Button variant="outline" className="bg-slate-300 hover:bg-slate-400">

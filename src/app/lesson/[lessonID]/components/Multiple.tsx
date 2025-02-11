@@ -77,7 +77,7 @@ function reducer(state: State, action: Action) {
 
 interface MultipleProps {
   data: GetLessonNonNull["vocabulary"];
-  nextLessonId: string;
+  nextLessonId?: string;
 }
 export default function Multiple({ data, nextLessonId }: MultipleProps) {
   const initialState: State = {

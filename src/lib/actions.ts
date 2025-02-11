@@ -35,6 +35,7 @@ export async function getLesson(id: string) {
             greeklish: true,
           },
         },
+        fillBlanks: true,
       },
     });
     return lesson;
@@ -43,20 +44,18 @@ export async function getLesson(id: string) {
     return null;
   }
 }
-export type GetLessonNonNull = NonNullable<
-  Awaited<ReturnType<typeof getLesson>>
->;
+export type GetLessonNonNull = NonNullable<Awaited<ReturnType<typeof getLesson>>>;
 
 export async function getLessons() {
   const lessons = await prismaClient.lesson.findMany({
-      select: {
-        id: true,
-        title: true,
-        lessonNumber: true,
-      },
-    });
+    select: {
+      id: true,
+      title: true,
+      lessonNumber: true,
+    },
+  });
 
-    return lessons;
+  return lessons;
 }
 
 export async function getLessonsIds() {

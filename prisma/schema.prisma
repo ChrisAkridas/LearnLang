@@ -49,4 +49,5 @@ model User {
   email     String  @unique
   country   String?
   bio       String?
+  age       Int?
 }

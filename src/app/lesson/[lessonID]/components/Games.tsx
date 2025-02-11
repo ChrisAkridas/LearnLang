@@ -5,22 +5,15 @@ import type { Exercise, ExerciseValue } from "@/types/types";
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import { useMemo, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/Select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 // Internal
 import Multiple from "./Multiple";
 // import FillGaps from "./FillGaps";
 import Matching from "./Matching";
 
 interface GameProps {
-  data: GetLessonNonNull["vocabulary"];
-  nextLessonId: string;
+  data: GetLessonNonNull;
+  nextLessonId?: string;
 }
 export default function Games({ data, nextLessonId }: GameProps) {
   const exercises = useMemo(() => {
@@ -28,27 +21,23 @@ export default function Games({ data, nextLessonId }: GameProps) {
       multiple: {
         value: "multiple",
         label: "Multiple Choise",
-        content: <Multiple data={data} nextLessonId={nextLessonId} />,
+        content: <Multiple data={data.vocabulary} nextLessonId={nextLessonId} />,
       },
       fill: {
         value: "fill",
         label: "Fill in the blanks",
         // TODO: Create FillGaps component
-        content: (
-          <div className="mx-auto w-fit">Fill in the blanks component</div>
-        ),
+        content: <div className="mx-auto w-fit">Fill in the blanks component</div>,
       },
       matching: {
         value: "matching",
         label: "Matching words",
-        content: <Matching  data={data} nextLessonId={nextLessonId}/>,
+        content: <Matching data={data.vocabulary} nextLessonId={nextLessonId} />,
       },
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
+  const [activeExercise, setActiveExercise] = useState<ExerciseValue>(exercises.multiple);
 
-  const [activeExercise, setActiveExercise] = useState<ExerciseValue>(
-    exercises.multiple
-  );
   return (
     <>
       <Select
