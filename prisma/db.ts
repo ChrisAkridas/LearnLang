@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { withAccelerate } from "@prisma/extension-accelerate";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient();
+  return new PrismaClient().$extends(withAccelerate());
 };
 
 declare const globalThis: {
@@ -10,11 +11,9 @@ declare const globalThis: {
 
 const prismaClient = globalThis.prismaGlobal ?? prismaClientSingleton();
 
+if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prismaClient;
+
 export default prismaClient;
-
-if (process.env.NODE_ENV !== "production")
-  globalThis.prismaGlobal = prismaClient;
-
 // allow Typescript code to access a prisma property on the global object which is assumed to be a PrismaClient instance
 // const globalForPrisma = global as unknown as { prisma: PrismaClient };
 // export const prisma =
