@@ -35,7 +35,14 @@ export async function getLesson(id: string) {
             greeklish: true,
           },
         },
-        fillBlanks: true,
+        fillBlanks: {
+          select: {
+            english: true,
+            greek: true,
+            pool: true,
+            correct: true,
+          },
+        },
       },
     });
     return lesson;
@@ -47,15 +54,20 @@ export async function getLesson(id: string) {
 export type GetLessonNonNull = NonNullable<Awaited<ReturnType<typeof getLesson>>>;
 
 export async function getLessons() {
-  const lessons = await prismaClient.lesson.findMany({
-    select: {
-      id: true,
-      title: true,
-      lessonNumber: true,
-    },
-  });
+  try {
+    const lessons = await prismaClient.lesson.findMany({
+      select: {
+        id: true,
+        title: true,
+        lessonNumber: true,
+      },
+    });
 
-  return lessons;
+    return lessons;
+  } catch (error) {
+    console.error("Error fetching lessons", error);
+    return null;
+  }
 }
 
 export async function getLessonsIds() {
@@ -67,7 +79,7 @@ export async function getLessonsIds() {
     });
     return lessons;
   } catch (error) {
-    console.error("Error fetching lessons", error);
+    console.error("Error fetching lessons ids", error);
     return null;
   }
 }

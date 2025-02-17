@@ -142,7 +142,6 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
           ))}
         </div>
       </main>
-
       {state.showAlert && (
         <Alert variant={`${activeWordStats.correct ? "success" : "destructive"}`} className="mt-10 max-w-2xl mx-auto">
           <div className="flex justify-between">
@@ -159,7 +158,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                 </AlertDescription>
               </div>
             </div>
-            {activeIndex < maxIndex ? (
+            {activeIndex < maxIndex && (
               <Button
                 className="w-fit self-end"
                 variant="outline"
@@ -170,75 +169,76 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
               >
                 Continue
               </Button>
-            ) : (
-              <Drawer defaultOpen={false}>
-                <DrawerTrigger asChild>
-                  <Button variant="outline">Review Lesson</Button>
-                </DrawerTrigger>
-                <DrawerContent className="h-3/4">
-                  <DrawerHeader>
-                    <DrawerTitle>Summary</DrawerTitle>
-                    <DrawerDescription>
-                      <div className="flex mt-4">
-                        <div className="me-2">Correct Answers:</div>
-                        <div className="flex gap-1">
-                          <span>
-                            {state.stats.reduce((sum, currentValue) => {
-                              if (currentValue.correct) {
-                                return sum + 1;
-                              } else {
-                                return sum;
-                              }
-                            }, 0)}
-                          </span>
-                          <span>/</span>
-                          <span>{state.stats.length}</span>
-                        </div>
-                      </div>
-                      <div className="flex gap-1">
-                        <span>Total time:</span>
-                        <span>
-                          {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0)}
-                        </span>
-                        <span>sec(s)</span>
-                      </div>
-                      <div className="mt-4 grid grid-cols-5 gap-2">
-                        {state.stats.map((it) => {
-                          return (
-                            <Card
-                              key={it.word.id}
-                              className={`${
-                                it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
-                              } border-2`}
-                            >
-                              <CardHeader className="relative">
-                                <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                                  {it.timeToComplete} sec(s)
-                                </Badge>
-                                <CardTitle>Word: {it.word.english}</CardTitle>
-                                <CardDescription>Answer: {it.answer?.greek}</CardDescription>
-                              </CardHeader>
-                            </Card>
-                          );
-                        })}
-                      </div>
-                    </DrawerDescription>
-                  </DrawerHeader>
-                  <DrawerFooter className="flex-row justify-center">
-                    <Link href={`${nextLessonId}`}>
-                      <Button className="bg-blue-300 text-black">Next Lesson</Button>
-                    </Link>
-                    <DrawerClose>
-                      <Button variant="outline" className="bg-slate-300">
-                        Cancel
-                      </Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </DrawerContent>
-              </Drawer>
             )}
           </div>
         </Alert>
+      )}
+      {state.showAlert && activeIndex >= maxIndex && (
+        <div className="flex justify-center mt-10">
+          <Drawer defaultOpen={false}>
+            <DrawerTrigger asChild>
+              <Button variant="outline">Review Lesson</Button>
+            </DrawerTrigger>
+            <DrawerContent className="h-3/4">
+              <DrawerHeader>
+                <DrawerTitle>Summary</DrawerTitle>
+                <div>
+                  <div className="flex mt-4">
+                    <div className="me-2">Correct Answers:</div>
+                    <div className="flex gap-1">
+                      <span>
+                        {state.stats.reduce((sum, currentValue) => {
+                          if (currentValue.correct) {
+                            return sum + 1;
+                          } else {
+                            return sum;
+                          }
+                        }, 0)}
+                      </span>
+                      <span>/</span>
+                      <span>{state.stats.length}</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-1">
+                    <span>Total time:</span>
+                    <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0)}</span>
+                    <span>sec(s)</span>
+                  </div>
+                  <div className="mt-4 grid grid-cols-5 gap-2">
+                    {state.stats.map((it) => {
+                      return (
+                        <Card
+                          key={it.word.id}
+                          className={`${
+                            it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
+                          } border-2`}
+                        >
+                          <CardHeader className="relative">
+                            <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                              {it.timeToComplete} sec(s)
+                            </Badge>
+                            <CardTitle>Word: {it.word.english}</CardTitle>
+                            <CardDescription>Answer: {it.answer?.greek}</CardDescription>
+                          </CardHeader>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </div>
+              </DrawerHeader>
+              <DrawerFooter className="flex-row justify-center">
+                <Link href={`${nextLessonId}`}>
+                  <Button className="bg-blue-300 text-black">Next Lesson</Button>
+                </Link>
+                <DrawerClose>
+                  <Button variant="outline" className="bg-slate-300">
+                    Cancel
+                  </Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        </div>
       )}
     </>
   );

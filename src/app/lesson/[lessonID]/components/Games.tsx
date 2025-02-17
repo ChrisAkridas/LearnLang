@@ -8,7 +8,7 @@ import { useMemo, useState } from "react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 // Internal
 import Multiple from "./Multiple";
-// import FillGaps from "./FillGaps";
+import FillBlanks from "./FillBlanks";
 import Matching from "./Matching";
 
 interface GameProps {
@@ -26,8 +26,7 @@ export default function Games({ data, nextLessonId }: GameProps) {
       fill: {
         value: "fill",
         label: "Fill in the blanks",
-        // TODO: Create FillGaps component
-        content: <div className="mx-auto w-fit">Fill in the blanks component</div>,
+        content: <FillBlanks data={data.fillBlanks} nextLessonId={nextLessonId} />,
       },
       matching: {
         value: "matching",
