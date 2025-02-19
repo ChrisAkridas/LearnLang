@@ -4,7 +4,7 @@
 import type { Exercise, ExerciseValue } from "@/types/types";
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
-import { Suspense, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 // Internal
@@ -71,9 +71,7 @@ export default function Games({ data, nextLessonId }: GameProps) {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <section>
-        <Suspense fallback={<div>Loading...</div>}>{exercises[activeExercise].content}</Suspense>
-      </section>
+      <section>{exercises[activeExercise].content}</section>
     </>
   );
 }

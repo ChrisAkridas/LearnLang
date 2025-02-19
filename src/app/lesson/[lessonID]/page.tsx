@@ -7,6 +7,7 @@ import Link from "next/link";
 // Internal
 import { getLessonsIds, getLesson, getNextLessonId } from "@/lib/actions";
 import Games from "./components/Games";
+import { Suspense } from "react";
 
 // The segments that are not statically generated will return a 404 error
 export const dynamicParams = false;
@@ -41,7 +42,9 @@ export default async function Lesson({ params }: LessonProps) {
           Home
         </Link>
       </div>
-      <Games data={lesson} nextLessonId={nextLessonId} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Games data={lesson} nextLessonId={nextLessonId} />
+      </Suspense>
     </>
   );
 }
