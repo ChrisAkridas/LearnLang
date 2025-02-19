@@ -21,6 +21,7 @@ import { cva, type VariantProps } from "cva";
 // Internal
 import { shuffleArray } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useReducer } from "react";
+import { useSearchParams } from "next/navigation";
 
 const sectionCommonCls = "flex flex-col gap-2";
 interface MatchingProps {
@@ -59,7 +60,6 @@ function manageTimer() {
     if (command === "START_TIMER") {
       intervalId = setInterval(() => {
         time += 100; // in ms
-        console.log("time: ", time);
       }, 100);
     }
     if (command === "STOP_TIMER") {
@@ -135,12 +135,11 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
     })),
     flashError: undefined,
   } as State);
+  const searchParams = useSearchParams();
+
+  const activeExercise = searchParams.get("exercise");
   const showDialog = state.stats.every((it) => it.isCorrect === true);
-  console.log("showDialog: ", showDialog);
-
   const timeHandler = useCallback(manageTimer(), []);
-
-  console.log("state: ", state);
 
   const greekWords = useMemo(() => {
     return shuffleArray(data.map((it) => it));
@@ -235,55 +234,58 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
         </div>
       </main>
       {showDialog && (
-        <Drawer defaultOpen={false}>
-          <DrawerTrigger asChild>
-            <Button variant="outline">Review Lesson</Button>
-          </DrawerTrigger>
-          <DrawerContent className="h-3/4">
-            <DrawerHeader>
-              <DrawerTitle>Summary</DrawerTitle>
-              <DrawerDescription>
+        <div className="flex justify-center gap-4 mt-10">
+          <Drawer defaultOpen={false}>
+            <DrawerTrigger id="trigger" asChild>
+              <Button variant="outline">Review Lesson</Button>
+            </DrawerTrigger>
+            <DrawerContent className="h-3/4">
+              <DrawerHeader>
+                <DrawerTitle>Summary</DrawerTitle>
                 <div className="flex gap-1">
                   <span>Total time:</span>
-                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0)}</span>
+                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0).toFixed(2)}</span>
                   <span>
                     sec
                     {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0) > 1 ? "s" : null}
                   </span>
                 </div>
-                <div className="mt-4 grid grid-cols-5 gap-2">
-                  {state.stats.map((it) => {
-                    return (
-                      <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
-                        <CardHeader className="relative">
-                          <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                            {Number(it.time).toFixed(2) ?? NaN} sec
-                            {Number(it.time) > 1 ? "s" : null}
-                          </Badge>
-                          <CardTitle>Word: {it.word.english}</CardTitle>
-                          <CardDescription>Correct answer: {it.word.greek}</CardDescription>
-                          <CardDescription>
-                            Wrong answer{it.wrongAnswers.length > 1 ? "s" : ""}:{" "}
-                            {it.wrongAnswers.length > 0
-                              ? it.wrongAnswers.map((wrongAnswerId, index) => {
-                                  return (
-                                    <span key={index}>
-                                      {state.stats.find((w) => w.word.id === wrongAnswerId)?.word.greek}
-                                      {index + 1 < it.wrongAnswers.length ? ", " : null}
-                                    </span>
-                                  );
-                                })
-                              : " - "}
-                          </CardDescription>
-                        </CardHeader>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </DrawerDescription>
-            </DrawerHeader>
-            <DrawerFooter className="flex-row justify-center">
-              <Link href={nextLessonId ? `${nextLessonId}` : "/"}>
+              </DrawerHeader>
+              <div className="px-4 mt-4 grid grid-cols-5 gap-2">
+                {state.stats.map((it) => {
+                  return (
+                    <Card
+                      key={it.word.id}
+                      className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                    >
+                      <CardHeader className="relative">
+                        <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                          {Number(it.time).toFixed(2) ?? NaN} sec
+                          {Number(it.time) > 1 ? "s" : null}
+                        </Badge>
+                        <CardTitle>Word: {it.word.english}</CardTitle>
+                        <CardDescription>Correct answer: {it.word.greek}</CardDescription>
+                        <CardDescription>
+                          Wrong answer{it.wrongAnswers.length > 1 ? "s" : ""}({it.wrongAnswers.length}):{" "}
+                          {it.wrongAnswers.length > 0
+                            ? it.wrongAnswers.map((wrongAnswerId, index) => {
+                                return (
+                                  <span key={index}>
+                                    {state.stats.find((w) => w.word.id === wrongAnswerId)?.word.greek}
+                                    {index + 1 < it.wrongAnswers.length ? ", " : null}
+                                  </span>
+                                );
+                              })
+                            : " - "}
+                        </CardDescription>
+                      </CardHeader>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              {/* <DrawerFooter className="flex-row justify-center">
+              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
                 <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
               </Link>
               <DrawerClose>
@@ -291,9 +293,13 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
                   Cancel
                 </Button>
               </DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+            </DrawerFooter> */}
+            </DrawerContent>
+          </Drawer>
+          <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
+            <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
+          </Link>
+        </div>
       )}
     </>
   );

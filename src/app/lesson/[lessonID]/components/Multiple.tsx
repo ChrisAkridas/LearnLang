@@ -2,16 +2,17 @@
 // Types
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
+import Link from "next/link";
+import { useEffect, useMemo, useReducer, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
 import { Badge } from "@/components/ui/Badge";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Check, X } from "lucide-react";
-import { useEffect, useMemo, useReducer, useState } from "react";
-import Link from "next/link";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 
 const TIME_INTERVAL = 100;
 
@@ -81,6 +82,9 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
+  const searchParams = useSearchParams();
+
+  const activeExercise = searchParams.get("exercise");
 
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
@@ -146,12 +150,14 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}</AlertDescription>
+                <AlertDescription>
+                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}
+                </AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
               <Button
-                className="w-fit self-end"
+                className="w-fit self-end hover:text-inherit"
                 variant="outline"
                 onClick={() => {
                   setIsTicking(true);
@@ -165,7 +171,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
         </Alert>
       )}
       {state.showAlert && activeIndex >= maxIndex && (
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center gap-4 mt-10">
           <Drawer defaultOpen={false}>
             <DrawerTrigger asChild>
               <Button variant="outline">Review Lesson</Button>
@@ -173,58 +179,59 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
             <DrawerContent className="h-3/4">
               <DrawerHeader>
                 <DrawerTitle>Summary</DrawerTitle>
-                <div>
-                  <div className="flex mt-4">
-                    <div className="me-2">Correct Answers:</div>
-                    <div className="flex gap-1">
-                      <span>
-                        {state.stats.reduce((sum, currentValue) => {
-                          if (currentValue.correct) {
-                            return sum + 1;
-                          } else {
-                            return sum;
-                          }
-                        }, 0)}
-                      </span>
-                      <span>/</span>
-                      <span>{state.stats.length}</span>
-                    </div>
-                  </div>
+                <div className="flex mt-4">
+                  <div className="me-2">Correct Answers:</div>
                   <div className="flex gap-1">
-                    <span>Total time:</span>
-                    <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0)}</span>
-                    <span>sec {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}</span>
-                  </div>
-                  <div className="mt-4 grid grid-cols-5 gap-2">
-                    {state.stats.map((it) => {
-                      return (
-                        <Card key={it.word.id} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
-                          <CardHeader className="relative">
-                            <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                              {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
-                              {Number(it.timeToComplete) > 1 ? "s" : null}
-                            </Badge>
-                            <CardTitle>Word: {it.word.english}</CardTitle>
-                            <CardDescription>Answer: {it.answer?.greek}</CardDescription>
-                          </CardHeader>
-                        </Card>
-                      );
-                    })}
+                    <span>
+                      {state.stats.reduce((sum, currentValue) => {
+                        if (currentValue.correct) {
+                          return sum + 1;
+                        } else {
+                          return sum;
+                        }
+                      }, 0)}
+                    </span>
+                    <span>/</span>
+                    <span>{state.stats.length}</span>
                   </div>
                 </div>
+                <div className="flex gap-1">
+                  <span>Total time:</span>
+                  <span>
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
+                  </span>
+                  <span>
+                    sec
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
+                      ? "s"
+                      : null}
+                  </span>
+                </div>
               </DrawerHeader>
-              <DrawerFooter className="flex-row justify-center">
-                <Link href={nextLessonId ? `${nextLessonId}` : "/"}>
-                  <Button className="bg-blue-300 text-black hover:bg-blue-400">Next Lesson</Button>
-                </Link>
-                <DrawerClose>
-                  <Button variant="outline" className="bg-slate-300 hover:bg-slate-400">
-                    Cancel
-                  </Button>
-                </DrawerClose>
-              </DrawerFooter>
+              <div className="mt-4 px-4 grid grid-cols-5 gap-2">
+                {state.stats.map((it) => {
+                  return (
+                    <Card
+                      key={it.word.id}
+                      className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                    >
+                      <CardHeader className="relative">
+                        <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                          {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
+                          {Number(it.timeToComplete) > 1 ? "s" : null}
+                        </Badge>
+                        <CardTitle>Word: {it.word.english}</CardTitle>
+                        <CardDescription>Answer: {it.answer?.greek}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  );
+                })}
+              </div>
             </DrawerContent>
           </Drawer>
+          <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
+            <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
+          </Link>
         </div>
       )}
     </>

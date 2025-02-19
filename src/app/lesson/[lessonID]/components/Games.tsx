@@ -4,7 +4,8 @@
 import type { Exercise, ExerciseValue } from "@/types/types";
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
-import { useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 // Internal
 import Multiple from "./Multiple";
@@ -28,21 +29,31 @@ export default function Games({ data, nextLessonId }: GameProps) {
         label: "Matching words",
         content: <Matching data={data.vocabulary} nextLessonId={nextLessonId} />,
       },
-      fill: {
-        value: "fill",
+      fillgaps: {
+        value: "fillgaps",
         label: "Fill in the blanks",
         content: <FillBlanks data={data.fillBlanks} nextLessonId={nextLessonId} />,
       },
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
-  const [activeExercise, setActiveExercise] = useState<ExerciseValue>(exercises.multiple);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const activeExercise = (searchParams.get("exercise") ?? "multiple") as Exercise;
+
+  useEffect(() => {
+    router.push(`?exercise=${activeExercise}`, {
+      scroll: false,
+    });
+  }, []);
   return (
     <>
       <Select
-        value={activeExercise.value}
+        value={activeExercise}
         onValueChange={(value) => {
-          setActiveExercise(exercises[value as Exercise]);
+          router.push(`?exercise=${value}`, {
+            scroll: false,
+          });
         }}
       >
         <SelectTrigger className="w-fit">
@@ -60,7 +71,7 @@ export default function Games({ data, nextLessonId }: GameProps) {
           </SelectGroup>
         </SelectContent>
       </Select>
-      <section>{activeExercise.content}</section>
+      <section>{exercises[activeExercise].content}</section>
     </>
   );
 }

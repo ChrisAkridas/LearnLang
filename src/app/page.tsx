@@ -5,7 +5,6 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/Card";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 // Internal
-import prismaClient from "../../prisma/db";
 import { getLessons } from "@/lib/actions";
 
 export default async function Home() {

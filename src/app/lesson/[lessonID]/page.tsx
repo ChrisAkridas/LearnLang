@@ -3,6 +3,7 @@ type Params = import("next/dist/server/request/params").Params;
 
 // External
 import { notFound } from "next/navigation";
+import Link from "next/link";
 // Internal
 import { getLessonsIds, getLesson, getNextLessonId } from "@/lib/actions";
 import Games from "./components/Games";
@@ -33,9 +34,14 @@ export default async function Lesson({ params }: LessonProps) {
   if (nextIdData) nextLessonId = nextIdData.id;
 
   return (
-    <div>
-      <h1 className="text-2xl">{lesson.title}</h1>
+    <>
+      <div className="flex justify-between items-center mb-2">
+        <h1 className="text-2xl">{lesson.title}</h1>
+        <Link href="/" className="hover:underline">
+          Home
+        </Link>
+      </div>
       <Games data={lesson} nextLessonId={nextLessonId} />
-    </div>
+    </>
   );
 }

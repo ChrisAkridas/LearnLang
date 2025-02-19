@@ -3,7 +3,7 @@
 // Types
 // External
 import { useEffect, useMemo, useReducer, useState } from "react";
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import { Button } from "@/components/ui/Button";
@@ -13,6 +13,7 @@ import { Check, X } from "lucide-react";
 // Internal
 import { GetLessonNonNull } from "@/lib/actions";
 import { shuffleArray } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
 
 const TIME_INTERVAL = 100;
 
@@ -35,8 +36,6 @@ type State = {
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case "CHECK_ANSWER": {
-      console.log(action.payload);
-
       const updatedStats = state.stats.toSpliced(state.activeIndex, 1, {
         ...state.stats[state.activeIndex],
         timeToComplete: action.time,
@@ -76,6 +75,9 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
+  const searchParams = useSearchParams();
+
+  const activeExercise = searchParams.get("exercise");
 
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
@@ -119,7 +121,11 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
               }`}
               onClick={() => {
                 setIsTicking(false);
-                dispatch({ type: "CHECK_ANSWER", payload: word, time: time ? (time / 1000).toFixed(2).toString() : undefined });
+                dispatch({
+                  type: "CHECK_ANSWER",
+                  payload: word,
+                  time: time ? (time / 1000).toFixed(2).toString() : undefined,
+                });
               }}
             >
               <div className={`col-start-1 row-start-1 absolute size-full z-10`} />
@@ -139,12 +145,14 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}</AlertDescription>
+                <AlertDescription>
+                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}
+                </AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
               <Button
-                className="w-fit self-end"
+                className="w-fit self-end hover:text-inherit"
                 variant="outline"
                 onClick={() => {
                   setIsTicking(true);
@@ -158,7 +166,7 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
         </Alert>
       )}
       {state.showAlert && activeIndex >= maxIndex && (
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center gap-4 mt-10">
           <Drawer defaultOpen={false}>
             <DrawerTrigger asChild>
               <Button variant="outline">Review Lesson</Button>
@@ -185,14 +193,24 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
                 </div>
                 <div className="flex gap-1">
                   <span>Total time:</span>
-                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0)}</span>
-                  <span>sec {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}</span>
+                  <span>
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
+                  </span>
+                  <span>
+                    sec
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
+                      ? "s"
+                      : null}
+                  </span>
                 </div>
               </DrawerHeader>
-              <div className="mt-4 grid grid-cols-5 gap-2">
+              <div className="mt-4 px-4 grid grid-cols-5 gap-2">
                 {state.stats.map((it, index) => {
                   return (
-                    <Card key={index} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                    <Card
+                      key={index}
+                      className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                    >
                       <CardHeader className="relative">
                         <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                           {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
@@ -207,20 +225,11 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
                   );
                 })}
               </div>
-
-              <DrawerFooter className="flex-row justify-center">
-                <Link href={nextLessonId ? `${nextLessonId}` : "/"}>
-                  <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
-                </Link>
-
-                <DrawerClose asChild>
-                  <Button variant="outline" className="bg-slate-300 hover:bg-slate-400">
-                    Cancel
-                  </Button>
-                </DrawerClose>
-              </DrawerFooter>
             </DrawerContent>
           </Drawer>
+          <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
+            <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
+          </Link>
         </div>
       )}
     </>

@@ -1,4 +1,4 @@
-export type Exercise = "multiple" | "fill" | "matching";
+export type Exercise = "multiple" | "fillgaps" | "matching";
 
 export type ExerciseValue = {
   value: Exercise;
