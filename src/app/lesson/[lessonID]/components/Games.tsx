@@ -23,15 +23,15 @@ export default function Games({ data, nextLessonId }: GameProps) {
         label: "Multiple Choise",
         content: <Multiple data={data.vocabulary} nextLessonId={nextLessonId} />,
       },
-      fill: {
-        value: "fill",
-        label: "Fill in the blanks",
-        content: <FillBlanks data={data.fillBlanks} nextLessonId={nextLessonId} />,
-      },
       matching: {
         value: "matching",
         label: "Matching words",
         content: <Matching data={data.vocabulary} nextLessonId={nextLessonId} />,
+      },
+      fill: {
+        value: "fill",
+        label: "Fill in the blanks",
+        content: <FillBlanks data={data.fillBlanks} nextLessonId={nextLessonId} />,
       },
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
