@@ -4,16 +4,7 @@ import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/Drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
 import { Badge } from "@/components/ui/Badge";
 import { Check, X } from "lucide-react";
 import { useEffect, useMemo, useReducer, useState } from "react";
@@ -21,6 +12,8 @@ import Link from "next/link";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
+
+const TIME_INTERVAL = 100;
 
 type Action = {
   type: "CHECK_ANSWER" | "NEXT_WORD";
@@ -97,14 +90,14 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
     return generateWordsPool(data, activeIndex, 5);
   }, [activeIndex, data]);
 
-  let time = 0; // in seconds
+  let time = 0; // in ms
 
   useEffect(() => {
     let intervalID: NodeJS.Timeout;
     if (isTicking) {
       intervalID = setInterval(() => {
-        time++;
-      }, 1000);
+        time = time + TIME_INTERVAL;
+      }, TIME_INTERVAL);
     }
     return () => {
       clearInterval(intervalID);
@@ -133,7 +126,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                 dispatch({
                   type: "CHECK_ANSWER",
                   payload: word,
-                  time: time.toString(),
+                  time: time ? (time / 1000).toFixed(2).toString() : undefined,
                 });
               }}
             >
@@ -153,9 +146,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>
-                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}
-                </AlertDescription>
+                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}</AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -202,20 +193,16 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                   <div className="flex gap-1">
                     <span>Total time:</span>
                     <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0)}</span>
-                    <span>sec(s)</span>
+                    <span>sec {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}</span>
                   </div>
                   <div className="mt-4 grid grid-cols-5 gap-2">
                     {state.stats.map((it) => {
                       return (
-                        <Card
-                          key={it.word.id}
-                          className={`${
-                            it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
-                          } border-2`}
-                        >
+                        <Card key={it.word.id} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
                           <CardHeader className="relative">
                             <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                              {it.timeToComplete} sec(s)
+                              {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
+                              {Number(it.timeToComplete) > 1 ? "s" : null}
                             </Badge>
                             <CardTitle>Word: {it.word.english}</CardTitle>
                             <CardDescription>Answer: {it.answer?.greek}</CardDescription>
@@ -227,11 +214,11 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                 </div>
               </DrawerHeader>
               <DrawerFooter className="flex-row justify-center">
-                <Link href={`${nextLessonId}`}>
-                  <Button className="bg-blue-300 text-black">Next Lesson</Button>
+                <Link href={nextLessonId ? `${nextLessonId}` : "/"}>
+                  <Button className="bg-blue-300 text-black hover:bg-blue-400">Next Lesson</Button>
                 </Link>
                 <DrawerClose>
-                  <Button variant="outline" className="bg-slate-300">
+                  <Button variant="outline" className="bg-slate-300 hover:bg-slate-400">
                     Cancel
                   </Button>
                 </DrawerClose>

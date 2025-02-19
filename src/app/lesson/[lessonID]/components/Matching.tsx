@@ -254,12 +254,7 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
                 <div className="mt-4 grid grid-cols-5 gap-2">
                   {state.stats.map((it) => {
                     return (
-                      <Card
-                        key={it.word.id}
-                        className={`${
-                          it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"
-                        } border-2`}
-                      >
+                      <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
                         <CardHeader className="relative">
                           <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                             {Number(it.time).toFixed(2) ?? NaN} sec

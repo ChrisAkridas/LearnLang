@@ -2,13 +2,19 @@
 
 // Types
 // External
-import { useMemo, useReducer } from "react";
-// Internal
-import { Button } from "@/components/ui/Button";
+import { useEffect, useMemo, useReducer, useState } from "react";
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import Link from "next/link";
+import { Check, X } from "lucide-react";
+// Internal
 import { GetLessonNonNull } from "@/lib/actions";
 import { shuffleArray } from "@/lib/utils";
-import { Check, X } from "lucide-react";
+
+const TIME_INTERVAL = 100;
 
 type LessonStats = {
   word: GetLessonNonNull["fillBlanks"][0];
@@ -41,7 +47,7 @@ function reducer(state: State, action: Action) {
         ...state,
         stats: updatedStats,
         showAlert: true,
-      };
+      } as State;
     }
     case "NEXT_WORD": {
       const nextIndex = state.activeIndex + 1;
@@ -69,17 +75,29 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
     showAlert: false,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isTicking, setIsTicking] = useState(true);
 
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
   const maxIndex = data.length - 1;
 
-  // const [selectedWord, setSelectedWord] = useState<string | null>(null);
-  console.log(state);
-
   const pool = useMemo(() => {
     return shuffleArray(state.activeWord.pool);
   }, [activeIndex]);
+
+  let time = 0; // in ms
+
+  useEffect(() => {
+    let intervalID: NodeJS.Timeout;
+    if (isTicking) {
+      intervalID = setInterval(() => {
+        time = time + TIME_INTERVAL;
+      }, TIME_INTERVAL);
+    }
+    return () => {
+      clearInterval(intervalID);
+    };
+  }, [isTicking]);
 
   return (
     <>
@@ -100,8 +118,8 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
                   : ""
               }`}
               onClick={() => {
-                dispatch({ type: "CHECK_ANSWER", payload: word });
-                // setSelectedWord(word);
+                setIsTicking(false);
+                dispatch({ type: "CHECK_ANSWER", payload: word, time: time ? (time / 1000).toFixed(2).toString() : undefined });
               }}
             >
               <div className={`col-start-1 row-start-1 absolute size-full z-10`} />
@@ -121,9 +139,7 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>
-                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}
-                </AlertDescription>
+                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}</AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -131,7 +147,7 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
                 className="w-fit self-end"
                 variant="outline"
                 onClick={() => {
-                  // setIsTicking(true);
+                  setIsTicking(true);
                   dispatch({ type: "NEXT_WORD" });
                 }}
               >
@@ -141,7 +157,72 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
           </div>
         </Alert>
       )}
-      {/* <Button onClick={() => dispatch({ type: "NEXT_WORD" })}>Continue</Button> */}
+      {state.showAlert && activeIndex >= maxIndex && (
+        <div className="flex justify-center mt-10">
+          <Drawer defaultOpen={false}>
+            <DrawerTrigger asChild>
+              <Button variant="outline">Review Lesson</Button>
+            </DrawerTrigger>
+            <DrawerContent className="h-3/4">
+              <DrawerHeader>
+                <DrawerTitle>Summary</DrawerTitle>
+
+                <div className="flex mt-4">
+                  <div className="me-2">Correct Answers:</div>
+                  <div className="flex gap-1">
+                    <span>
+                      {state.stats.reduce((sum, currentValue) => {
+                        if (currentValue.correct) {
+                          return sum + 1;
+                        } else {
+                          return sum;
+                        }
+                      }, 0)}
+                    </span>
+                    <span>/</span>
+                    <span>{state.stats.length}</span>
+                  </div>
+                </div>
+                <div className="flex gap-1">
+                  <span>Total time:</span>
+                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0)}</span>
+                  <span>sec {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}</span>
+                </div>
+              </DrawerHeader>
+              <div className="mt-4 grid grid-cols-5 gap-2">
+                {state.stats.map((it, index) => {
+                  return (
+                    <Card key={index} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                      <CardHeader className="relative">
+                        <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                          {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
+                          {Number(it.timeToComplete) > 1 ? "s" : null}
+                        </Badge>
+                        <CardTitle>
+                          Phrase: <span className="font-light text-sm">{it.word.greek}</span>
+                        </CardTitle>
+                        <CardDescription>Answer: {it.answer}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              <DrawerFooter className="flex-row justify-center">
+                <Link href={nextLessonId ? `${nextLessonId}` : "/"}>
+                  <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
+                </Link>
+
+                <DrawerClose asChild>
+                  <Button variant="outline" className="bg-slate-300 hover:bg-slate-400">
+                    Cancel
+                  </Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        </div>
+      )}
     </>
   );
 }
