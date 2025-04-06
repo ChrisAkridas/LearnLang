@@ -8,28 +8,28 @@ export async function POST(req: NextRequest) {
     const body: BKTRouteBody = await req.json();
 
     writeCSVFile(body.data, body.filename);
-    // const pythonProcess = spawn("python", ["src/lib/scripts/python/bkt.py", JSON.stringify(body)]);
+    const pythonProcess = spawn("python", ["src/lib/scripts/python/bkt.py", JSON.stringify(body)]);
 
-    // let data = "";
-    // for await (const chunk of pythonProcess.stdout) {
-    //   data += chunk;
-    // }
+    let data = "";
+    for await (const chunk of pythonProcess.stdout) {
+      data += chunk;
+    }
 
-    // let error = "";
-    // for await (const chunk of pythonProcess.stderr) {
-    //   error += chunk;
-    // }
+    let error = "";
+    for await (const chunk of pythonProcess.stderr) {
+      error += chunk;
+    }
 
-    // const exitCode = await new Promise((resolve) => {
-    //   pythonProcess.on("close", resolve);
-    // });
+    const exitCode = await new Promise((resolve) => {
+      pythonProcess.on("close", resolve);
+    });
 
-    // if (exitCode !== 0) {
-    //   throw new Error(`Python script error: ${error}`);
-    // }
+    if (exitCode !== 0) {
+      throw new Error(`Python script error: ${error}`);
+    }
 
-    // return NextResponse.json(data);
-    return NextResponse.json({ message: "CSV file created successfully" });
+    return NextResponse.json(data);
+    // return NextResponse.json({ message: `${body.filename || "data.csv"} created successfully` });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
