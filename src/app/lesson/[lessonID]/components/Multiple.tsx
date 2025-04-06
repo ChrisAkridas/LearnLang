@@ -3,7 +3,7 @@
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import Link from "next/link";
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
@@ -13,6 +13,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Ca
 import { Check, X } from "lucide-react";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
+import { log } from "console";
 
 const TIME_INTERVAL = 100;
 
@@ -39,6 +40,7 @@ type State = {
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case "CHECK_ANSWER": {
+      console.log("action: ", action);
       if (action.payload === undefined) return state;
 
       const answer = action.payload;
@@ -83,6 +85,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
   const searchParams = useSearchParams();
+  const timeRef = useRef(0);
 
   const activeExercise = searchParams.get("exercise");
 
@@ -94,13 +97,14 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
     return generateWordsPool(data, activeIndex, 5);
   }, [activeIndex, data]);
 
-  let time = 0; // in ms
+  // let time = 0; // in ms
 
   useEffect(() => {
     let intervalID: NodeJS.Timeout;
     if (isTicking) {
+      timeRef.current = 0;
       intervalID = setInterval(() => {
-        time = time + TIME_INTERVAL;
+        timeRef.current += TIME_INTERVAL;
       }, TIME_INTERVAL);
     }
     return () => {
@@ -130,7 +134,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                 dispatch({
                   type: "CHECK_ANSWER",
                   payload: word,
-                  time: time ? (time / 1000).toFixed(2).toString() : undefined,
+                  time: timeRef.current ? (timeRef.current / 1000).toFixed(2).toString() : undefined,
                 });
               }}
             >
