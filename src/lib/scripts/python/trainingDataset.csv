@@ -1,0 +1,14 @@
+user_id,skill_name,correct,problem_id,duration,response_text,resource
+2,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,1.2,Εγώ,I
+2,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,1.5,Εσύ,You (singular)
+2,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,1.7,Αυτός,He
+2,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,0.8,Αυτή,She
+2,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,3.2,Εμείς,We
+2,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,7.2,Εσείς,You (plural)
+2,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_mult,2.8,Αυτοί,They
+2,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
+2,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
+1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
+1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
+1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
+1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
