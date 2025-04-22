@@ -2,8 +2,11 @@ import type { BKTData } from "@/types/types";
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import os from "os";
 
 export async function writeCSVFile(data: BKTData[], filename: string = "data.csv", append: boolean = false) {
+  "use server";
+
   try {
     if (!data || !Array.isArray(data) || data.length === 0) {
       return NextResponse.json({ error: "Invalid data format" }, { status: 400 });
@@ -12,7 +15,7 @@ export async function writeCSVFile(data: BKTData[], filename: string = "data.csv
     const headers = Object.keys(data[0]).join(",");
     const rows = data.map((row) => Object.values(row).join(","));
     const csvContent = [headers, ...rows].join("\n");
-    const postfixPathName = "\\src\\lib\\scripts\\python";
+    const postfixPathName = os.platform() === "linux" ? "/src/lib/scripts/python" : "\\src\\lib\\scripts\\python";
 
     // Define file path
     const uploadsDir = path.join(process.cwd(), postfixPathName);
