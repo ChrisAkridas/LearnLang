@@ -25,7 +25,6 @@ export default function BktButton(props: Props) {
             // filename: "chrisData.csv",
           } as BKTRouteBody),
         });
-        console.log("result2: ", await response2.json());
         const response = await fetch("/api/bkt", {
           method: "POST",
           body: JSON.stringify({
@@ -44,8 +43,6 @@ export default function BktButton(props: Props) {
             filename: "chrisData.csv",
           } as BKTRouteBody),
         });
-        // console.log("response: ", response);
-        console.log("result: ", await response.json());
       }}
       {...props}
     />

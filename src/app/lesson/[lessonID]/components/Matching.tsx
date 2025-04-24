@@ -22,6 +22,7 @@ import { cva, type VariantProps } from "cva";
 import { shuffleArray } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useSearchParams } from "next/navigation";
+import { BKTData } from "@/types/types";
 
 const sectionCommonCls = "flex flex-col gap-2";
 interface MatchingProps {
@@ -167,6 +168,31 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
     }
   }, [state.flashError]);
 
+  useEffect(() => {
+    if (showDialog) {
+      const data = state.stats.map((it) => {
+        return {
+          user_id: 1,
+          skill_name: "vocabulary",
+          correct: it.wrongAnswers.length > 0 ? 0 : 1,
+          problem_id: it.word.id + "_matching",
+          duration: +Number(it.time).toFixed(2),
+          response_text:
+            it.wrongAnswers.length > 0 ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek : it.word.greek,
+          resource: it.word.english,
+        } as BKTData;
+      });
+
+      fetch("/api/update_dataset", {
+        method: "POST",
+        body: JSON.stringify({
+          data,
+          filename: "trainingDataset.csv",
+        }),
+      });
+    }
+  }, [showDialog]);
+
   return (
     <>
       <main>
@@ -254,10 +280,7 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
               <div className="px-4 mt-4 grid grid-cols-5 gap-2">
                 {state.stats.map((it) => {
                   return (
-                    <Card
-                      key={it.word.id}
-                      className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
-                    >
+                    <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
                       <CardHeader className="relative">
                         <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                           {Number(it.time).toFixed(2) ?? NaN} sec

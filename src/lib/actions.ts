@@ -37,6 +37,7 @@ export async function getLesson(id: string) {
         },
         fillBlanks: {
           select: {
+            id: true,
             english: true,
             greek: true,
             pool: true,

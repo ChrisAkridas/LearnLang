@@ -14,6 +14,7 @@ import { Check, X } from "lucide-react";
 import { GetLessonNonNull } from "@/lib/actions";
 import { shuffleArray } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
+import { BKTData } from "@/types/types";
 
 const TIME_INTERVAL = 100;
 
@@ -101,6 +102,30 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
     };
   }, [isTicking]);
 
+  useEffect(() => {
+    if (state.showAlert && activeIndex >= maxIndex) {
+      const data = state.stats.map((it) => {
+        return {
+          user_id: 1,
+          skill_name: "vocabulary",
+          correct: it.correct ? 1 : 0,
+          problem_id: it.word.id + "_fillBlanks",
+          duration: Number(it.timeToComplete),
+          response_text: it.answer,
+          resource: it.word.english,
+        } as BKTData;
+      });
+
+      fetch("/api/update_dataset", {
+        method: "POST",
+        body: JSON.stringify({
+          data,
+          filename: "trainingDataset.csv",
+        }),
+      });
+    }
+  }, [state.showAlert]);
+
   return (
     <>
       <main className="flex flex-col items-center gap-4">
@@ -145,9 +170,7 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>
-                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}
-                </AlertDescription>
+                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}</AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -193,24 +216,17 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
                 </div>
                 <div className="flex gap-1">
                   <span>Total time:</span>
-                  <span>
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
-                  </span>
+                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}</span>
                   <span>
                     sec
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
-                      ? "s"
-                      : null}
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}
                   </span>
                 </div>
               </DrawerHeader>
               <div className="mt-4 px-4 grid grid-cols-5 gap-2">
                 {state.stats.map((it, index) => {
                   return (
-                    <Card
-                      key={index}
-                      className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
-                    >
+                    <Card key={index} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
                       <CardHeader className="relative">
                         <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                           {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec

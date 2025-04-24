@@ -3,7 +3,7 @@
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import Link from "next/link";
-import { useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
@@ -13,7 +13,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Ca
 import { Check, X } from "lucide-react";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
-import { log } from "console";
+import { BKTData } from "@/types/types";
 
 const TIME_INTERVAL = 100;
 
@@ -40,7 +40,6 @@ type State = {
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case "CHECK_ANSWER": {
-      console.log("action: ", action);
       if (action.payload === undefined) return state;
 
       const answer = action.payload;
@@ -92,6 +91,30 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
   const maxIndex = data.length - 1;
+
+  useEffect(() => {
+    if (state.showAlert && activeIndex >= maxIndex) {
+      const data = state.stats.map((it) => {
+        return {
+          user_id: 1,
+          skill_name: "vocabulary",
+          correct: it.correct ? 1 : 0,
+          problem_id: it.word.id + "_mult",
+          duration: Number(it.timeToComplete),
+          response_text: it.answer?.greek,
+          resource: it.word.english,
+        } as BKTData;
+      });
+
+      fetch("/api/update_dataset", {
+        method: "POST",
+        body: JSON.stringify({
+          data,
+          filename: "trainingDataset.csv",
+        }),
+      });
+    }
+  }, [state.showAlert]);
 
   const pool = useMemo(() => {
     return generateWordsPool(data, activeIndex, 5);
@@ -154,9 +177,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>
-                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}
-                </AlertDescription>
+                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}</AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -201,24 +222,17 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                 </div>
                 <div className="flex gap-1">
                   <span>Total time:</span>
-                  <span>
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
-                  </span>
+                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}</span>
                   <span>
                     sec
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
-                      ? "s"
-                      : null}
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}
                   </span>
                 </div>
               </DrawerHeader>
               <div className="mt-4 px-4 grid grid-cols-5 gap-2">
                 {state.stats.map((it) => {
                   return (
-                    <Card
-                      key={it.word.id}
-                      className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
-                    >
+                    <Card key={it.word.id} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
                       <CardHeader className="relative">
                         <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                           {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
