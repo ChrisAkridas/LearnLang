@@ -29,7 +29,13 @@ export async function writeCSVFile(data: BKTData[], filename: string = "data.csv
 
     // Write CSV content to file
     if (append) {
-      await fs.appendFile(filePath, "\n" + rows.join("\n"));
+      fs.access(filePath)
+        .then(async () => {
+          await fs.appendFile(filePath, "\n" + rows.join("\n"));
+        })
+        .catch(async () => {
+          await fs.writeFile(filePath, csvContent);
+        });
     } else {
       await fs.writeFile(filePath, csvContent);
     }
