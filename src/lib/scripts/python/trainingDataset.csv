@@ -1,14 +1,86 @@
-user_id,skill_name,correct,problem_id,duration,response_text,resource
-2,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,1.2,Εγώ,I
-2,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,1.5,Εσύ,You (singular)
-2,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,1.7,Αυτός,He
-2,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,0.8,Αυτή,She
-2,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,3.2,Εμείς,We
-2,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,7.2,Εσείς,You (plural)
-2,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_mult,2.8,Αυτοί,They
-2,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
-2,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
-1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
-1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
-1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
-1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,10.5,Εγώ,I
+user_id,skill_name,correct,problem_id,duration,response_text,resource,multilearn,multigs
+1,vocabulary,0,1928389c-6964-4bc4-bd98-3ff465dcbc87_mult,2,Αυτό,My,fast,1928389c-6964-4bc4-bd98-3ff465dcbc87_mult
+1,vocabulary,1,4e79491b-eaca-411a-8fb0-f57b1482b1be_mult,7.2,Σου,Your,medium,4e79491b-eaca-411a-8fb0-f57b1482b1be_mult
+1,vocabulary,0,79cd1031-ac0e-4a58-98b3-c4469280a4be_mult,6,Της,His,medium,79cd1031-ac0e-4a58-98b3-c4469280a4be_mult
+1,vocabulary,0,1177b944-ebad-4010-b28e-bb940e644233_mult,7,Εκείνα,Her,medium,1177b944-ebad-4010-b28e-bb940e644233_mult
+1,vocabulary,1,09fe1f3f-4733-4d9e-8e40-fb6d8010a524_mult,13.5,Μας,Our,slow,09fe1f3f-4733-4d9e-8e40-fb6d8010a524_mult
+1,vocabulary,1,3b3b63ea-8191-4c8b-8aa7-181d02b94a5a_mult,14.2,Δικό τους,Their,slow,3b3b63ea-8191-4c8b-8aa7-181d02b94a5a_mult
+1,vocabulary,1,333ba24a-7ca7-446e-a09a-53d8402b6e6c_mult,10.4,Αυτό,This,slow,333ba24a-7ca7-446e-a09a-53d8402b6e6c_mult
+1,vocabulary,1,f94f2084-f679-4b11-b335-4c506ee31f36_mult,12.9,Εκείνο,That,slow,f94f2084-f679-4b11-b335-4c506ee31f36_mult
+1,vocabulary,1,b1f1b157-e211-4405-95b9-5c40b65a0999_mult,12.2,Αυτά,These,slow,b1f1b157-e211-4405-95b9-5c40b65a0999_mult
+1,vocabulary,0,ab40efc7-7e09-4058-b995-2214009cb220_mult,5.3,Δικό τους,Those,medium,ab40efc7-7e09-4058-b995-2214009cb220_mult
+1,vocabulary,1,25d4afc8-f86a-4756-820b-b5007104c752_mult,8.7,Πώς;,How?,medium,25d4afc8-f86a-4756-820b-b5007104c752_mult
+1,vocabulary,1,cb227cc7-08a1-4870-8a64-2580c01bbdca_mult,7.3,Τι;,What?,medium,cb227cc7-08a1-4870-8a64-2580c01bbdca_mult
+1,vocabulary,0,b33f585e-2d58-480f-95a0-57824c6b0094_mult,7.2,Πόσο καιρό;,When?,medium,b33f585e-2d58-480f-95a0-57824c6b0094_mult
+1,vocabulary,0,ea33acda-66d1-4978-aa6b-2c61e148daf5_mult,5.9,Ποιος;,Where?,medium,ea33acda-66d1-4978-aa6b-2c61e148daf5_mult
+1,vocabulary,0,0944847e-b35c-4b8f-92bd-816073c92615_mult,1.6,Πόσο καιρό;,Which?,fast,0944847e-b35c-4b8f-92bd-816073c92615_mult
+1,vocabulary,1,5f7a1455-418d-47f3-917f-ce45a1ddaa34_mult,10.2,Ποιος;,Who?,slow,5f7a1455-418d-47f3-917f-ce45a1ddaa34_mult
+1,vocabulary,1,34019935-bb50-460a-b1ea-1bab6b83be34_mult,4,Γιατί;,Why?,fast,34019935-bb50-460a-b1ea-1bab6b83be34_mult
+1,vocabulary,0,bafcb81b-1052-473c-8ccc-72526c5b2b3e_mult,9.3,Πότε;,How long?,medium,bafcb81b-1052-473c-8ccc-72526c5b2b3e_mult
+1,vocabulary,0,8a368a93-7623-463e-8e1d-95a9f21c4a02_mult,1.6,Πού;,How much?,fast,8a368a93-7623-463e-8e1d-95a9f21c4a02_mult
+1,vocabulary,1,0a81b0fc-2519-4b17-a10a-24e06342b67f_mult,9,Και,And,medium,0a81b0fc-2519-4b17-a10a-24e06342b67f_mult
+1,vocabulary,1,f72d2294-b1a0-4081-a818-07d50693c314_mult,6.1,Επειδή,Because,medium,f72d2294-b1a0-4081-a818-07d50693c314_mult
+1,vocabulary,0,62be3112-677e-45c7-84a0-c679128ead4c_mult,2.3,Πολλά,But,fast,62be3112-677e-45c7-84a0-c679128ead4c_mult
+1,vocabulary,1,2a401086-316f-4f2e-9aad-6f02432d5640_mult,7.6,Ή,Or,medium,2a401086-316f-4f2e-9aad-6f02432d5640_mult
+1,vocabulary,1,402f4aaf-4ead-406a-bc27-3417389fd9bf_mult,5.5,Παντού,Everywhere,medium,402f4aaf-4ead-406a-bc27-3417389fd9bf_mult
+1,vocabulary,0,b0ba018e-d3b7-4d8b-bf2f-4859656388f5_mult,22.1,Όλα,Everyone,slow,b0ba018e-d3b7-4d8b-bf2f-4859656388f5_mult
+1,vocabulary,1,77542ee0-e65d-41cf-b75e-a0b7b17411d2_mult,3.4,Όλα,Everything,fast,77542ee0-e65d-41cf-b75e-a0b7b17411d2_mult
+1,vocabulary,1,0d61ed0f-fabb-484a-97d6-1ffd7f3b1a46_mult,6.4,Λίγα,Few,medium,0d61ed0f-fabb-484a-97d6-1ffd7f3b1a46_mult
+1,vocabulary,0,db0957e8-4fad-44bd-b57f-0c588bc609fe_mult,8.1,Λίγα,Some,medium,db0957e8-4fad-44bd-b57f-0c588bc609fe_mult
+1,vocabulary,1,5008a573-7327-4bec-a5dd-51b4547024c0_mult,5.5,Πολλά,Many,medium,5008a573-7327-4bec-a5dd-51b4547024c0_mult
+1,vocabulary,0,717cd001-10bd-4522-9469-ab7cb264d328_mult,3.1,Δίπλα,Above,fast,717cd001-10bd-4522-9469-ab7cb264d328_mult
+1,vocabulary,1,4cc9482f-1284-4612-8b8f-7a9358ddd8a2_mult,1.5,Απέναντι,Across,fast,4cc9482f-1284-4612-8b8f-7a9358ddd8a2_mult
+1,vocabulary,0,2198fbb8-563e-4041-b95c-a187840401f8_mult,1.8,Κατά μήκος,After,fast,2198fbb8-563e-4041-b95c-a187840401f8_mult
+1,vocabulary,0,bf5956c7-f09c-468c-a628-928a982ed4a4_mult,2.6,Κάτω,Against,fast,bf5956c7-f09c-468c-a628-928a982ed4a4_mult
+1,vocabulary,1,5cab4697-0eae-47dc-bcab-d50d58eb0298_mult,1.8,Κατά μήκος,Along,fast,5cab4697-0eae-47dc-bcab-d50d58eb0298_mult
+1,vocabulary,0,2cf1fdd2-c7ea-48c2-badd-dd1f6ae1dc9f_mult,4.4,Απέναντι,Around,medium,2cf1fdd2-c7ea-48c2-badd-dd1f6ae1dc9f_mult
+1,vocabulary,1,f26a9901-e594-4d85-8230-34762687539f_mult,5,Στο,At,medium,f26a9901-e594-4d85-8230-34762687539f_mult
+1,vocabulary,0,15ea5ad1-0669-4036-b967-ef10ac796866_mult,7.7,Απέναντι,Behind,medium,15ea5ad1-0669-4036-b967-ef10ac796866_mult
+1,vocabulary,0,e0e836b3-0d3e-41f1-9066-1583f9cd28b4_mult,7.8,Κατά μήκος,Below,medium,e0e836b3-0d3e-41f1-9066-1583f9cd28b4_mult
+1,vocabulary,1,d9fc3695-7c5e-4df2-8993-f554349b5b25_mult,4.5,Δίπλα,Beside,medium,d9fc3695-7c5e-4df2-8993-f554349b5b25_mult
+1,vocabulary,0,5ab6579e-b54a-4dbd-8749-64afe2a035a1_mult,4.5,Κατά την διάρκεια,Between,medium,5ab6579e-b54a-4dbd-8749-64afe2a035a1_mult
+1,vocabulary,0,1fe50b9f-e419-426e-bf12-ea8eb75d1e76_mult,14.2,Πάνω,By,slow,1fe50b9f-e419-426e-bf12-ea8eb75d1e76_mult
+1,vocabulary,0,005ace1b-9ea2-4eca-9973-b98b76765905_mult,11,Κατά μήκος,During,slow,005ace1b-9ea2-4eca-9973-b98b76765905_mult
+1,vocabulary,0,a6d80dbb-136a-4d04-a551-8165d6117fcf_mult,5.6,Πίσω,Except,medium,a6d80dbb-136a-4d04-a551-8165d6117fcf_mult
+1,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,1.8,Εσύ,I,fast,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+1,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,1,Αυτή,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+1,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,1,Αυτός,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+1,vocabulary,0,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,7,Εγώ,She,medium,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+1,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,3.5,Αυτός,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+1,vocabulary,1,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,6.3,Εσείς,You (plural),medium,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+1,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_mult,4.2,Αυτή,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+1,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching,2.3,Εσύ,I,fast,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching
+1,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching,2.2,Αυτός,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching
+1,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_matching,5.6,Αυτός,He,medium,45232413-dc71-49f4-8ba1-4d720fff42d5_matching
+1,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching,0.6,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching
+1,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_matching,2,Αυτή,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_matching
+1,vocabulary,1,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching,1.8,Εσείς,You (plural),fast,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching
+1,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_matching,1.7,Αυτοί,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_matching
+1,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,5.5,Εσείς,I,medium,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+1,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,6.1,Εγώ,You (singular),medium,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+1,vocabulary,0,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,1.7,Αυτοί,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+1,vocabulary,0,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,1.9,Αυτός,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+1,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,12.6,Εμείς,We,slow,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+1,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,7.6,Αυτοί,You (plural),medium,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+1,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_mult,4.9,Εσείς,They,medium,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+1,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching,1.8,Εγώ,I,fast,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching
+1,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching,4.7,Εμείς,You (singular),medium,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching
+1,vocabulary,0,45232413-dc71-49f4-8ba1-4d720fff42d5_matching,3.1,Εγώ,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_matching
+1,vocabulary,0,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching,2.7,Αυτός,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching
+1,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_matching,3.7,Αυτός,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_matching
+1,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching,7.2,Αυτός,You (plural),medium,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching
+1,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_matching,5.4,Εσείς,They,medium,485b9992-128c-481d-9fda-51c6453d2e5d_matching
+1,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,1.6,Εσείς,I,fast,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+1,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,0.5,Αυτή,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+1,vocabulary,0,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,1.1,Εμείς,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+1,vocabulary,0,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,0.9,Εμείς,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+1,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,0.8,Αυτός,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+1,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,2.1,Εμείς,You (plural),fast,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+1,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_mult,1.1,Εσύ,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+1,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,8.3,Αυτοί,I,medium,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+1,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,8.2,Αυτοί,You (singular),medium,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+1,vocabulary,0,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,9.6,Εγώ,He,slow,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+1,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,5.4,Αυτή,She,medium,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+1,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,10.4,Εγώ,We,slow,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+1,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,11.9,Εγώ,You (plural),slow,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+1,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_mult,13.4,Εσείς,They,slow,485b9992-128c-481d-9fda-51c6453d2e5d_mult

@@ -37,14 +37,14 @@ def load_model(filePath):
         return None
 
 def train_model():
-    model = Model()
-    model.fit(data_path=my_path + divider + "trainingDataset.csv")
+    model = Model(num_fits=5)
+    model.fit(data_path=my_path + divider + "trainingDataset.csv", parallel=True)
     save_model(model, my_path + divider + "model.pkl")
     return model
 
 def run_bkt(model):
-    predictions = model.predict(data_path = my_path + divider + 'chrisData.csv')
-    evaluations = model.evaluate(data_path = my_path + divider +'chrisData.csv')
+    predictions = model.predict(data_path = my_path + divider + 'data.csv')
+    evaluations = model.evaluate(data_path = my_path + divider +'data.csv')
     return {"predictions": predictions, "evaluations": evaluations}
 
 if __name__ == "__main__":
@@ -58,4 +58,5 @@ if __name__ == "__main__":
 
     result = run_bkt(model)
     train_model()
-    print('model: ', model, result)
+    print(f"Model params", model.params())
+    print(result)
