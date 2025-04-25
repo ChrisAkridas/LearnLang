@@ -13,7 +13,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Ca
 import { Check, X } from "lucide-react";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
-import { BKTData } from "@/types/types";
+import { BKTData, BKTRouteBody } from "@/types/types";
 
 const TIME_INTERVAL = 100;
 
@@ -103,6 +103,8 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
           duration: Number(it.timeToComplete),
           response_text: it.answer?.greek,
           resource: it.word.english,
+          multilearn: Number(it.timeToComplete) <= 4.2 ? "fast" : Number(it.timeToComplete) >= 9.6 ? "slow" : "medium",
+          multigs: it.word.id + "_mult",
         } as BKTData;
       });
 
@@ -111,7 +113,16 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
         body: JSON.stringify({
           data,
           filename: "trainingDataset.csv",
-        }),
+        } as BKTRouteBody),
+      });
+
+      fetch("/api/bkt", {
+        method: "POST",
+        body: JSON.stringify({
+          data,
+        } as BKTRouteBody),
+      }).then(async (data) => {
+        console.log("on then: ", await data.json());
       });
     }
   }, [state.showAlert]);

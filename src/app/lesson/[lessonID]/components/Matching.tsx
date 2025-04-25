@@ -22,7 +22,7 @@ import { cva, type VariantProps } from "cva";
 import { shuffleArray } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useSearchParams } from "next/navigation";
-import { BKTData } from "@/types/types";
+import { BKTData, BKTRouteBody } from "@/types/types";
 
 const sectionCommonCls = "flex flex-col gap-2";
 interface MatchingProps {
@@ -180,6 +180,8 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
           response_text:
             it.wrongAnswers.length > 0 ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek : it.word.greek,
           resource: it.word.english,
+          multilearn: Number(it.time) <= 4.2 ? "fast" : Number(it.time) >= 9.6 ? "slow" : "medium",
+          multigs: it.word.id + "_matching",
         } as BKTData;
       });
 
@@ -188,7 +190,16 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
         body: JSON.stringify({
           data,
           filename: "trainingDataset.csv",
-        }),
+        } as BKTRouteBody),
+      });
+
+      fetch("/api/bkt", {
+        method: "POST",
+        body: JSON.stringify({
+          data,
+        } as BKTRouteBody),
+      }).then(async (data) => {
+        console.log("on then: ", await data.json());
       });
     }
   }, [showDialog]);

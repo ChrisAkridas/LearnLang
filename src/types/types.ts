@@ -14,6 +14,7 @@ export interface BKTData {
   duration: number;
   response_text: string;
   resource: string;
+  multilearn: "slow" | "medium" | "fast";
 }
 
 export interface BKTRouteBody {

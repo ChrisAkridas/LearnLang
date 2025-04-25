@@ -14,7 +14,7 @@ import { Check, X } from "lucide-react";
 import { GetLessonNonNull } from "@/lib/actions";
 import { shuffleArray } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
-import { BKTData } from "@/types/types";
+import { BKTData, BKTRouteBody } from "@/types/types";
 
 const TIME_INTERVAL = 100;
 
@@ -113,6 +113,8 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
           duration: Number(it.timeToComplete),
           response_text: it.answer,
           resource: it.word.english,
+          multilearn: Number(it.timeToComplete) <= 4.2 ? "fast" : Number(it.timeToComplete) >= 9.6 ? "slow" : "medium",
+          multigs: it.word.id + "_fillBlanks",
         } as BKTData;
       });
 
@@ -121,7 +123,16 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
         body: JSON.stringify({
           data,
           filename: "trainingDataset.csv",
-        }),
+        } as BKTRouteBody),
+      });
+
+      fetch("/api/bkt", {
+        method: "POST",
+        body: JSON.stringify({
+          data,
+        } as BKTRouteBody),
+      }).then(async (data) => {
+        console.log("on then: ", await data.json());
       });
     }
   }, [state.showAlert]);
