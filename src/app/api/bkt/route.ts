@@ -10,11 +10,21 @@ export async function POST(req: NextRequest) {
     const body: BKTRouteBody = await req.json();
     const platform = os.platform();
 
+    let pythonPath = "";
+    let scriptBKTPath = "";
+    switch (process.env.NODE_ENV) {
+      case "development":
+        platform === "linux" ? (pythonPath = os.homedir() + "/pybkt-env/bin/python3.12") : (pythonPath = "python");
+        platform === "linux" ? (scriptBKTPath = cwd() + "/src/lib/scripts/python/bkt.py") : (scriptBKTPath = "\\src\\lib\\scripts\\python\\bkt.py");
+        break;
+      case "production":
+        pythonPath = os.homedir() + "/pybkt-venv/bin/python3.12";
+        scriptBKTPath = cwd() + "/src/lib/scripts/python/bkt.py";
+        break;
+    }
+
     writeCSVFile(body.data, body.filename);
-    const pythonProcess = spawn(`${platform === "linux" ? "/home/akridasc/pybkt-env/bin/python3.12" : "python"}`, [
-      `${platform === "linux" ? cwd() + "/src/lib/scripts/python/bkt.py" : "\\src\\lib\\scripts\\python\\bkt.py"}`,
-      JSON.stringify(body),
-    ]);
+    const pythonProcess = spawn(pythonPath, [scriptBKTPath, JSON.stringify(body)]);
 
     let data = "";
     for await (const chunk of pythonProcess.stdout) {
@@ -35,7 +45,6 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(data);
-    // return NextResponse.json({ message: `${body.filename || "data.csv"} created successfully` });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
