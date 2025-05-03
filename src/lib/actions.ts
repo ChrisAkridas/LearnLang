@@ -2,23 +2,12 @@
 
 // Types
 // External
+import { cache } from "react";
+import { notFound } from "next/navigation";
 // Internal
 import prismaClient from "../../prisma/db";
 
-// import fetchGraphQL from "./fetchGQL";
-// import { GET_LESSONS, GET_LESSON } from "@/graphql/queries";
-
-// export async function fetchLessons() {
-//   const { lessons } = await fetchGraphQL(GET_LESSONS);
-//   return lessons as Lesson[];
-// }
-
-// export async function fetchLesson(id: string) {
-//   const { lesson } = await fetchGraphQL(GET_LESSON, { id });
-//   return lesson as Partial<Lesson>;
-// }
-
-export async function getLesson(id: string) {
+export const getLesson = cache(async function getLesson(id: string) {
   try {
     const lesson = await prismaClient.lesson.findUnique({
       where: {
@@ -51,10 +40,10 @@ export async function getLesson(id: string) {
     console.error("Error fetching lesson", error);
     return null;
   }
-}
+});
 export type GetLessonNonNull = NonNullable<Awaited<ReturnType<typeof getLesson>>>;
 
-export async function getLessons() {
+export const getLessons = cache(async () => {
   try {
     const lessons = await prismaClient.lesson.findMany({
       select: {
@@ -67,9 +56,9 @@ export async function getLessons() {
     return lessons;
   } catch (error) {
     console.error("Error fetching lessons", error);
-    return null;
+    notFound();
   }
-}
+});
 
 export async function getLessonsIds() {
   try {

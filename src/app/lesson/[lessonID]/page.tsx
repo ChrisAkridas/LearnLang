@@ -5,7 +5,7 @@ type Params = import("next/dist/server/request/params").Params;
 import { notFound } from "next/navigation";
 import Link from "next/link";
 // Internal
-import { getLessonsIds, getLesson, getNextLessonId } from "@/lib/actions";
+import { getLessonsIds, getLessons, getLesson, getNextLessonId } from "@/lib/actions";
 import Games from "./components/Games";
 import { Suspense } from "react";
 
@@ -14,8 +14,7 @@ export const dynamicParams = false;
 
 // Generate static segments
 export async function generateStaticParams() {
-  const lessons = await getLessonsIds();
-  if (!lessons) notFound();
+  const lessons = await getLessons();
 
   return lessons.map((lesson) => ({
     lessonID: lesson.id,

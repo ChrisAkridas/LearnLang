@@ -1,6 +1,5 @@
 // Types
 // External
-import { notFound } from "next/navigation";
 import { Card, CardHeader, CardTitle } from "@/components/ui/Card";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -9,8 +8,10 @@ import { getLessons } from "@/lib/actions";
 
 export default async function Home() {
   const lessons = await getLessons();
-  if (!lessons) notFound();
 
+  lessons.sort((a, b) => {
+    return a.lessonNumber - b.lessonNumber;
+  });
   return (
     <main className="grid grid-cols-3 gap-4 w-5/6 m-auto pt-10">
       {lessons.map((it) => {
