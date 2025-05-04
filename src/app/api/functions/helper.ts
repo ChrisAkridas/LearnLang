@@ -25,7 +25,7 @@ export async function writeCSVFile(data: BKTData[], filename: string = "data.csv
     //   fs.mkdirSync(uploadsDir, { recursive: true });
     // }
 
-    const filePath = path.join(uploadsDir, filename);
+    const filePath = path.join(uploadsDir, filename + ".csv");
 
     // Write CSV content to file
     if (append) {

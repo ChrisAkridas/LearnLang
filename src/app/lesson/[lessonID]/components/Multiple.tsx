@@ -96,7 +96,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
     if (state.showAlert && activeIndex >= maxIndex) {
       const data = state.stats.map((it) => {
         return {
-          user_id: 1,
+          user_id: "",
           skill_name: "vocabulary",
           correct: it.correct ? 1 : 0,
           problem_id: it.word.id + "_mult",
@@ -112,7 +112,6 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
         method: "POST",
         body: JSON.stringify({
           data,
-          filename: "trainingDataset.csv",
         } as BKTRouteBody),
       });
 
@@ -188,7 +187,9 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}</AlertDescription>
+                <AlertDescription>
+                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}
+                </AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -233,17 +234,24 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
                 </div>
                 <div className="flex gap-1">
                   <span>Total time:</span>
-                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}</span>
+                  <span>
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
+                  </span>
                   <span>
                     sec
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}
+                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
+                      ? "s"
+                      : null}
                   </span>
                 </div>
               </DrawerHeader>
               <div className="mt-4 px-4 grid grid-cols-5 gap-2">
                 {state.stats.map((it) => {
                   return (
-                    <Card key={it.word.id} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                    <Card
+                      key={it.word.id}
+                      className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                    >
                       <CardHeader className="relative">
                         <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                           {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec

@@ -172,13 +172,15 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
     if (showDialog) {
       const data = state.stats.map((it) => {
         return {
-          user_id: 1,
+          user_id: "",
           skill_name: "vocabulary",
           correct: it.wrongAnswers.length > 0 ? 0 : 1,
           problem_id: it.word.id + "_matching",
           duration: +Number(it.time).toFixed(2),
           response_text:
-            it.wrongAnswers.length > 0 ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek : it.word.greek,
+            it.wrongAnswers.length > 0
+              ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek
+              : it.word.greek,
           resource: it.word.english,
           multilearn: Number(it.time) <= 4.2 ? "fast" : Number(it.time) >= 9.6 ? "slow" : "medium",
           multigs: it.word.id + "_matching",
@@ -189,7 +191,6 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
         method: "POST",
         body: JSON.stringify({
           data,
-          filename: "trainingDataset.csv",
         } as BKTRouteBody),
       });
 
@@ -291,7 +292,10 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
               <div className="px-4 mt-4 grid grid-cols-5 gap-2">
                 {state.stats.map((it) => {
                   return (
-                    <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                    <Card
+                      key={it.word.id}
+                      className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                    >
                       <CardHeader className="relative">
                         <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                           {Number(it.time).toFixed(2) ?? NaN} sec

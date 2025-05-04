@@ -7,7 +7,7 @@ export type ExerciseValue = {
 };
 
 export interface BKTData {
-  user_id: number;
+  user_id: string;
   skill_name: string;
   correct: number;
   problem_id: string;
