@@ -5,33 +5,36 @@ type Params = import("next/dist/server/request/params").Params;
 import { notFound } from "next/navigation";
 import Link from "next/link";
 // Internal
-import { getLessonsIds, getLessons, getLesson, getNextLessonId } from "@/lib/actions";
+import { getLesson } from "@/lib/actions";
 import Games from "./components/Games";
-import { Suspense } from "react";
+import { cookies } from "next/headers";
 
 // The segments that are not statically generated will return a 404 error
-export const dynamicParams = false;
+// export const dynamicParams = false;
 
-// Generate static segments
-export async function generateStaticParams() {
-  const lessons = await getLessons();
+// // Generate static segments
+// export async function generateStaticParams() {
+//   const lessons = await getLessons();
 
-  return lessons.map((lesson) => ({
-    lessonID: lesson.id,
-  }));
-}
+//   return lessons.map((lesson) => ({
+//     lessonID: lesson.id,
+//   }));
+// }
 
 interface LessonProps {
   params: Promise<Params>;
 }
 export default async function Lesson({ params }: LessonProps) {
+  const cookieStore = await cookies();
+  const difficulty = cookieStore.get("difficulty")?.value;
   const { lessonID } = await params;
-  const lesson = await getLesson(lessonID as string);
+  const result = await getLesson(lessonID as string, difficulty);
+  if (!result) notFound();
+  const { lesson, lessonIds } = result;
   if (!lesson) notFound();
 
-  const nextIdData = await getNextLessonId(lesson.lessonNumber);
-  let nextLessonId: string | undefined = undefined;
-  if (nextIdData) nextLessonId = nextIdData.id;
+  const nextLessonIdIndex = lessonIds.findIndex((it) => it === lessonID) + 1;
+  const nextLessonId = nextLessonIdIndex === -1 ? undefined : lessonIds[nextLessonIdIndex];
 
   return (
     <>
@@ -41,9 +44,7 @@ export default async function Lesson({ params }: LessonProps) {
           Home
         </Link>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Games data={lesson} nextLessonId={nextLessonId} />
-      </Suspense>
+      <Games data={lesson} nextLessonId={nextLessonId} />
     </>
   );
 }
