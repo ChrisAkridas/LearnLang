@@ -9,7 +9,7 @@ import { cookies } from "next/headers";
 import prismaClient from "../../prisma/db";
 import { revalidatePath } from "next/cache";
 
-export const getLesson = cache(async function getLesson(id: string) {
+export const getLesson = cache(async function getLesson(id: string, difficulty?: string) {
   try {
     const lesson = await prismaClient.lesson.findUnique({
       where: {
@@ -38,7 +38,7 @@ export const getLesson = cache(async function getLesson(id: string) {
       },
     });
 
-    const lessonIds = await getLessonsIds("easy");
+    const lessonIds = (await getLessonsIds(difficulty)).map((it) => it.id);
     return { lesson, lessonIds };
   } catch (error) {
     console.error("Error fetching lesson", error);
@@ -111,5 +111,5 @@ export async function revalidateCustomPath(path: string, difficulty?: string) {
   const cookieStore = await cookies();
   cookieStore.set("difficulty", difficulty || "easy", { path: "/" });
   console.log("cookieStore: ", cookieStore);
-  revalidatePath(path, "page");
+  // revalidatePath(path, "page");
 }
