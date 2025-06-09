@@ -5,9 +5,9 @@
 import { cache } from "react";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
+import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 // Internal
 import prismaClient from "../../prisma/db";
-import { revalidatePath } from "next/cache";
 
 export const getLesson = cache(async function getLesson(id: string, difficulty?: string) {
   try {
@@ -107,9 +107,19 @@ export async function getNextLessonId(lessonNumber: number) {
   }
 }
 
-export async function revalidateCustomPath(path: string, difficulty?: string) {
+// export async function updateDifficulty(difficulty?: string, cookiesOptions?: ResponseCookie) {
+//   const cookieStore = await cookies();
+//   cookieStore.set("difficulty", difficulty || "easy", cookiesOptions);
+//   console.log("cookieStore: ", cookieStore);
+// }
+
+export async function setCookie(name: string, value: string, options?: ResponseCookie) {
   const cookieStore = await cookies();
-  cookieStore.set("difficulty", difficulty || "easy", { path: "/" });
-  console.log("cookieStore: ", cookieStore);
-  // revalidatePath(path, "page");
+  cookieStore.set(name, value, options);
+  // console.log("cookieStore: ", cookieStore);
+}
+
+export async function getCookie(name: string) {
+  const cookieStore = await cookies();
+  return cookieStore.get(name);
 }

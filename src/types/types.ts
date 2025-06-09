@@ -20,4 +20,5 @@ export interface BKTData {
 export interface BKTRouteBody {
   data: BKTData[];
   filename?: string;
+  prior?: number;
 }
