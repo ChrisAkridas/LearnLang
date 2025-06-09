@@ -5,8 +5,9 @@ type Params = import("next/dist/server/request/params").Params;
 import { notFound } from "next/navigation";
 import Link from "next/link";
 // Internal
-import { getLesson } from "@/lib/actions";
+import { Badge } from "@/components/ui/Badge";
 import Games from "./components/Games";
+import { getLesson } from "@/lib/actions";
 import { cookies } from "next/headers";
 
 // The segments that are not statically generated will return a 404 error
@@ -26,7 +27,7 @@ interface LessonProps {
 }
 export default async function Lesson({ params }: LessonProps) {
   const cookieStore = await cookies();
-  const difficulty = cookieStore.get("difficulty")?.value;
+  const difficulty = cookieStore.get("difficulty")?.value || "easy";
   const { lessonID } = await params;
   const result = await getLesson(lessonID as string, difficulty);
   if (!result) notFound();
@@ -39,12 +40,15 @@ export default async function Lesson({ params }: LessonProps) {
   return (
     <>
       <div className="flex justify-between items-center mb-2">
-        <h1 className="text-2xl">{lesson.title}</h1>
+        <h1 className="text-2xl flex items-center gap-2">
+          {lesson.title}{" "}
+          <Badge className={difficulty === "easy" ? "bg-blue-400" : difficulty === "normal" ? "bg-yellow-400" : "bg-red-300"}>{difficulty}</Badge>
+        </h1>
         <Link href="/" className="hover:underline">
           Home
         </Link>
       </div>
-      <Games data={lesson} nextLessonId={nextLessonId} />
+      <Games data={lesson} nextLessonId={nextLessonId} currentDifficulty={difficulty} />
     </>
   );
 }

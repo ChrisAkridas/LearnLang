@@ -1,9 +1,10 @@
 "use client";
+
 // Types
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
@@ -14,6 +15,7 @@ import { Check, X } from "lucide-react";
 // Internal
 import { generateWordsPool } from "@/lib/utils";
 import { BKTData, BKTRouteBody } from "@/types/types";
+import { setCookie, getCookie } from "@/lib/actions";
 
 const TIME_INTERVAL = 100;
 
@@ -73,8 +75,9 @@ function reducer(state: State, action: Action) {
 interface MultipleProps {
   data: GetLessonNonNull["vocabulary"];
   nextLessonId?: string;
+  currentDifficulty: string;
 }
-export default function Multiple({ data, nextLessonId }: MultipleProps) {
+export default function Multiple({ data, nextLessonId, currentDifficulty }: MultipleProps) {
   const initialState: State = {
     activeIndex: 0,
     activeWord: data[0],
@@ -83,6 +86,8 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const timeRef = useRef(0);
 
@@ -93,6 +98,81 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
   const maxIndex = data.length - 1;
 
   useEffect(() => {
+    async function callBktModel(data: BKTData[]) {
+      const prior = (await getCookie("prior"))?.value;
+      let difficulty = currentDifficulty;
+
+      try {
+        setIsLoading(true);
+        fetch("/api/update_dataset", {
+          method: "POST",
+          body: JSON.stringify({
+            data,
+          } as BKTRouteBody),
+        });
+
+        const response = await fetch("/api/bkt", {
+          method: "POST",
+          body: JSON.stringify({
+            data,
+            prior: Number(prior),
+          } as BKTRouteBody),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to run BKT model.");
+        }
+
+        const bktData = await response.json();
+
+        const parsedData = JSON.parse(bktData);
+        console.log("parsedData:", parsedData);
+        // const averagePrior =
+        //   parsedData.predictions.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.predictions.length;
+        const { newPrior } = parsedData;
+
+        setCookie("prior", String(newPrior));
+        if (newPrior <= 0.4) {
+          difficulty = "easy";
+        } else if (newPrior > 0.4 && newPrior <= 0.85) {
+          difficulty = "normal";
+        } else {
+          difficulty = "hard";
+        }
+
+        if (currentDifficulty !== difficulty) {
+          setCookie("difficulty", difficulty);
+        }
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+
+      // .then(async (data) => {
+      //   let difficulty = currentDifficulty;
+
+      //   const dataJson = await data.json();
+      //   console.log("parsedData: ", dataJson);
+      //   const parsedData = JSON.parse(dataJson);
+      //   const average = parsedData.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.length;
+
+      //   console.log("on then: ", parsedData, average);
+
+      //   if (average <= 0.6) {
+      //     difficulty = "easy";
+      //   } else if (average > 0.6 && average <= 0.8) {
+      //     difficulty = "normal";
+      //   } else {
+      //     difficulty = "hard";
+      //   }
+
+      //   if (currentDifficulty !== difficulty) {
+      //     console.log("difficulty level changed to: ", difficulty);
+      //     revalidateCustomPath("/", difficulty);
+      //   }
+      // });
+    }
+
     if (state.showAlert && activeIndex >= maxIndex) {
       const data = state.stats.map((it) => {
         return {
@@ -101,28 +181,14 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
           correct: it.correct ? 1 : 0,
           problem_id: it.word.id + "_mult",
           duration: Number(it.timeToComplete),
-          response_text: it.answer?.greek,
-          resource: it.word.english,
-          multilearn: Number(it.timeToComplete) <= 4.2 ? "fast" : Number(it.timeToComplete) >= 9.6 ? "slow" : "medium",
+          response_text: it.answer?.greek.replaceAll(",", ""),
+          resource: it.word.english.replaceAll(",", ""),
+          multilearn: Number(it.timeToComplete) <= 2 ? "fast" : Number(it.timeToComplete) >= 4 ? "slow" : "medium",
           multigs: it.word.id + "_mult",
         } as BKTData;
       });
 
-      fetch("/api/update_dataset", {
-        method: "POST",
-        body: JSON.stringify({
-          data,
-        } as BKTRouteBody),
-      });
-
-      fetch("/api/bkt", {
-        method: "POST",
-        body: JSON.stringify({
-          data,
-        } as BKTRouteBody),
-      }).then(async (data) => {
-        console.log("on then: ", await data.json());
-      });
+      callBktModel(data);
     }
   }, [state.showAlert]);
 
@@ -187,9 +253,7 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>
-                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}
-                </AlertDescription>
+                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}</AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -208,68 +272,65 @@ export default function Multiple({ data, nextLessonId }: MultipleProps) {
         </Alert>
       )}
       {state.showAlert && activeIndex >= maxIndex && (
-        <div className="flex justify-center gap-4 mt-10">
-          <Drawer defaultOpen={false}>
-            <DrawerTrigger asChild>
-              <Button variant="outline">Review Lesson</Button>
-            </DrawerTrigger>
-            <DrawerContent className="h-3/4">
-              <DrawerHeader>
-                <DrawerTitle>Summary</DrawerTitle>
-                <div className="flex mt-4">
-                  <div className="me-2">Correct Answers:</div>
-                  <div className="flex gap-1">
-                    <span>
-                      {state.stats.reduce((sum, currentValue) => {
-                        if (currentValue.correct) {
-                          return sum + 1;
-                        } else {
-                          return sum;
-                        }
-                      }, 0)}
-                    </span>
-                    <span>/</span>
-                    <span>{state.stats.length}</span>
+        <>
+          <div className="flex justify-center gap-4 mt-10">
+            <Drawer defaultOpen={false}>
+              <DrawerTrigger asChild>
+                <Button variant="outline">Review Lesson</Button>
+              </DrawerTrigger>
+              <DrawerContent className="h-3/4">
+                <DrawerHeader>
+                  <DrawerTitle>Summary</DrawerTitle>
+                  <div className="flex mt-4">
+                    <div className="me-2">Correct Answers:</div>
+                    <div className="flex gap-1">
+                      <span>
+                        {state.stats.reduce((sum, currentValue) => {
+                          if (currentValue.correct) {
+                            return sum + 1;
+                          } else {
+                            return sum;
+                          }
+                        }, 0)}
+                      </span>
+                      <span>/</span>
+                      <span>{state.stats.length}</span>
+                    </div>
                   </div>
+                  <div className="flex gap-1">
+                    <span>Total time:</span>
+                    <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}</span>
+                    <span>
+                      sec
+                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}
+                    </span>
+                  </div>
+                </DrawerHeader>
+                <div className="mt-4 px-4 grid grid-cols-5 gap-2">
+                  {state.stats.map((it) => {
+                    return (
+                      <Card key={it.word.id} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                        <CardHeader className="relative">
+                          <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                            {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
+                            {Number(it.timeToComplete) > 1 ? "s" : null}
+                          </Badge>
+                          <CardTitle>Word: {it.word.english}</CardTitle>
+                          <CardDescription>Answer: {it.answer?.greek}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    );
+                  })}
                 </div>
-                <div className="flex gap-1">
-                  <span>Total time:</span>
-                  <span>
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
-                  </span>
-                  <span>
-                    sec
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
-                      ? "s"
-                      : null}
-                  </span>
-                </div>
-              </DrawerHeader>
-              <div className="mt-4 px-4 grid grid-cols-5 gap-2">
-                {state.stats.map((it) => {
-                  return (
-                    <Card
-                      key={it.word.id}
-                      className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
-                    >
-                      <CardHeader className="relative">
-                        <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                          {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
-                          {Number(it.timeToComplete) > 1 ? "s" : null}
-                        </Badge>
-                        <CardTitle>Word: {it.word.english}</CardTitle>
-                        <CardDescription>Answer: {it.answer?.greek}</CardDescription>
-                      </CardHeader>
-                    </Card>
-                  );
-                })}
-              </div>
-            </DrawerContent>
-          </Drawer>
-          <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
-            <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
-          </Link>
-        </div>
+              </DrawerContent>
+            </Drawer>
+            <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
+              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+            </Button>
+          </div>
+          {isLoading && <div className="justify-self-center mt-10">Proccessing results...</div>}
+          {error && <div className="justify-self-center mt-10">{error}</div>}
+        </>
       )}
     </>
   );

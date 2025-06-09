@@ -15,24 +15,25 @@ import Matching from "./Matching";
 interface GameProps {
   data: GetLessonNonNull;
   nextLessonId?: string;
+  currentDifficulty: string;
 }
-export default function Games({ data, nextLessonId }: GameProps) {
+export default function Games({ data, nextLessonId, currentDifficulty }: GameProps) {
   const exercises = useMemo(() => {
     return {
       multiple: {
         value: "multiple",
         label: "Multiple Choise",
-        content: <Multiple data={data.vocabulary} nextLessonId={nextLessonId} />,
+        content: <Multiple data={data.vocabulary} nextLessonId={nextLessonId} currentDifficulty={currentDifficulty} />,
       },
       matching: {
         value: "matching",
         label: "Matching words",
-        content: <Matching data={data.vocabulary} nextLessonId={nextLessonId} />,
+        content: <Matching data={data.vocabulary} nextLessonId={nextLessonId} currentDifficulty={currentDifficulty} />,
       },
       fillgaps: {
         value: "fillgaps",
         label: "Fill in the blanks",
-        content: <FillBlanks data={data.fillBlanks} nextLessonId={nextLessonId} />,
+        content: <FillBlanks data={data.fillBlanks} nextLessonId={nextLessonId} currentDifficulty={currentDifficulty} />,
       },
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
