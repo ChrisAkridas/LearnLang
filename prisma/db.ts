@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient();
+  return new PrismaClient().$extends(withAccelerate());
 };
 //  if you want to integrate prisma Accelerate extension, add it at the end of the PrismaClient constructor
 //? .$extends(withAccelerate())

@@ -4,7 +4,6 @@ import { writeCSVFile } from "@/app/api/functions/helper";
 import { spawn } from "child_process";
 import { cwd } from "process";
 import os from "os";
-import { log } from "console";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,6 +11,7 @@ export async function POST(req: NextRequest) {
     const platform = os.platform();
     const ip = req.headers.get("x-forwarded-for")?.split(":")[0]?.trim() || "localhost";
     const fileName = body.filename || req.headers.get("host")?.split(":")[0]?.trim();
+
     const userAnswers = body.data.map(
       (it) =>
         ({
@@ -20,9 +20,12 @@ export async function POST(req: NextRequest) {
         } as BKTData)
     );
     const newBody: BKTRouteBody = {
+      ...body,
       data: userAnswers,
       filename: fileName,
     };
+
+    // console.log("in route handler newBody: ", newBody);
 
     let pythonPath = "";
     let scriptBKTPath = "";
@@ -47,6 +50,10 @@ export async function POST(req: NextRequest) {
       data += chunk;
     }
 
+    // console.log("data from python script in route handler: ", data);
+    const parsedData = JSON.parse(data);
+    const newPrior = (parsedData.predictions as number[]).reduce((acc, current) => acc + current, 0) / parsedData.predictions.length;
+
     let error = "";
     for await (const chunk of pythonProcess.stderr) {
       error += chunk;
@@ -59,8 +66,8 @@ export async function POST(req: NextRequest) {
     if (exitCode !== 0) {
       throw new Error(`Python script error: ${error}`);
     }
-
-    return NextResponse.json(data);
+    // return NextResponse.json({}, { status: 200 });
+    return NextResponse.json(JSON.stringify({ ...parsedData, newPrior }));
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
