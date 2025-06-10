@@ -54,10 +54,13 @@ export async function POST(req: NextRequest) {
     const parsedData = JSON.parse(data);
     const newPrior = (parsedData.predictions as number[]).reduce((acc, current) => acc + current, 0) / parsedData.predictions.length;
 
+    console.log("parsed Data: ", parsedData);
+
     let error = "";
     for await (const chunk of pythonProcess.stderr) {
       error += chunk;
     }
+    console.log("error from python script in route handler: ", error);
 
     const exitCode = await new Promise((resolve) => {
       pythonProcess.on("close", resolve);

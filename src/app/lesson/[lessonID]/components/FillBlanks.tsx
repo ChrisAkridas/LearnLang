@@ -1,20 +1,22 @@
 "use client";
 
 // Types
+import type { BKTData, BKTRouteBody } from "@/types/types";
+import type { GetLessonNonNull } from "@/lib/actions";
+
 // External
 import { useEffect, useMemo, useReducer, useState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import Link from "next/link";
 import { Check, X } from "lucide-react";
 // Internal
-import { GetLessonNonNull } from "@/lib/actions";
+import { setCookie, getCookie } from "@/lib/actions";
 import { shuffleArray } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
-import { BKTData, BKTRouteBody } from "@/types/types";
 
 const TIME_INTERVAL = 100;
 
@@ -66,8 +68,10 @@ function reducer(state: State, action: Action) {
 interface Props {
   data: GetLessonNonNull["fillBlanks"];
   nextLessonId?: string;
+  currentDifficulty: string;
 }
-export default function FillBlanks({ data, nextLessonId }: Props) {
+
+export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Props) {
   const initialState: State = {
     activeIndex: 0,
     activeWord: data[0],
@@ -77,6 +81,8 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
   const searchParams = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const activeExercise = searchParams.get("exercise");
 
@@ -101,8 +107,60 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
       clearInterval(intervalID);
     };
   }, [isTicking]);
+  // console.log("Fillblanks.tsx diff: ", currentDifficulty);
 
   useEffect(() => {
+    async function callBktModel(data: BKTData[]) {
+      const prior = (await getCookie("prior"))?.value;
+      let difficulty = currentDifficulty;
+
+      try {
+        setIsLoading(true);
+        await fetch("/api/update_dataset", {
+          method: "POST",
+          body: JSON.stringify({
+            data,
+          } as BKTRouteBody),
+        });
+
+        const response = await fetch("/api/bkt", {
+          method: "POST",
+          body: JSON.stringify({
+            data,
+            prior: Number(prior),
+          } as BKTRouteBody),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to run BKT model.");
+        }
+
+        const bktData = await response.json();
+
+        const parsedData = JSON.parse(bktData);
+        // console.log("parsedData:", parsedData);
+        // const averagePrior =
+        //   parsedData.predictions.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.predictions.length;
+        const { newPrior } = parsedData;
+
+        setCookie("prior", String(newPrior));
+        if (newPrior <= 0.4) {
+          difficulty = "easy";
+        } else if (newPrior > 0.4 && newPrior <= 0.85) {
+          difficulty = "normal";
+        } else {
+          difficulty = "hard";
+        }
+
+        if (currentDifficulty !== difficulty) {
+          setCookie("difficulty", difficulty);
+        }
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
     if (state.showAlert && activeIndex >= maxIndex) {
       const data = state.stats.map((it) => {
         return {
@@ -113,26 +171,12 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
           duration: Number(it.timeToComplete),
           response_text: it.answer,
           resource: it.word.english,
-          multilearn: Number(it.timeToComplete) <= 4.2 ? "fast" : Number(it.timeToComplete) >= 9.6 ? "slow" : "medium",
+          multilearn: Number(it.timeToComplete) <= 2 ? "fast" : Number(it.timeToComplete) >= 9.6 ? "slow" : "medium",
           multigs: it.word.id + "_fillBlanks",
         } as BKTData;
       });
 
-      fetch("/api/update_dataset", {
-        method: "POST",
-        body: JSON.stringify({
-          data,
-        } as BKTRouteBody),
-      });
-
-      fetch("/api/bkt", {
-        method: "POST",
-        body: JSON.stringify({
-          data,
-        } as BKTRouteBody),
-      }).then(async (data) => {
-        console.log("on then: ", await data.json());
-      });
+      callBktModel(data);
     }
   }, [state.showAlert]);
 
@@ -180,9 +224,7 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>
-                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}
-                </AlertDescription>
+                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}</AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -201,71 +243,68 @@ export default function FillBlanks({ data, nextLessonId }: Props) {
         </Alert>
       )}
       {state.showAlert && activeIndex >= maxIndex && (
-        <div className="flex justify-center gap-4 mt-10">
-          <Drawer defaultOpen={false}>
-            <DrawerTrigger asChild>
-              <Button variant="outline">Review Lesson</Button>
-            </DrawerTrigger>
-            <DrawerContent className="h-3/4">
-              <DrawerHeader>
-                <DrawerTitle>Summary</DrawerTitle>
+        <>
+          <div className="flex justify-center gap-4 mt-10">
+            <Drawer defaultOpen={false}>
+              <DrawerTrigger asChild>
+                <Button variant="outline">Review Lesson</Button>
+              </DrawerTrigger>
+              <DrawerContent className="h-3/4">
+                <DrawerHeader>
+                  <DrawerTitle>Summary</DrawerTitle>
 
-                <div className="flex mt-4">
-                  <div className="me-2">Correct Answers:</div>
-                  <div className="flex gap-1">
-                    <span>
-                      {state.stats.reduce((sum, currentValue) => {
-                        if (currentValue.correct) {
-                          return sum + 1;
-                        } else {
-                          return sum;
-                        }
-                      }, 0)}
-                    </span>
-                    <span>/</span>
-                    <span>{state.stats.length}</span>
+                  <div className="flex mt-4">
+                    <div className="me-2">Correct Answers:</div>
+                    <div className="flex gap-1">
+                      <span>
+                        {state.stats.reduce((sum, currentValue) => {
+                          if (currentValue.correct) {
+                            return sum + 1;
+                          } else {
+                            return sum;
+                          }
+                        }, 0)}
+                      </span>
+                      <span>/</span>
+                      <span>{state.stats.length}</span>
+                    </div>
                   </div>
+                  <div className="flex gap-1">
+                    <span>Total time:</span>
+                    <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}</span>
+                    <span>
+                      sec
+                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}
+                    </span>
+                  </div>
+                </DrawerHeader>
+                <div className="mt-4 px-4 grid grid-cols-5 gap-2">
+                  {state.stats.map((it, index) => {
+                    return (
+                      <Card key={index} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                        <CardHeader className="relative">
+                          <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                            {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
+                            {Number(it.timeToComplete) > 1 ? "s" : null}
+                          </Badge>
+                          <CardTitle>
+                            Phrase: <span className="font-light text-sm">{it.word.greek}</span>
+                          </CardTitle>
+                          <CardDescription>Answer: {it.answer}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    );
+                  })}
                 </div>
-                <div className="flex gap-1">
-                  <span>Total time:</span>
-                  <span>
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
-                  </span>
-                  <span>
-                    sec
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
-                      ? "s"
-                      : null}
-                  </span>
-                </div>
-              </DrawerHeader>
-              <div className="mt-4 px-4 grid grid-cols-5 gap-2">
-                {state.stats.map((it, index) => {
-                  return (
-                    <Card
-                      key={index}
-                      className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
-                    >
-                      <CardHeader className="relative">
-                        <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                          {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
-                          {Number(it.timeToComplete) > 1 ? "s" : null}
-                        </Badge>
-                        <CardTitle>
-                          Phrase: <span className="font-light text-sm">{it.word.greek}</span>
-                        </CardTitle>
-                        <CardDescription>Answer: {it.answer}</CardDescription>
-                      </CardHeader>
-                    </Card>
-                  );
-                })}
-              </div>
-            </DrawerContent>
-          </Drawer>
-          <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
-            <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
-          </Link>
-        </div>
+              </DrawerContent>
+            </Drawer>
+            <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
+              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+            </Button>
+          </div>
+          {isLoading && <div className="justify-self-center mt-10">Proccessing results...</div>}
+          {error && <div className="justify-self-center mt-10">{error}</div>}
+        </>
       )}
     </>
   );

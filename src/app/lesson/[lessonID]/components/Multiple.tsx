@@ -104,7 +104,7 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
 
       try {
         setIsLoading(true);
-        fetch("/api/update_dataset", {
+        await fetch("/api/update_dataset", {
           method: "POST",
           body: JSON.stringify({
             data,
@@ -125,7 +125,7 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
         const bktData = await response.json();
 
         const parsedData = JSON.parse(bktData);
-        console.log("parsedData:", parsedData);
+        // console.log("parsedData:", parsedData);
         // const averagePrior =
         //   parsedData.predictions.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.predictions.length;
         const { newPrior } = parsedData;
@@ -183,7 +183,7 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
           duration: Number(it.timeToComplete),
           response_text: it.answer?.greek.replaceAll(",", ""),
           resource: it.word.english.replaceAll(",", ""),
-          multilearn: Number(it.timeToComplete) <= 2 ? "fast" : Number(it.timeToComplete) >= 4 ? "slow" : "medium",
+          multilearn: Number(it.timeToComplete) <= 2 ? "fast" : Number(it.timeToComplete) >= 9.6 ? "slow" : "medium",
           multigs: it.word.id + "_mult",
         } as BKTData;
       });

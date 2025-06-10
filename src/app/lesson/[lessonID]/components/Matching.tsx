@@ -1,6 +1,7 @@
 "use client";
 // Types
 import type { GetLessonNonNull } from "@/lib/actions";
+import type { BKTData, BKTRouteBody } from "@/types/types";
 // External
 import Link from "next/link";
 import {
@@ -18,17 +19,13 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { twMerge } from "tailwind-merge";
 import { cva, type VariantProps } from "cva";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 // Internal
 import { shuffleArray } from "@/lib/utils";
-import { useCallback, useEffect, useMemo, useReducer } from "react";
-import { useSearchParams } from "next/navigation";
-import { BKTData, BKTRouteBody } from "@/types/types";
+import { setCookie, getCookie } from "@/lib/actions";
 
 const sectionCommonCls = "flex flex-col gap-2";
-interface MatchingProps {
-  data: GetLessonNonNull["vocabulary"];
-  nextLessonId?: string;
-}
 
 type Stat = {
   word: GetLessonNonNull["vocabulary"][0];
@@ -123,8 +120,13 @@ function reducer(state: State, action: Action) {
     }
   }
 }
+interface MatchingProps {
+  data: GetLessonNonNull["vocabulary"];
+  nextLessonId?: string;
+  currentDifficulty: string;
+}
 
-export default function Matching({ data, nextLessonId }: MatchingProps) {
+export default function Matching({ data, nextLessonId, currentDifficulty }: MatchingProps) {
   const [state, dispatch] = useReducer(reducer, {
     selectedEnglishWord: null,
     selectedGreekWord: null,
@@ -137,6 +139,10 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
     flashError: undefined,
   } as State);
   const searchParams = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // console.log("Matching.tsx diff: ", currentDifficulty);
 
   const activeExercise = searchParams.get("exercise");
   const showDialog = state.stats.every((it) => it.isCorrect === true);
@@ -169,6 +175,57 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
   }, [state.flashError]);
 
   useEffect(() => {
+    async function callBktModel(data: BKTData[]) {
+      const prior = (await getCookie("prior"))?.value;
+      let difficulty = currentDifficulty;
+
+      try {
+        setIsLoading(true);
+        await fetch("/api/update_dataset", {
+          method: "POST",
+          body: JSON.stringify({
+            data,
+          } as BKTRouteBody),
+        });
+
+        const response = await fetch("/api/bkt", {
+          method: "POST",
+          body: JSON.stringify({
+            data,
+            prior: Number(prior),
+          } as BKTRouteBody),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to run BKT model.");
+        }
+
+        const bktData = await response.json();
+
+        const parsedData = JSON.parse(bktData);
+        // console.log("parsedData:", parsedData);
+        // const averagePrior =
+        //   parsedData.predictions.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.predictions.length;
+        const { newPrior } = parsedData;
+
+        setCookie("prior", String(newPrior));
+        if (newPrior <= 0.4) {
+          difficulty = "easy";
+        } else if (newPrior > 0.4 && newPrior <= 0.85) {
+          difficulty = "normal";
+        } else {
+          difficulty = "hard";
+        }
+
+        if (currentDifficulty !== difficulty) {
+          setCookie("difficulty", difficulty);
+        }
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
     if (showDialog) {
       const data = state.stats.map((it) => {
         return {
@@ -178,30 +235,14 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
           problem_id: it.word.id + "_matching",
           duration: +Number(it.time).toFixed(2),
           response_text:
-            it.wrongAnswers.length > 0
-              ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek
-              : it.word.greek,
+            it.wrongAnswers.length > 0 ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek : it.word.greek,
           resource: it.word.english,
-          multilearn: Number(it.time) <= 4.2 ? "fast" : Number(it.time) >= 9.6 ? "slow" : "medium",
+          multilearn: Number(it.time) <= 2 ? "fast" : Number(it.time) >= 9.6 ? "slow" : "medium",
           multigs: it.word.id + "_matching",
         } as BKTData;
       });
 
-      fetch("/api/update_dataset", {
-        method: "POST",
-        body: JSON.stringify({
-          data,
-        } as BKTRouteBody),
-      });
-
-      fetch("/api/bkt", {
-        method: "POST",
-        body: JSON.stringify({
-          data,
-        } as BKTRouteBody),
-      }).then(async (data) => {
-        console.log("on then: ", await data.json());
-      });
+      callBktModel(data);
     }
   }, [showDialog]);
 
@@ -272,57 +313,55 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
         </div>
       </main>
       {showDialog && (
-        <div className="flex justify-center gap-4 mt-10">
-          <Drawer defaultOpen={false}>
-            <DrawerTrigger id="trigger" asChild>
-              <Button variant="outline">Review Lesson</Button>
-            </DrawerTrigger>
-            <DrawerContent className="h-3/4">
-              <DrawerHeader>
-                <DrawerTitle>Summary</DrawerTitle>
-                <div className="flex gap-1">
-                  <span>Total time:</span>
-                  <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0).toFixed(2)}</span>
-                  <span>
-                    sec
-                    {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0) > 1 ? "s" : null}
-                  </span>
+        <>
+          <div className="flex justify-center gap-4 mt-10">
+            <Drawer defaultOpen={false}>
+              <DrawerTrigger id="trigger" asChild>
+                <Button variant="outline">Review Lesson</Button>
+              </DrawerTrigger>
+              <DrawerContent className="h-3/4">
+                <DrawerHeader>
+                  <DrawerTitle>Summary</DrawerTitle>
+                  <div className="flex gap-1">
+                    <span>Total time:</span>
+                    <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0).toFixed(2)}</span>
+                    <span>
+                      sec
+                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.time), 0) > 1 ? "s" : null}
+                    </span>
+                  </div>
+                </DrawerHeader>
+                <div className="px-4 mt-4 grid grid-cols-5 gap-2">
+                  {state.stats.map((it) => {
+                    return (
+                      <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                        <CardHeader className="relative">
+                          <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
+                            {Number(it.time).toFixed(2) ?? NaN} sec
+                            {Number(it.time) > 1 ? "s" : null}
+                          </Badge>
+                          <CardTitle>Word: {it.word.english}</CardTitle>
+                          <CardDescription>Correct answer: {it.word.greek}</CardDescription>
+                          <CardDescription>
+                            Wrong answer{it.wrongAnswers.length > 1 ? "s" : ""}({it.wrongAnswers.length}):{" "}
+                            {it.wrongAnswers.length > 0
+                              ? it.wrongAnswers.map((wrongAnswerId, index) => {
+                                  return (
+                                    <span key={index}>
+                                      {state.stats.find((w) => w.word.id === wrongAnswerId)?.word.greek}
+                                      {index + 1 < it.wrongAnswers.length ? ", " : null}
+                                    </span>
+                                  );
+                                })
+                              : " - "}
+                          </CardDescription>
+                        </CardHeader>
+                      </Card>
+                    );
+                  })}
                 </div>
-              </DrawerHeader>
-              <div className="px-4 mt-4 grid grid-cols-5 gap-2">
-                {state.stats.map((it) => {
-                  return (
-                    <Card
-                      key={it.word.id}
-                      className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
-                    >
-                      <CardHeader className="relative">
-                        <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
-                          {Number(it.time).toFixed(2) ?? NaN} sec
-                          {Number(it.time) > 1 ? "s" : null}
-                        </Badge>
-                        <CardTitle>Word: {it.word.english}</CardTitle>
-                        <CardDescription>Correct answer: {it.word.greek}</CardDescription>
-                        <CardDescription>
-                          Wrong answer{it.wrongAnswers.length > 1 ? "s" : ""}({it.wrongAnswers.length}):{" "}
-                          {it.wrongAnswers.length > 0
-                            ? it.wrongAnswers.map((wrongAnswerId, index) => {
-                                return (
-                                  <span key={index}>
-                                    {state.stats.find((w) => w.word.id === wrongAnswerId)?.word.greek}
-                                    {index + 1 < it.wrongAnswers.length ? ", " : null}
-                                  </span>
-                                );
-                              })
-                            : " - "}
-                        </CardDescription>
-                      </CardHeader>
-                    </Card>
-                  );
-                })}
-              </div>
 
-              {/* <DrawerFooter className="flex-row justify-center">
+                {/* <DrawerFooter className="flex-row justify-center">
               <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
                 <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
               </Link>
@@ -332,12 +371,15 @@ export default function Matching({ data, nextLessonId }: MatchingProps) {
                 </Button>
               </DrawerClose>
             </DrawerFooter> */}
-            </DrawerContent>
-          </Drawer>
-          <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
-            <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
-          </Link>
-        </div>
+              </DrawerContent>
+            </Drawer>
+            <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
+              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+            </Button>
+          </div>
+          {isLoading && <div className="justify-self-center mt-10">Proccessing results...</div>}
+          {error && <div className="justify-self-center mt-10">{error}</div>}
+        </>
       )}
     </>
   );
