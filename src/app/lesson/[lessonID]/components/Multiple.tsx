@@ -5,7 +5,7 @@ import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import Link from "next/link";
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/Alert";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
@@ -88,10 +88,11 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
   const [isTicking, setIsTicking] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
+  const segments = useParams();
   const timeRef = useRef(0);
 
-  const activeExercise = searchParams.get("exercise");
+  // const activeExercise = searchParams.get("exercise");
 
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
@@ -141,6 +142,7 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
 
         if (currentDifficulty !== difficulty) {
           setCookie("difficulty", difficulty);
+          // router.replace("/");
         }
       } catch (error: any) {
         setError(error.message);
@@ -325,7 +327,17 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
               </DrawerContent>
             </Drawer>
             <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
-              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+              <Link href={nextLessonId ? `${nextLessonId}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+            </Button>
+            <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
+              <Link
+                href="/training"
+                onClick={() => {
+                  setCookie("prevLessonId", segments.lessonID as string);
+                }}
+              >
+                Extra lesson to improve
+              </Link>
             </Button>
           </div>
           {isLoading && <div className="justify-self-center mt-10">Proccessing results...</div>}

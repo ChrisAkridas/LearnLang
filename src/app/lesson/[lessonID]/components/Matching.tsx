@@ -4,26 +4,18 @@ import type { GetLessonNonNull } from "@/lib/actions";
 import type { BKTData, BKTRouteBody } from "@/types/types";
 // External
 import Link from "next/link";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/Drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { twMerge } from "tailwind-merge";
 import { cva, type VariantProps } from "cva";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 // Internal
 import { shuffleArray } from "@/lib/utils";
 import { setCookie, getCookie } from "@/lib/actions";
+import { useParams } from "next/navigation";
 
 const sectionCommonCls = "flex flex-col gap-2";
 
@@ -138,13 +130,13 @@ export default function Matching({ data, nextLessonId, currentDifficulty }: Matc
     })),
     flashError: undefined,
   } as State);
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  const segments = useParams();
   // console.log("Matching.tsx diff: ", currentDifficulty);
 
-  const activeExercise = searchParams.get("exercise");
+  // const activeExercise = searchParams.get("exercise");
   const showDialog = state.stats.every((it) => it.isCorrect === true);
   const timeHandler = useCallback(manageTimer(), []);
 
@@ -374,7 +366,16 @@ export default function Matching({ data, nextLessonId, currentDifficulty }: Matc
               </DrawerContent>
             </Drawer>
             <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
-              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+              <Link href={nextLessonId ? `${nextLessonId}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+            </Button>
+            <Button
+              disabled={isLoading}
+              className="bg-blue-300 text-black hover:bg-blue-400"
+              onClick={() => {
+                setCookie("prevLessonId", segments.lessonID as string);
+              }}
+            >
+              <Link href="/training">Extra lesson to improve</Link>
             </Button>
           </div>
           {isLoading && <div className="justify-self-center mt-10">Proccessing results...</div>}

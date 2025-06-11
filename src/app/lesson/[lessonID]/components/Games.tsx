@@ -4,8 +4,8 @@
 import type { Exercise, ExerciseValue } from "@/types/types";
 import type { GetLessonNonNull } from "@/lib/actions";
 // External
-import { useEffect, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
+// import { useRouter, useSearchParams } from "next/navigation";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/Select";
 // Internal
 import Multiple from "./Multiple";
@@ -38,23 +38,25 @@ export default function Games({ data, nextLessonId, currentDifficulty }: GamePro
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const activeExercise = (searchParams.get("exercise") ?? "multiple") as Exercise;
-
-  useEffect(() => {
-    router.push(`?exercise=${activeExercise}`, {
-      scroll: false,
-    });
-  }, []);
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const activeExercise = (searchParams.get("exercise") ?? "multiple") as Exercise;
+  const [activeExerciseValue, setActiveExerciseValue] = useState<Exercise>("multiple");
+  // useEffect(() => {
+  //   router.push(`?exercise=${activeExercise}`, {
+  //     scroll: false,
+  //   });
+  // }, []);
   return (
     <>
       <Select
-        value={activeExercise}
+        value={activeExerciseValue}
         onValueChange={(value) => {
-          router.push(`?exercise=${value}`, {
-            scroll: false,
-          });
+          // router.push(`?exercise=${value}`, {
+          //   scroll: false,
+          // });
+
+          setActiveExerciseValue(value as Exercise);
         }}
       >
         <SelectTrigger className="w-fit">
@@ -72,7 +74,7 @@ export default function Games({ data, nextLessonId, currentDifficulty }: GamePro
           </SelectGroup>
         </SelectContent>
       </Select>
-      <section>{exercises[activeExercise].content}</section>
+      <section>{exercises[activeExerciseValue].content}</section>
     </>
   );
 }

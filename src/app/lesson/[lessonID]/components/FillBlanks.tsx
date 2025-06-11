@@ -7,7 +7,7 @@ import type { GetLessonNonNull } from "@/lib/actions";
 // External
 import { useEffect, useMemo, useReducer, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
@@ -80,11 +80,11 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const activeExercise = searchParams.get("exercise");
+  const segments = useParams();
+  // const activeExercise = searchParams.get("exercise");
 
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
@@ -298,8 +298,18 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
                 </div>
               </DrawerContent>
             </Drawer>
-            <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
-              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+            <Button  disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
+              <Link href={nextLessonId ? `${nextLessonId}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
+            </Button>
+            <Button
+              
+              disabled={isLoading}
+              className="bg-blue-300 text-black hover:bg-blue-400"
+              onClick={() => {
+                setCookie("prevLessonId", segments.lessonID as string);
+              }}
+            >
+              <Link href="/training">Extra lesson to improve</Link>
             </Button>
           </div>
           {isLoading && <div className="justify-self-center mt-10">Proccessing results...</div>}
