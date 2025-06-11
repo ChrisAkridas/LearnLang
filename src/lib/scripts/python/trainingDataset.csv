@@ -84,3 +84,430 @@ user_id,skill_name,correct,problem_id,duration,response_text,resource,multilearn
 1,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,10.4,Εγώ,We,slow,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
 1,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,11.9,Εγώ,You (plural),slow,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
 1,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_mult,13.4,Εσείς,They,slow,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,3,Εγώ,I,medium,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+localhost,vocabulary,1,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,3,Εσύ,You (singular),medium,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+localhost,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,3.2,Αυτός,He,medium,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+localhost,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,2,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+localhost,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,2,Εμείς,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+localhost,vocabulary,1,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,4.3,Εσείς,You (plural),medium,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+localhost,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_mult,2.6,Αυτοί,They,medium,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,0,138975ab-1b87-46fa-9cf6-ad302ad6d53a_mult,6.9,Λόφος,Volcano,medium,138975ab-1b87-46fa-9cf6-ad302ad6d53a_mult
+localhost,vocabulary,1,a04c538f-1b75-4aaa-b831-5e18824d7f69_mult,2.2,Φαράγγι,Canyon,medium,a04c538f-1b75-4aaa-b831-5e18824d7f69_mult
+localhost,vocabulary,1,365dd0b9-e404-480e-9815-a19847f3d70d_mult,4.6,Δάσος,Forest,medium,365dd0b9-e404-480e-9815-a19847f3d70d_mult
+localhost,vocabulary,0,53fda87b-d311-4a65-8938-63935a0d551c_mult,3.7,Ηφαίστειο,Jungle,medium,53fda87b-d311-4a65-8938-63935a0d551c_mult
+localhost,vocabulary,0,224671bd-8d1f-4dea-9504-b9900fb80d79_mult,2.1,Δάσος,Marsh,medium,224671bd-8d1f-4dea-9504-b9900fb80d79_mult
+localhost,vocabulary,1,cf363d04-ad4a-46cd-a049-7c731cc36e4b_mult,5.4,Βουνό,Mountain,medium,cf363d04-ad4a-46cd-a049-7c731cc36e4b_mult
+localhost,vocabulary,0,2a438dfe-4db3-44bf-9fd3-99b47ce36902_mult,4.4,Έλος,Mountain range,medium,2a438dfe-4db3-44bf-9fd3-99b47ce36902_mult
+localhost,vocabulary,0,eb41de5a-41fb-4905-a87f-ddf0cd1682dd_mult,6.5,Κόλπος,Hill,medium,eb41de5a-41fb-4905-a87f-ddf0cd1682dd_mult
+localhost,vocabulary,0,3d69d187-8092-46ea-96b7-8d459f57eb5e_mult,10.5,Νησί,Waterfall,slow,3d69d187-8092-46ea-96b7-8d459f57eb5e_mult
+localhost,vocabulary,1,10dc7664-3bac-4bc8-89e7-bbcc0cf97281_mult,3.5,Ποτάμι,River,medium,10dc7664-3bac-4bc8-89e7-bbcc0cf97281_mult
+localhost,vocabulary,0,8e83c6c2-395a-45dc-8e5f-bb7e86e2e6a1_mult,3,Ζούγκλα,Lake,medium,8e83c6c2-395a-45dc-8e5f-bb7e86e2e6a1_mult
+localhost,vocabulary,1,d5f35ae8-8300-45fc-8390-595d94cacd24_mult,2.3,Έρημος,Desert,medium,d5f35ae8-8300-45fc-8390-595d94cacd24_mult
+localhost,vocabulary,0,e8284039-2cb1-4758-81fc-ae56ed2514a9_mult,1.2,Ποτάμι,Peninsula,fast,e8284039-2cb1-4758-81fc-ae56ed2514a9_mult
+localhost,vocabulary,0,88340f1e-11c4-4cc5-a771-4570fbe1ab46_mult,4.1,Έλος,Island,medium,88340f1e-11c4-4cc5-a771-4570fbe1ab46_mult
+localhost,vocabulary,0,04c9a985-1d70-443c-8009-eb9943228717_mult,1.1,Λίμνη,Beach,fast,04c9a985-1d70-443c-8009-eb9943228717_mult
+localhost,vocabulary,0,d62e5a9f-6fca-4f61-93f1-c9869a8b6cc8_mult,5.3,Βουνό,Ocean,medium,d62e5a9f-6fca-4f61-93f1-c9869a8b6cc8_mult
+localhost,vocabulary,1,dde36ca9-1ac4-4f24-b33e-15d62a3fdebf_mult,8.3,Θάλασσα,Sea,medium,dde36ca9-1ac4-4f24-b33e-15d62a3fdebf_mult
+localhost,vocabulary,1,b1508476-14f2-4849-ba20-fa08bc5105df_mult,9.3,Κόλπος,Bay,medium,b1508476-14f2-4849-ba20-fa08bc5105df_mult
+localhost,vocabulary,0,d1ab76a3-4258-4cbe-9339-8d74dfe7da2c_mult,2.1,Παραλία,Coast,medium,d1ab76a3-4258-4cbe-9339-8d74dfe7da2c_mult
+localhost,vocabulary,1,717cd001-10bd-4522-9469-ab7cb264d328_mult,3.1,Πάνω,Above,medium,717cd001-10bd-4522-9469-ab7cb264d328_mult
+localhost,vocabulary,1,4cc9482f-1284-4612-8b8f-7a9358ddd8a2_mult,4.6,Απέναντι,Across,medium,4cc9482f-1284-4612-8b8f-7a9358ddd8a2_mult
+localhost,vocabulary,1,2198fbb8-563e-4041-b95c-a187840401f8_mult,2.9,Μετά,After,medium,2198fbb8-563e-4041-b95c-a187840401f8_mult
+localhost,vocabulary,0,bf5956c7-f09c-468c-a628-928a982ed4a4_mult,3.9,Απέναντι,Against,medium,bf5956c7-f09c-468c-a628-928a982ed4a4_mult
+localhost,vocabulary,1,5cab4697-0eae-47dc-bcab-d50d58eb0298_mult,1.9,Κατά μήκος,Along,fast,5cab4697-0eae-47dc-bcab-d50d58eb0298_mult
+localhost,vocabulary,1,2cf1fdd2-c7ea-48c2-badd-dd1f6ae1dc9f_mult,4.5,Γύρω,Around,medium,2cf1fdd2-c7ea-48c2-badd-dd1f6ae1dc9f_mult
+localhost,vocabulary,1,f26a9901-e594-4d85-8230-34762687539f_mult,1.9,Στο,At,fast,f26a9901-e594-4d85-8230-34762687539f_mult
+localhost,vocabulary,1,15ea5ad1-0669-4036-b967-ef10ac796866_mult,3.4,Πίσω,Behind,medium,15ea5ad1-0669-4036-b967-ef10ac796866_mult
+localhost,vocabulary,1,e0e836b3-0d3e-41f1-9066-1583f9cd28b4_mult,6.5,Κάτω,Below,medium,e0e836b3-0d3e-41f1-9066-1583f9cd28b4_mult
+localhost,vocabulary,1,d9fc3695-7c5e-4df2-8993-f554349b5b25_mult,2.1,Δίπλα,Beside,medium,d9fc3695-7c5e-4df2-8993-f554349b5b25_mult
+localhost,vocabulary,1,5ab6579e-b54a-4dbd-8749-64afe2a035a1_mult,1.2,Μεταξύ,Between,fast,5ab6579e-b54a-4dbd-8749-64afe2a035a1_mult
+localhost,vocabulary,0,1fe50b9f-e419-426e-bf12-ea8eb75d1e76_mult,3.3,Απέναντι,By,medium,1fe50b9f-e419-426e-bf12-ea8eb75d1e76_mult
+localhost,vocabulary,1,005ace1b-9ea2-4eca-9973-b98b76765905_mult,1.9,Κατά την διάρκεια,During,fast,005ace1b-9ea2-4eca-9973-b98b76765905_mult
+localhost,vocabulary,1,a6d80dbb-136a-4d04-a551-8165d6117fcf_mult,4,Εκτός από,Except,medium,a6d80dbb-136a-4d04-a551-8165d6117fcf_mult
+localhost,vocabulary,1,18e14b47-46f3-42df-804c-c7c8f1a49067_mult,2.6,Για,For,medium,18e14b47-46f3-42df-804c-c7c8f1a49067_mult
+localhost,vocabulary,1,1ac0d635-b71d-495a-9f05-6770280fe5a5_mult,4.2,Από,From,medium,1ac0d635-b71d-495a-9f05-6770280fe5a5_mult
+localhost,vocabulary,1,542748cf-e164-4212-b6a0-0183a9337c8f_mult,2.7,Σε,In,medium,542748cf-e164-4212-b6a0-0183a9337c8f_mult
+localhost,vocabulary,1,7e707aab-56d9-4ed9-9639-01c90463ed59_mult,1.2,Μέσα,Inside,fast,7e707aab-56d9-4ed9-9639-01c90463ed59_mult
+localhost,vocabulary,0,724c33d2-5d41-4efe-b27d-9dec5aa6b32f_mult,7.6,Σε,Into,medium,724c33d2-5d41-4efe-b27d-9dec5aa6b32f_mult
+localhost,vocabulary,1,dd1c972f-4b1f-4804-abbe-009071ada34e_mult,2.3,Κοντά,Near,medium,dd1c972f-4b1f-4804-abbe-009071ada34e_mult
+localhost,vocabulary,1,a8855a8b-4434-4bf5-86ff-8fe37342588b_mult,7.2,Του,Of,medium,a8855a8b-4434-4bf5-86ff-8fe37342588b_mult
+localhost,vocabulary,1,bee284d2-9742-4ed6-a764-4a3446a51d9c_mult,2.6,Έξω,Out,medium,bee284d2-9742-4ed6-a764-4a3446a51d9c_mult
+localhost,vocabulary,0,01116d20-ac3f-47e5-9a6d-36c7c02eecbf_mult,2.6,Έξω,Outside,medium,01116d20-ac3f-47e5-9a6d-36c7c02eecbf_mult
+localhost,vocabulary,0,60c3c227-604c-4b53-9791-be725165e74c_mult,1.9,Χωρίς,To,fast,60c3c227-604c-4b53-9791-be725165e74c_mult
+localhost,vocabulary,1,ca606871-fc71-426c-82de-c0133fbf2661_mult,7,Κάτω,Under,medium,ca606871-fc71-426c-82de-c0133fbf2661_mult
+localhost,vocabulary,1,cdf9bf39-c984-4d1d-8768-6881ee1e07c7_mult,3.2,Με,With,medium,cdf9bf39-c984-4d1d-8768-6881ee1e07c7_mult
+localhost,vocabulary,1,8f04cf2f-c72e-466c-8983-34e644a0dd3f_mult,2.7,Χωρίς,Without,medium,8f04cf2f-c72e-466c-8983-34e644a0dd3f_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,2.7,Εγώ,I,medium,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+localhost,vocabulary,1,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,1.1,Εσύ,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+localhost,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,2.6,Αυτός,He,medium,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+localhost,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,1.8,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+localhost,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,2.3,Εμείς,We,medium,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+localhost,vocabulary,1,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,2.5,Εσείς,You (plural),medium,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+localhost,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_mult,3.1,Αυτοί,They,medium,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,0,3d116cf7-4738-41e8-a962-8ca9a9be743f_mult,2.4,Πάρτι,Birthday,medium,3d116cf7-4738-41e8-a962-8ca9a9be743f_mult
+localhost,vocabulary,1,ec22baa6-3be1-48c1-a09e-83cdbb4b891e_mult,3.4,Επέτειος,Anniversary,medium,ec22baa6-3be1-48c1-a09e-83cdbb4b891e_mult
+localhost,vocabulary,0,5c02dbad-9094-4544-b6ae-6928a4294f8d_mult,3,Αποφοίτηση,Holiday,medium,5c02dbad-9094-4544-b6ae-6928a4294f8d_mult
+localhost,vocabulary,1,42093901-dd9f-4f02-89dd-c61bd92a8ec9_mult,2.7,Κηδεία,Funeral,medium,42093901-dd9f-4f02-89dd-c61bd92a8ec9_mult
+localhost,vocabulary,1,1977457e-4778-4ed8-a6d1-675c196abf86_mult,1.7,Αποφοίτηση,Graduation,fast,1977457e-4778-4ed8-a6d1-675c196abf86_mult
+localhost,vocabulary,1,da624ba5-7512-448c-936e-daa3ef972e5e_mult,2.7,Γάμος,Wedding,medium,da624ba5-7512-448c-936e-daa3ef972e5e_mult
+localhost,vocabulary,1,f45bd682-d81c-49e6-b66e-2b1beb0986eb_mult,4.7,Καλή πρωτοχρονιά!,Happy New Year,medium,f45bd682-d81c-49e6-b66e-2b1beb0986eb_mult
+localhost,vocabulary,0,c35bc69e-20f3-4b0f-9461-0f38693837ff_mult,7.1,Γιορτή,Happy birthday,medium,c35bc69e-20f3-4b0f-9461-0f38693837ff_mult
+localhost,vocabulary,1,13750e9c-4ac7-45c5-8a6a-f364d8ae69db_mult,3.8,Συγχαρητήρια,Congratulations,medium,13750e9c-4ac7-45c5-8a6a-f364d8ae69db_mult
+localhost,vocabulary,1,f364a682-5633-4324-bd5a-23388ea853e4_mult,6.3,Καλή τύχη,Good luck,medium,f364a682-5633-4324-bd5a-23388ea853e4_mult
+localhost,vocabulary,0,510d4caa-3586-4aec-b086-cdc2dea18354_mult,4,Ναι θέλω να χορέψουμε,Gift,medium,510d4caa-3586-4aec-b086-cdc2dea18354_mult
+localhost,vocabulary,1,e553e597-d02a-4cdf-b360-c52de34c9a3f_mult,3,Πάρτι,Party,medium,e553e597-d02a-4cdf-b360-c52de34c9a3f_mult
+localhost,vocabulary,1,45893e86-17ea-4204-abcb-57114c35fa3f_mult,3.2,Κάρτα γενεθλίων,Birthday card,medium,45893e86-17ea-4204-abcb-57114c35fa3f_mult
+localhost,vocabulary,1,7466ed98-4b3a-4da1-9a06-0db0eef812d8_mult,4.6,Γιορτή,Celebration,medium,7466ed98-4b3a-4da1-9a06-0db0eef812d8_mult
+localhost,vocabulary,1,1530750d-63d3-4bb2-b144-837e088b3f6c_mult,1.8,Μουσική,Music,fast,1530750d-63d3-4bb2-b144-837e088b3f6c_mult
+localhost,vocabulary,1,478c564c-56e8-4347-b584-2abb1c503501_mult,3.3,Θέλεις να χορέψουμε;,Do you want to dance?,medium,478c564c-56e8-4347-b584-2abb1c503501_mult
+localhost,vocabulary,1,f698a813-e3f8-4bf9-a5ce-ca2138eccad1_mult,3,Ναι θέλω να χορέψουμε,Yes I want to dance,medium,f698a813-e3f8-4bf9-a5ce-ca2138eccad1_mult
+localhost,vocabulary,1,9a92db24-d42f-4e06-89da-915e4376cd53_mult,5.5,Δεν θέλω να χορέψουμε,I don’t want to dance,medium,9a92db24-d42f-4e06-89da-915e4376cd53_mult
+localhost,vocabulary,1,6a5ec50c-b889-449f-9018-718a9ed0b01c_mult,2.4,Θα με παντρευτείς;,Will you marry me?,medium,6a5ec50c-b889-449f-9018-718a9ed0b01c_mult
+localhost,vocabulary,1,4f16c630-ad46-4a15-a327-6fbcbb9d033e_mult,2.7,Χρώμα,Color,medium,4f16c630-ad46-4a15-a327-6fbcbb9d033e_mult
+localhost,vocabulary,1,6f286cc1-c073-4ba9-afd2-59959b802344_mult,2.3,Μαύρο,Black,medium,6f286cc1-c073-4ba9-afd2-59959b802344_mult
+localhost,vocabulary,1,28efd107-b2b0-4b5a-956b-dbc2efad09c9_mult,1.9,Μπλε,Blue,fast,28efd107-b2b0-4b5a-956b-dbc2efad09c9_mult
+localhost,vocabulary,1,6062a840-7ce5-49d1-ac6d-60e65868773e_mult,1.8,Καφέ,Brown,fast,6062a840-7ce5-49d1-ac6d-60e65868773e_mult
+localhost,vocabulary,1,d86f014a-0d4f-4218-bc7e-cbfb256242ad_mult,2.9,Πράσινο,Green,medium,d86f014a-0d4f-4218-bc7e-cbfb256242ad_mult
+localhost,vocabulary,1,1569f383-57ec-4121-8358-30a480906051_mult,2,Πορτοκαλί,Orange,fast,1569f383-57ec-4121-8358-30a480906051_mult
+localhost,vocabulary,1,2d1c8e8c-f0f3-4f5c-902e-5ba45442a497_mult,2.1,Μωβ,Purple,medium,2d1c8e8c-f0f3-4f5c-902e-5ba45442a497_mult
+localhost,vocabulary,1,f3e36f10-5317-4dda-89db-b32b40658572_mult,3.6,Κόκκινο,Red,medium,f3e36f10-5317-4dda-89db-b32b40658572_mult
+localhost,vocabulary,1,3a16104a-901b-48a5-927c-15c8b5c88781_mult,2.2,Λευκό,White,medium,3a16104a-901b-48a5-927c-15c8b5c88781_mult
+localhost,vocabulary,1,fc2c8259-ed3c-4ade-bd6e-2b8c4909f954_mult,4.8,Κίτρινο,Yellow,medium,fc2c8259-ed3c-4ade-bd6e-2b8c4909f954_mult
+localhost,vocabulary,0,c45d24d4-0c46-4b92-80c0-cd31de1dc060_mult,2.7,Μαύρο,Gray,medium,c45d24d4-0c46-4b92-80c0-cd31de1dc060_mult
+localhost,vocabulary,1,e8cc1af8-9c99-40a4-80e1-f42613e6df1b_mult,2.4,Χρυσό,Gold,medium,e8cc1af8-9c99-40a4-80e1-f42613e6df1b_mult
+localhost,vocabulary,1,8199652b-6308-4e13-8dc8-78eee55edaac_mult,3.4,Ασημί,Silver,medium,8199652b-6308-4e13-8dc8-78eee55edaac_mult
+localhost,vocabulary,1,1dac5ad5-c6a5-4662-94bb-1c4e6f101cf9_mult,1.8,Τι χρώμα είναι αυτό;,What color is it?,fast,1dac5ad5-c6a5-4662-94bb-1c4e6f101cf9_mult
+localhost,vocabulary,1,dc732f83-fdca-4143-86d5-0c8942c55917_mult,14.5,Είναι κόκκινο,The color is red,slow,dc732f83-fdca-4143-86d5-0c8942c55917_mult
+localhost,vocabulary,0,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,1.5,Εσείς,I,fast,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+localhost,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,0.3,Εμείς,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+localhost,vocabulary,0,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,0.3,Εγώ,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+localhost,vocabulary,0,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,0.4,Εσείς,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+localhost,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,0.4,Εμείς,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+localhost,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,0.4,Εσύ,You (plural),fast,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+localhost,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_mult,0.4,Αυτός,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,2.3,Εγώ,I,medium,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+localhost,vocabulary,0,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,0.6,Αυτοί,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+localhost,vocabulary,0,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,0.5,Εγώ,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+localhost,vocabulary,0,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,0.7,Εσύ,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+localhost,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,0.5,Αυτή,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+localhost,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,0.5,Αυτός,You (plural),fast,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+localhost,vocabulary,0,485b9992-128c-481d-9fda-51c6453d2e5d_mult,0.6,Αυτή,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching,0.7,Εγώ,I,fast,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching
+localhost,vocabulary,1,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching,1.5,Εσύ,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching
+localhost,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_matching,1.5,Αυτός,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_matching
+localhost,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching,1.3,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching
+localhost,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_matching,1.7,Εμείς,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_matching
+localhost,vocabulary,1,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching,2.2,Εσείς,You (plural),medium,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching
+localhost,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_matching,0.9,Αυτοί,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_matching
+localhost,vocabulary,1,1928389c-6964-4bc4-bd98-3ff465dcbc87_matching,0.6,Μου,My,fast,1928389c-6964-4bc4-bd98-3ff465dcbc87_matching
+localhost,vocabulary,1,4e79491b-eaca-411a-8fb0-f57b1482b1be_matching,1.1,Σου,Your,fast,4e79491b-eaca-411a-8fb0-f57b1482b1be_matching
+localhost,vocabulary,1,79cd1031-ac0e-4a58-98b3-c4469280a4be_matching,1.9,Του,His,fast,79cd1031-ac0e-4a58-98b3-c4469280a4be_matching
+localhost,vocabulary,1,1177b944-ebad-4010-b28e-bb940e644233_matching,0.9,Της,Her,fast,1177b944-ebad-4010-b28e-bb940e644233_matching
+localhost,vocabulary,1,09fe1f3f-4733-4d9e-8e40-fb6d8010a524_matching,1.3,Μας,Our,fast,09fe1f3f-4733-4d9e-8e40-fb6d8010a524_matching
+localhost,vocabulary,1,3b3b63ea-8191-4c8b-8aa7-181d02b94a5a_matching,1,Δικό τους,Their,fast,3b3b63ea-8191-4c8b-8aa7-181d02b94a5a_matching
+localhost,vocabulary,1,333ba24a-7ca7-446e-a09a-53d8402b6e6c_matching,1.7,Αυτό,This,fast,333ba24a-7ca7-446e-a09a-53d8402b6e6c_matching
+localhost,vocabulary,1,f94f2084-f679-4b11-b335-4c506ee31f36_matching,1.3,Εκείνο,That,fast,f94f2084-f679-4b11-b335-4c506ee31f36_matching
+localhost,vocabulary,1,b1f1b157-e211-4405-95b9-5c40b65a0999_matching,2.1,Αυτά,These,medium,b1f1b157-e211-4405-95b9-5c40b65a0999_matching
+localhost,vocabulary,1,ab40efc7-7e09-4058-b995-2214009cb220_matching,0.9,Εκείνα,Those,fast,ab40efc7-7e09-4058-b995-2214009cb220_matching
+localhost,vocabulary,1,138975ab-1b87-46fa-9cf6-ad302ad6d53a_matching,3.7,Ηφαίστειο,Volcano,medium,138975ab-1b87-46fa-9cf6-ad302ad6d53a_matching
+localhost,vocabulary,1,a04c538f-1b75-4aaa-b831-5e18824d7f69_matching,5,Φαράγγι,Canyon,medium,a04c538f-1b75-4aaa-b831-5e18824d7f69_matching
+localhost,vocabulary,1,365dd0b9-e404-480e-9815-a19847f3d70d_matching,1.8,Δάσος,Forest,fast,365dd0b9-e404-480e-9815-a19847f3d70d_matching
+localhost,vocabulary,1,53fda87b-d311-4a65-8938-63935a0d551c_matching,2.4,Ζούγκλα,Jungle,medium,53fda87b-d311-4a65-8938-63935a0d551c_matching
+localhost,vocabulary,1,224671bd-8d1f-4dea-9504-b9900fb80d79_matching,3.7,Έλος,Marsh,medium,224671bd-8d1f-4dea-9504-b9900fb80d79_matching
+localhost,vocabulary,1,cf363d04-ad4a-46cd-a049-7c731cc36e4b_matching,1,Βουνό,Mountain,fast,cf363d04-ad4a-46cd-a049-7c731cc36e4b_matching
+localhost,vocabulary,0,2a438dfe-4db3-44bf-9fd3-99b47ce36902_matching,10.1,Έλος,Mountain range,slow,2a438dfe-4db3-44bf-9fd3-99b47ce36902_matching
+localhost,vocabulary,1,eb41de5a-41fb-4905-a87f-ddf0cd1682dd_matching,3.7,Λόφος,Hill,medium,eb41de5a-41fb-4905-a87f-ddf0cd1682dd_matching
+localhost,vocabulary,1,3d69d187-8092-46ea-96b7-8d459f57eb5e_matching,3.9,Καταρράκτης,Waterfall,medium,3d69d187-8092-46ea-96b7-8d459f57eb5e_matching
+localhost,vocabulary,1,10dc7664-3bac-4bc8-89e7-bbcc0cf97281_matching,2.5,Ποτάμι,River,medium,10dc7664-3bac-4bc8-89e7-bbcc0cf97281_matching
+localhost,vocabulary,1,8e83c6c2-395a-45dc-8e5f-bb7e86e2e6a1_matching,1.2,Λίμνη,Lake,fast,8e83c6c2-395a-45dc-8e5f-bb7e86e2e6a1_matching
+localhost,vocabulary,0,d5f35ae8-8300-45fc-8390-595d94cacd24_matching,1.8,Δάσος,Desert,fast,d5f35ae8-8300-45fc-8390-595d94cacd24_matching
+localhost,vocabulary,0,e8284039-2cb1-4758-81fc-ae56ed2514a9_matching,1.4,Οροσειρά,Peninsula,fast,e8284039-2cb1-4758-81fc-ae56ed2514a9_matching
+localhost,vocabulary,1,88340f1e-11c4-4cc5-a771-4570fbe1ab46_matching,1,Νησί,Island,fast,88340f1e-11c4-4cc5-a771-4570fbe1ab46_matching
+localhost,vocabulary,1,04c9a985-1d70-443c-8009-eb9943228717_matching,3,Παραλία,Beach,medium,04c9a985-1d70-443c-8009-eb9943228717_matching
+localhost,vocabulary,1,d62e5a9f-6fca-4f61-93f1-c9869a8b6cc8_matching,8,Ωκεανός,Ocean,medium,d62e5a9f-6fca-4f61-93f1-c9869a8b6cc8_matching
+localhost,vocabulary,1,dde36ca9-1ac4-4f24-b33e-15d62a3fdebf_matching,1,Θάλασσα,Sea,fast,dde36ca9-1ac4-4f24-b33e-15d62a3fdebf_matching
+localhost,vocabulary,1,b1508476-14f2-4849-ba20-fa08bc5105df_matching,1.1,Κόλπος,Bay,fast,b1508476-14f2-4849-ba20-fa08bc5105df_matching
+localhost,vocabulary,1,d1ab76a3-4258-4cbe-9339-8d74dfe7da2c_matching,5.3,Ακτή,Coast,medium,d1ab76a3-4258-4cbe-9339-8d74dfe7da2c_matching
+localhost,vocabulary,1,a6b548d5-d2e6-4f03-906c-33d5cb77d757_matching,1.5,Είσαι παντρεμένος;,Are you married?,fast,a6b548d5-d2e6-4f03-906c-33d5cb77d757_matching
+localhost,vocabulary,1,17462be4-9e0b-470d-8f93-f2425d62d241_matching,0.5,Πόσο καιρό είσαι παντρεμένος;,How long have you been married?,fast,17462be4-9e0b-470d-8f93-f2425d62d241_matching
+localhost,vocabulary,1,7a667147-71a7-4ee9-8570-06b6c46994dc_matching,1.9,Έχεις παιδιά;,Do you have children?,fast,7a667147-71a7-4ee9-8570-06b6c46994dc_matching
+localhost,vocabulary,0,7a42e6cc-c4aa-454e-92c0-2fe2af3048ad_matching,1.6,Έχεις αγόρι;,Is she your mother?,fast,7a42e6cc-c4aa-454e-92c0-2fe2af3048ad_matching
+localhost,vocabulary,0,4ec468db-142c-4913-8343-e39d4d92a32c_matching,5.5,Έχεις κορίτσι;,Who is your father?,medium,4ec468db-142c-4913-8343-e39d4d92a32c_matching
+localhost,vocabulary,0,f18dc2e5-48cd-477d-88a0-02cc80f0b85d_matching,3.2,Έχεις αγόρι;,Do you have a girlfriend?,medium,f18dc2e5-48cd-477d-88a0-02cc80f0b85d_matching
+localhost,vocabulary,0,9fda701c-2b01-4a82-9f57-e490110d4449_matching,3.9,Έχεις παιδιά;,Do you have a boyfriend?,medium,9fda701c-2b01-4a82-9f57-e490110d4449_matching
+localhost,vocabulary,0,76a92e9c-b888-4208-9620-5704673098c3_matching,1.7,Είσαι παντρεμένος;,Are you related?,fast,76a92e9c-b888-4208-9620-5704673098c3_matching
+localhost,vocabulary,0,e29c2ef1-46a0-423d-914e-78cba0eae0ac_matching,1.1,Έχεις παιδιά;,How old are you?,fast,e29c2ef1-46a0-423d-914e-78cba0eae0ac_matching
+localhost,vocabulary,0,7870db96-09b8-40e1-a886-9dc27554b414_matching,3.7,Πόσο χρονών είσαι;,How old is your sister?,medium,7870db96-09b8-40e1-a886-9dc27554b414_matching
+localhost,vocabulary,0,2a7adb30-076d-4b96-8c62-690a3e979d14_mult,1.7,Πρωτεύουσα,In the city,fast,2a7adb30-076d-4b96-8c62-690a3e979d14_mult
+localhost,vocabulary,1,4683ac4a-9c15-434e-88d4-61cabf238a99_mult,0.6,Πρωτεύουσα,Capital,fast,4683ac4a-9c15-434e-88d4-61cabf238a99_mult
+localhost,vocabulary,0,ba5a553a-af50-4159-b359-487058075db4_mult,1.7,Πάρκο,Downtown,fast,ba5a553a-af50-4159-b359-487058075db4_mult
+localhost,vocabulary,0,89a733e8-60e8-4404-8b3e-e268450e4f57_mult,3.6,Σπίτι,Center,medium,89a733e8-60e8-4404-8b3e-e268450e4f57_mult
+localhost,vocabulary,1,d477e609-201f-489f-ae29-98f832ffc0d9_mult,2.3,Λιμάνι,Harbor,medium,d477e609-201f-489f-ae29-98f832ffc0d9_mult
+localhost,vocabulary,0,a2d76b42-67d3-499d-b2da-7685f8fe36c0_mult,3.3,Διαμέρισμα,Parking garage,medium,a2d76b42-67d3-499d-b2da-7685f8fe36c0_mult
+localhost,vocabulary,1,2380d4d5-a2b0-4d92-b020-46b9e89c0fe8_mult,1.7,Πάρκινγκ,Car park,fast,2380d4d5-a2b0-4d92-b020-46b9e89c0fe8_mult
+localhost,vocabulary,0,adecaeb8-f177-4dd9-8723-dd3babac6add_mult,1.4,Κέντρο,Post office,fast,adecaeb8-f177-4dd9-8723-dd3babac6add_mult
+localhost,vocabulary,0,34c50c45-373d-4090-97f0-a79209d1f0da_mult,2.4,Στάση λεωφορείου,Museum,medium,34c50c45-373d-4090-97f0-a79209d1f0da_mult
+localhost,vocabulary,0,70885ed3-974b-462f-aa29-fb979b919d5d_mult,2.6,Διαμέρισμα,Library,medium,70885ed3-974b-462f-aa29-fb979b919d5d_mult
+localhost,vocabulary,0,a765dd57-049e-4f9a-b609-699271acb90c_mult,3,Σπίτι,Police station,medium,a765dd57-049e-4f9a-b609-699271acb90c_mult
+localhost,vocabulary,0,24e8030e-3e4f-4609-ad3d-a121de16b2d9_mult,1.8,Λιμάνι,Train station,fast,24e8030e-3e4f-4609-ad3d-a121de16b2d9_mult
+localhost,vocabulary,0,6cafdcfd-f7af-47ee-b4de-fcbc4b93df6b_mult,1.8,Στάση λεωφορείου,Laundromat,fast,6cafdcfd-f7af-47ee-b4de-fcbc4b93df6b_mult
+localhost,vocabulary,0,86787427-9c8f-4519-915e-7aae19a517b4_mult,2.2,Χώρος στάθμευσης,Park,medium,86787427-9c8f-4519-915e-7aae19a517b4_mult
+localhost,vocabulary,0,021769c1-cbd2-4d7c-b8dd-dd877f32034b_mult,1.2,Πάρκο,Bus station,fast,021769c1-cbd2-4d7c-b8dd-dd877f32034b_mult
+localhost,vocabulary,1,8c77c122-563c-4c68-86e3-384fa462af09_mult,1.9,Ζωολογικός κήπος,Zoo,fast,8c77c122-563c-4c68-86e3-384fa462af09_mult
+localhost,vocabulary,0,ef78646f-93b7-48cd-96e2-2dae30bbb09c_mult,2.2,Στάση λεωφορείου,School,medium,ef78646f-93b7-48cd-96e2-2dae30bbb09c_mult
+localhost,vocabulary,0,dc8aa179-5fa1-4462-ad56-25914a5ea6ee_mult,1.9,Ταχυδρομείο,House,fast,dc8aa179-5fa1-4462-ad56-25914a5ea6ee_mult
+localhost,vocabulary,0,f9db6717-de74-4c79-9704-c662d3bac231_mult,0.8,Στάση λεωφορείου,Apartment,fast,f9db6717-de74-4c79-9704-c662d3bac231_mult
+localhost,vocabulary,0,54be1781-af51-40b3-b658-0d36375a6bcd_mult,4.7,Πάρκο,Subway station,medium,54be1781-af51-40b3-b658-0d36375a6bcd_mult
+localhost,vocabulary,1,138975ab-1b87-46fa-9cf6-ad302ad6d53a_mult,6.2,Ηφαίστειο,Volcano,medium,138975ab-1b87-46fa-9cf6-ad302ad6d53a_mult
+localhost,vocabulary,1,a04c538f-1b75-4aaa-b831-5e18824d7f69_mult,5.1,Φαράγγι,Canyon,medium,a04c538f-1b75-4aaa-b831-5e18824d7f69_mult
+localhost,vocabulary,1,365dd0b9-e404-480e-9815-a19847f3d70d_mult,2.9,Δάσος,Forest,medium,365dd0b9-e404-480e-9815-a19847f3d70d_mult
+localhost,vocabulary,0,53fda87b-d311-4a65-8938-63935a0d551c_mult,4.8,Ποτάμι,Jungle,medium,53fda87b-d311-4a65-8938-63935a0d551c_mult
+localhost,vocabulary,0,224671bd-8d1f-4dea-9504-b9900fb80d79_mult,4.3,Ακτή,Marsh,medium,224671bd-8d1f-4dea-9504-b9900fb80d79_mult
+localhost,vocabulary,1,cf363d04-ad4a-46cd-a049-7c731cc36e4b_mult,3.3,Βουνό,Mountain,medium,cf363d04-ad4a-46cd-a049-7c731cc36e4b_mult
+localhost,vocabulary,0,2a438dfe-4db3-44bf-9fd3-99b47ce36902_mult,3.2,Έλος,Mountain range,medium,2a438dfe-4db3-44bf-9fd3-99b47ce36902_mult
+localhost,vocabulary,1,eb41de5a-41fb-4905-a87f-ddf0cd1682dd_mult,2.9,Λόφος,Hill,medium,eb41de5a-41fb-4905-a87f-ddf0cd1682dd_mult
+localhost,vocabulary,0,3d69d187-8092-46ea-96b7-8d459f57eb5e_mult,5.8,Βουνό,Waterfall,medium,3d69d187-8092-46ea-96b7-8d459f57eb5e_mult
+localhost,vocabulary,1,10dc7664-3bac-4bc8-89e7-bbcc0cf97281_mult,4.5,Ποτάμι,River,medium,10dc7664-3bac-4bc8-89e7-bbcc0cf97281_mult
+localhost,vocabulary,0,8e83c6c2-395a-45dc-8e5f-bb7e86e2e6a1_mult,3.6,Ωκεανός,Lake,medium,8e83c6c2-395a-45dc-8e5f-bb7e86e2e6a1_mult
+localhost,vocabulary,1,d5f35ae8-8300-45fc-8390-595d94cacd24_mult,5.8,Έρημος,Desert,medium,d5f35ae8-8300-45fc-8390-595d94cacd24_mult
+localhost,vocabulary,0,e8284039-2cb1-4758-81fc-ae56ed2514a9_mult,2.7,Έλος,Peninsula,medium,e8284039-2cb1-4758-81fc-ae56ed2514a9_mult
+localhost,vocabulary,1,88340f1e-11c4-4cc5-a771-4570fbe1ab46_mult,2.3,Νησί,Island,medium,88340f1e-11c4-4cc5-a771-4570fbe1ab46_mult
+localhost,vocabulary,1,04c9a985-1d70-443c-8009-eb9943228717_mult,4.2,Παραλία,Beach,medium,04c9a985-1d70-443c-8009-eb9943228717_mult
+localhost,vocabulary,1,d62e5a9f-6fca-4f61-93f1-c9869a8b6cc8_mult,1.7,Ωκεανός,Ocean,fast,d62e5a9f-6fca-4f61-93f1-c9869a8b6cc8_mult
+localhost,vocabulary,1,dde36ca9-1ac4-4f24-b33e-15d62a3fdebf_mult,2.6,Θάλασσα,Sea,medium,dde36ca9-1ac4-4f24-b33e-15d62a3fdebf_mult
+localhost,vocabulary,1,b1508476-14f2-4849-ba20-fa08bc5105df_mult,3.3,Κόλπος,Bay,medium,b1508476-14f2-4849-ba20-fa08bc5105df_mult
+localhost,vocabulary,1,d1ab76a3-4258-4cbe-9339-8d74dfe7da2c_mult,2,Ακτή,Coast,fast,d1ab76a3-4258-4cbe-9339-8d74dfe7da2c_mult
+localhost,vocabulary,1,3700cbbe-2d91-4c0e-80a7-8aea5c9eecb0_mult,10.8,Παππούδες,Grandparents,slow,3700cbbe-2d91-4c0e-80a7-8aea5c9eecb0_mult
+localhost,vocabulary,1,0ebe1f8c-747b-4d09-8583-28d71d8669f2_mult,4.9,Παππούς,Grandfather,medium,0ebe1f8c-747b-4d09-8583-28d71d8669f2_mult
+localhost,vocabulary,1,09df4773-fd2a-4946-a424-ede397feb632_mult,6.3,Γιαγιά,Grandmother,medium,09df4773-fd2a-4946-a424-ede397feb632_mult
+localhost,vocabulary,0,1651da58-4757-49a3-a052-d9cffad8f99b_mult,2.2,Ανιψιός,Grandson,medium,1651da58-4757-49a3-a052-d9cffad8f99b_mult
+localhost,vocabulary,1,fa754c31-82d5-4b59-b6a9-895beafc51dd_mult,10.7,Εγγονή,Granddaughter,slow,fa754c31-82d5-4b59-b6a9-895beafc51dd_mult
+localhost,vocabulary,1,fd506c65-3dfa-4f05-b01f-4692f6b719d4_mult,5.8,Εγγόνια,Grandchildren,medium,fd506c65-3dfa-4f05-b01f-4692f6b719d4_mult
+localhost,vocabulary,1,4b13def4-b0df-44d8-86f1-ac236f982522_mult,6.5,Εγγόνι,Grandchild,medium,4b13def4-b0df-44d8-86f1-ac236f982522_mult
+localhost,vocabulary,1,4d094ace-d1d4-4535-ada7-83eae573b351_mult,4.9,Θεία,Aunt,medium,4d094ace-d1d4-4535-ada7-83eae573b351_mult
+localhost,vocabulary,1,85915cff-dd7b-4539-baa0-f1185db0a086_mult,3.4,Θείος,Uncle,medium,85915cff-dd7b-4539-baa0-f1185db0a086_mult
+localhost,vocabulary,1,d709aade-2d9c-4429-8574-d377cc79df66_mult,6.5,Ξαδέρφη,Cousin (female),medium,d709aade-2d9c-4429-8574-d377cc79df66_mult
+localhost,vocabulary,1,5b9a4b61-1d36-4334-9b29-5a01f783fdc9_mult,4.1,Ξάδερφος,Cousin (male),medium,5b9a4b61-1d36-4334-9b29-5a01f783fdc9_mult
+localhost,vocabulary,1,a259f4e3-a6ce-4dff-afdb-dd43a27c0cac_mult,3.6,Ανιψιός,Nephew,medium,a259f4e3-a6ce-4dff-afdb-dd43a27c0cac_mult
+localhost,vocabulary,1,c6915806-f9fe-4a03-8f9f-5952d78b947d_mult,5.7,Ανιψιά,Niece,medium,c6915806-f9fe-4a03-8f9f-5952d78b947d_mult
+localhost,vocabulary,1,4da74fa5-f14d-4bfa-8d54-c5928c6c39d4_mult,3.8,Πεθερός,Father-in-law,medium,4da74fa5-f14d-4bfa-8d54-c5928c6c39d4_mult
+localhost,vocabulary,0,165d22a3-e395-461e-bc6a-b57db80a1f9a_mult,2.8,Συγγενής,Mother-in-law,medium,165d22a3-e395-461e-bc6a-b57db80a1f9a_mult
+localhost,vocabulary,0,d30f267e-7ae0-4f5e-9c67-3c3890b14b5b_mult,5.3,Παππούδες,Brother-in-law,medium,d30f267e-7ae0-4f5e-9c67-3c3890b14b5b_mult
+localhost,vocabulary,1,6a92e116-9fcc-4f8b-9067-76d44c38c68b_mult,10.6,Κουνιάδα,Sister-in-law,slow,6a92e116-9fcc-4f8b-9067-76d44c38c68b_mult
+localhost,vocabulary,0,d09d42fb-d5ed-4694-88a3-c9783261e00a_mult,5.2,Ξαδέρφη,Relative,medium,d09d42fb-d5ed-4694-88a3-c9783261e00a_mult
+localhost,vocabulary,0,6194cfde-70b2-4583-824e-3c4e8f60f9a9_mult,2.9,Τι είπες;,Please,medium,6194cfde-70b2-4583-824e-3c4e8f60f9a9_mult
+localhost,vocabulary,0,41bfb633-7f79-4455-9f3a-0cfa9b43a181_mult,3.7,Καταλαβαίνεις,Thank you,medium,41bfb633-7f79-4455-9f3a-0cfa9b43a181_mult
+localhost,vocabulary,0,788df590-a35b-4293-8348-f72fd198dd13_mult,3.2,Καταλαβαίνεις,Yes,medium,788df590-a35b-4293-8348-f72fd198dd13_mult
+localhost,vocabulary,0,1a7bcffd-ea6a-46db-84fa-17819032c847_mult,2.3,Πάλι,No,medium,1a7bcffd-ea6a-46db-84fa-17819032c847_mult
+localhost,vocabulary,0,d500d2be-93dc-4501-9c4c-83907a6f029f_mult,5.6,Μιλάτε αγγλικά;,How do you say?,medium,d500d2be-93dc-4501-9c4c-83907a6f029f_mult
+localhost,vocabulary,0,5e00226e-151f-4439-96fa-ffc96ed452fd_mult,2.1,Αργά,Speak slowly,medium,5e00226e-151f-4439-96fa-ffc96ed452fd_mult
+localhost,vocabulary,1,1ba93556-ab8a-40cf-b2eb-a704be2de642_mult,5.2,Επαναλάβετε παρακαλώ,Repeat please,medium,1ba93556-ab8a-40cf-b2eb-a704be2de642_mult
+localhost,vocabulary,0,f7ef3019-e30f-4e5c-8775-45963bde3e15_mult,5.5,Ναι,Again,medium,f7ef3019-e30f-4e5c-8775-45963bde3e15_mult
+localhost,vocabulary,0,e342d9eb-2fc1-418a-98ac-9789942124f7_mult,4.6,Ναι,Word for word,medium,e342d9eb-2fc1-418a-98ac-9789942124f7_mult
+localhost,vocabulary,0,1480a2b4-3d15-475e-94c1-07ba9ead7807_mult,4.3,Τι σημαίνει αυτό;,Slowly,medium,1480a2b4-3d15-475e-94c1-07ba9ead7807_mult
+localhost,vocabulary,0,c2228494-86af-4800-944b-7238e76eaf9c_mult,3.1,Καταλαβαίνεις,What did you say?,medium,c2228494-86af-4800-944b-7238e76eaf9c_mult
+localhost,vocabulary,0,37f6f565-3d30-4dba-9e3c-6cf6244ccf03_mult,8,Ναι,I don't understand,medium,37f6f565-3d30-4dba-9e3c-6cf6244ccf03_mult
+localhost,vocabulary,1,27a3312e-42e7-4173-a30e-17c052697272_mult,4.3,Καταλαβαίνεις,Do you understand?,medium,27a3312e-42e7-4173-a30e-17c052697272_mult
+localhost,vocabulary,0,935492b0-e285-47f6-b019-efdf7d9fed56_mult,4.6,Δεν ξέρω,What does it mean?,medium,935492b0-e285-47f6-b019-efdf7d9fed56_mult
+localhost,vocabulary,0,3d32e636-bdb5-4f36-a282-0ed5e1586497_mult,2.7,Ναι,I don’t know,medium,3d32e636-bdb5-4f36-a282-0ed5e1586497_mult
+localhost,vocabulary,1,3ea87426-aa4e-4363-9e8e-364d38c826fb_mult,4.7,Μιλάτε αγγλικά;,Do you speak English?,medium,3ea87426-aa4e-4363-9e8e-364d38c826fb_mult
+localhost,vocabulary,0,19ea58cc-ef77-45e5-a7ac-94b3146b99f0_mult,3.8,Δεν ξέρω,Yes a little,medium,19ea58cc-ef77-45e5-a7ac-94b3146b99f0_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,16.2,Εγώ,I,slow,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+localhost,vocabulary,1,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,2.2,Εσύ,You (singular),medium,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+localhost,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,2,Αυτός,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+localhost,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,1.9,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+localhost,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,2.5,Εμείς,We,medium,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+localhost,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,2,Εγώ,You (plural),fast,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+localhost,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_mult,2.4,Αυτοί,They,medium,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,1,589824a9-6046-4b1a-9feb-69e988af7500_mult,6.6,Σέρφινγκ,Surfing,medium,589824a9-6046-4b1a-9feb-69e988af7500_mult
+localhost,vocabulary,0,626b3ab4-addf-4a07-b138-3657d04ad51e_mult,11.4,Σκι,Swimming,slow,626b3ab4-addf-4a07-b138-3657d04ad51e_mult
+localhost,vocabulary,1,a63826a7-d6fd-499c-ad0e-162b0be06dea_mult,2.7,Καταδύσεις,Diving,medium,a63826a7-d6fd-499c-ad0e-162b0be06dea_mult
+localhost,vocabulary,1,c910d957-e593-4977-938d-74febffb54e5_mult,5.2,Ποδηλασία,Cycling,medium,c910d957-e593-4977-938d-74febffb54e5_mult
+localhost,vocabulary,1,4cb46743-6f54-447a-8d37-aab983ee8321_mult,2.9,Τοξοβολία,Archery,medium,4cb46743-6f54-447a-8d37-aab983ee8321_mult
+localhost,vocabulary,1,ec75fa63-2a78-4f86-b58b-1060cc1da09b_mult,4.5,Ιστιοπλοΐα,Sailing,medium,ec75fa63-2a78-4f86-b58b-1060cc1da09b_mult
+localhost,vocabulary,1,6ab169bc-40ea-4098-ae52-138ea690b66d_mult,10.5,Ξιφασκία,Fencing,slow,6ab169bc-40ea-4098-ae52-138ea690b66d_mult
+localhost,vocabulary,1,25f290de-2c39-4930-a1c8-cdde5a9f349b_mult,4.5,Σκι,Skiing,medium,25f290de-2c39-4930-a1c8-cdde5a9f349b_mult
+localhost,vocabulary,1,788bdc1d-c6af-4ca4-8ed7-aef53435ffd5_mult,10.6,Σνόουμπορντ,Snow boarding,slow,788bdc1d-c6af-4ca4-8ed7-aef53435ffd5_mult
+localhost,vocabulary,1,92eb58b7-6595-42a8-b337-7cea995b74f0_mult,8.7,Πατινάζ,Ice skating,medium,92eb58b7-6595-42a8-b337-7cea995b74f0_mult
+localhost,vocabulary,1,ac88210e-47f0-4ed0-bb36-a4ee5b56fb12_mult,7.1,Μποξ,Boxing,medium,ac88210e-47f0-4ed0-bb36-a4ee5b56fb12_mult
+localhost,vocabulary,0,f097fa8a-6a4b-414a-871b-1644026f2d44_mult,1,Ποδηλασία,Running,fast,f097fa8a-6a4b-414a-871b-1644026f2d44_mult
+localhost,vocabulary,1,e7d15969-e8ef-400b-b847-a87eb795d2e1_mult,3.1,Άρση Βαρών,Weightlifting,medium,e7d15969-e8ef-400b-b847-a87eb795d2e1_mult
+localhost,vocabulary,0,fd9b2fb7-7567-414f-85e9-bc263c196149_mult,5.3,Τραπεζάκι,Carry-on bag,medium,fd9b2fb7-7567-414f-85e9-bc263c196149_mult
+localhost,vocabulary,0,d500f2aa-b0f3-4364-bd6d-e481a4d8c12b_mult,3.9,Μπορώ να έχω μια κουβέρτα;,Luggage compartment,medium,d500f2aa-b0f3-4364-bd6d-e481a4d8c12b_mult
+localhost,vocabulary,0,c6812530-863e-4371-872e-741ce65d600f_mult,1,Σωσίβιο,Tray table,fast,c6812530-863e-4371-872e-741ce65d600f_mult
+localhost,vocabulary,1,44a21043-c209-4ae8-b69f-3c35af5e6b0e_mult,3.5,Διάδρομος,Aisle,medium,44a21043-c209-4ae8-b69f-3c35af5e6b0e_mult
+localhost,vocabulary,0,37c8aa0e-4071-4f57-8836-edc33ab33c74_mult,2.6,Τι ώρα θα προσγειωθούμε;,Row,medium,37c8aa0e-4071-4f57-8836-edc33ab33c74_mult
+localhost,vocabulary,0,7a11746c-bf94-4a2d-8dda-314591c687bd_mult,1.9,Απογείωση,Seat,fast,7a11746c-bf94-4a2d-8dda-314591c687bd_mult
+localhost,vocabulary,0,93b6971d-739b-4831-9ddf-d81d9d1fe8d9_mult,0.9,Μπορώ να έχω μια κουβέρτα;,Headphones,fast,93b6971d-739b-4831-9ddf-d81d9d1fe8d9_mult
+localhost,vocabulary,0,f8bf9e50-dafc-4c0d-9b6d-c8e7287e2226_mult,2.8,Σειρά,Seatbelt,medium,f8bf9e50-dafc-4c0d-9b6d-c8e7287e2226_mult
+localhost,vocabulary,1,f16ab796-418b-4521-a222-6c976ce56a66_mult,8.2,Υψόμετρο,Altitude,medium,f16ab796-418b-4521-a222-6c976ce56a66_mult
+localhost,vocabulary,0,9c469b12-082d-4172-9e98-b1e2dc0d1d8e_mult,18.6,Προσγείωση,Emergency exit,slow,9c469b12-082d-4172-9e98-b1e2dc0d1d8e_mult
+localhost,vocabulary,0,eab38c33-3b11-4e05-b742-72622f223683_mult,1.1,Δέστε τη ζώνη ασφαλείας σας,Life vest,fast,eab38c33-3b11-4e05-b742-72622f223683_mult
+localhost,vocabulary,0,2f8367d6-5912-4e95-8e50-0ae199fee52f_mult,1.9,Υψόμετρο,Wing,fast,2f8367d6-5912-4e95-8e50-0ae199fee52f_mult
+localhost,vocabulary,0,fe097940-d2ca-4c0c-95ac-207cb42de406_mult,4.1,Κάθισμα,Tail,medium,fe097940-d2ca-4c0c-95ac-207cb42de406_mult
+localhost,vocabulary,0,33468bab-120b-4f80-b3bd-6fbacf039aa1_mult,4.7,Δέστε τη ζώνη ασφαλείας σας,Take-off,medium,33468bab-120b-4f80-b3bd-6fbacf039aa1_mult
+localhost,vocabulary,0,f2e9037b-67ec-4a88-ab2a-975779263afd_mult,8.3,Ουρά,Landing,medium,f2e9037b-67ec-4a88-ab2a-975779263afd_mult
+localhost,vocabulary,0,0ff1ccf2-ccef-4166-a0cc-34e3d9a1a709_mult,1.5,Πτέρυγα,Runway,fast,0ff1ccf2-ccef-4166-a0cc-34e3d9a1a709_mult
+localhost,vocabulary,0,b93b3b80-a86d-47fe-9b04-f8d8c44cc97f_mult,0.6,Πτέρυγα,Fasten your seatbelt,fast,b93b3b80-a86d-47fe-9b04-f8d8c44cc97f_mult
+localhost,vocabulary,0,ce503e10-10bb-4a42-88b4-f3801e1e1865_mult,1.6,Χώρος αποσκευών,May I have a blanket?,fast,ce503e10-10bb-4a42-88b4-f3801e1e1865_mult
+localhost,vocabulary,0,1decb761-8e05-4455-8bf9-938837e968e6_mult,0.8,Ζώνη ασφαλείας,What time are we going to land?,fast,1decb761-8e05-4455-8bf9-938837e968e6_mult
+localhost,vocabulary,0,5dbb1e86-993f-46e3-8e77-a87b476e2739_mult,12.3,Δαχτυλίδι,Jewelry,slow,5dbb1e86-993f-46e3-8e77-a87b476e2739_mult
+localhost,vocabulary,0,95ec56c4-55b5-4320-9d5c-374c292ead59_mult,0.4,Αλυσίδα,Wristwatch,fast,95ec56c4-55b5-4320-9d5c-374c292ead59_mult
+localhost,vocabulary,0,52db59aa-c061-4946-8fbf-4659da49614c_mult,1.7,Ρολόι,Brooch,fast,52db59aa-c061-4946-8fbf-4659da49614c_mult
+localhost,vocabulary,0,47dd5e29-c27d-4168-b83c-36bc0cab1692_mult,0.8,Καρφίτσα γραβάτας,Necklace,fast,47dd5e29-c27d-4168-b83c-36bc0cab1692_mult
+localhost,vocabulary,0,237f08f8-5bd1-4892-a34f-41a9bed62ca6_mult,0.7,Κολιέ,Chain,fast,237f08f8-5bd1-4892-a34f-41a9bed62ca6_mult
+localhost,vocabulary,0,81d90453-2a79-4c69-824a-59846d061aa4_mult,0.7,Γυαλιά,Earrings,fast,81d90453-2a79-4c69-824a-59846d061aa4_mult
+localhost,vocabulary,0,0ac7074c-7e70-4072-8037-02a67c36e8b8_mult,0.7,Μπρελόκ,Ring,fast,0ac7074c-7e70-4072-8037-02a67c36e8b8_mult
+localhost,vocabulary,0,660193c8-eb6d-4fe9-ad74-3460bda1a19a_mult,3.8,Μανικετόκουμπο,Bracelet,medium,660193c8-eb6d-4fe9-ad74-3460bda1a19a_mult
+localhost,vocabulary,0,6648bd17-efd7-4438-9586-1ea8c896481c_mult,0.6,Γυαλιά,Cuff link,fast,6648bd17-efd7-4438-9586-1ea8c896481c_mult
+localhost,vocabulary,1,31a46215-246d-4fd8-8488-798a96853a08_mult,0.8,Καρφίτσα γραβάτας,Tie pin,fast,31a46215-246d-4fd8-8488-798a96853a08_mult
+localhost,vocabulary,0,dacb7455-3bb6-4a97-842b-53402497eea5_mult,0.7,Μανικετόκουμπο,Glasses,fast,dacb7455-3bb6-4a97-842b-53402497eea5_mult
+localhost,vocabulary,0,7bf05b00-b8b3-4707-be1b-184841cb2214_mult,0.8,Κολιέ,Keychain,fast,7bf05b00-b8b3-4707-be1b-184841cb2214_mult
+localhost,vocabulary,0,f2e711e0-97f2-4857-b8a3-9c1e37e3da3c_mult,25.1,Γονείς,Mother,slow,f2e711e0-97f2-4857-b8a3-9c1e37e3da3c_mult
+localhost,vocabulary,0,1baabb6b-76fd-4456-88a2-bea49ae76604_mult,2.3,Αδερφός,Father,medium,1baabb6b-76fd-4456-88a2-bea49ae76604_mult
+localhost,vocabulary,0,934981b4-1298-49e3-8c40-c8ac43c879fc_mult,1.5,Ετεροθαλής αδερφός,Brother,fast,934981b4-1298-49e3-8c40-c8ac43c879fc_mult
+localhost,vocabulary,0,45e106ff-b2ae-4233-87b0-2a9c61b34f12_mult,2.1,Γιός,Sister,medium,45e106ff-b2ae-4233-87b0-2a9c61b34f12_mult
+localhost,vocabulary,0,64ad7b91-d043-427c-97bd-80b8e14288c4_mult,1.2,Γονείς,Son,fast,64ad7b91-d043-427c-97bd-80b8e14288c4_mult
+localhost,vocabulary,1,e5821a42-5f8a-4412-8e2c-f6f8e4fd9195_mult,3.4,Κόρη,Daughter,medium,e5821a42-5f8a-4412-8e2c-f6f8e4fd9195_mult
+localhost,vocabulary,0,14e8ecf5-100a-441a-8299-a1b6bfad4b04_mult,3.6,Κόρη,Parents,medium,14e8ecf5-100a-441a-8299-a1b6bfad4b04_mult
+localhost,vocabulary,0,846a0126-2c75-4ce3-8db4-c27544c42f46_mult,2.6,Πατέρας,Children,medium,846a0126-2c75-4ce3-8db4-c27544c42f46_mult
+localhost,vocabulary,0,31b23b1c-7fb0-4775-a399-22e062821ead_mult,2.7,Παιδιά,Child,medium,31b23b1c-7fb0-4775-a399-22e062821ead_mult
+localhost,vocabulary,1,adf97ba1-672d-4aff-b4ad-23cf9895596d_mult,3,Μητριά,Stepmother,medium,adf97ba1-672d-4aff-b4ad-23cf9895596d_mult
+localhost,vocabulary,0,bb66ecf9-1e7a-45ef-ac83-e86dfc60fd9b_mult,2.2,Γιός,Stepfather,medium,bb66ecf9-1e7a-45ef-ac83-e86dfc60fd9b_mult
+localhost,vocabulary,0,dd045e11-0cb1-4f46-9336-1d7e89c9cb54_mult,2,Κόρη,Stepsister,fast,dd045e11-0cb1-4f46-9336-1d7e89c9cb54_mult
+localhost,vocabulary,1,e8dd4a03-69f4-48b4-b37b-f7c62488ce04_mult,1.5,Ετεροθαλής αδερφός,Stepbrother,fast,e8dd4a03-69f4-48b4-b37b-f7c62488ce04_mult
+localhost,vocabulary,0,dac6ffdd-5f2a-43f0-805b-370fd3e71302_mult,0.7,Αδερφός,Son-in-law,fast,dac6ffdd-5f2a-43f0-805b-370fd3e71302_mult
+localhost,vocabulary,0,1fc19c01-43cf-4709-9373-94b6fff81f65_mult,1.7,Γονείς,Daughter-in-law,fast,1fc19c01-43cf-4709-9373-94b6fff81f65_mult
+localhost,vocabulary,1,bd004ce8-11db-41f4-a567-ebea834721d8_mult,0.8,σύζυγος,Wife,fast,bd004ce8-11db-41f4-a567-ebea834721d8_mult
+localhost,vocabulary,1,d3632c40-278b-4969-bfe5-c7ce1c2b216a_mult,1.4,σύζυγος,Husband,fast,d3632c40-278b-4969-bfe5-c7ce1c2b216a_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,3,Εγώ,I,medium,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+localhost,vocabulary,1,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,1.4,Εσύ,You (singular),fast,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+localhost,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,1.8,Αυτός,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+localhost,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,1.2,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+localhost,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,2.2,Εμείς,We,medium,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+localhost,vocabulary,1,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,2,Εσείς,You (plural),fast,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+localhost,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_mult,1.9,Αυτοί,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,1,bb409fe0-b173-4535-acb4-1a312a2a126e_mult,28.8,Μεταφορά,Transportation,slow,bb409fe0-b173-4535-acb4-1a312a2a126e_mult
+localhost,vocabulary,1,c37430e7-ce3a-4078-97cf-2ab627d35a95_mult,3,Ελικόπτερο,Helicopter,medium,c37430e7-ce3a-4078-97cf-2ab627d35a95_mult
+localhost,vocabulary,1,b966faed-2555-4a54-9882-98227d3a4bdd_mult,4.3,Αεροπλάνο,Airplane,medium,b966faed-2555-4a54-9882-98227d3a4bdd_mult
+localhost,vocabulary,1,41870dfc-e347-4631-9bc1-563343d94f77_mult,3.1,Τρένο,Train,medium,41870dfc-e347-4631-9bc1-563343d94f77_mult
+localhost,vocabulary,1,7aff284f-c959-45b5-8702-c04ab20d0684_mult,2.6,Βάρκα,Boat,medium,7aff284f-c959-45b5-8702-c04ab20d0684_mult
+localhost,vocabulary,1,c9c211dd-19a1-4776-b429-abc7ae36f15a_mult,2.3,Ποδήλατο,Bicycle,medium,c9c211dd-19a1-4776-b429-abc7ae36f15a_mult
+localhost,vocabulary,1,4903cf38-a79f-446a-9ec9-8c82c953c259_mult,2.3,Φορτηγό,Truck,medium,4903cf38-a79f-446a-9ec9-8c82c953c259_mult
+localhost,vocabulary,1,b8439e10-4d6d-4673-9750-845add8068b4_mult,1.7,Αυτοκίνητο,Car,fast,b8439e10-4d6d-4673-9750-845add8068b4_mult
+localhost,vocabulary,1,946f6ac8-0cc3-463b-acf5-ebf016c0593b_mult,3.1,Λεωφορείο,Bus,medium,946f6ac8-0cc3-463b-acf5-ebf016c0593b_mult
+localhost,vocabulary,1,b040a6e3-272e-40e2-8ed0-a5b0099a5e6a_mult,4,Τραμ,Tram,medium,b040a6e3-272e-40e2-8ed0-a5b0099a5e6a_mult
+localhost,vocabulary,1,14c9a868-e956-4b5d-b1e8-3f6def7d905e_mult,5.1,Μηχανή,Motorcycle,medium,14c9a868-e956-4b5d-b1e8-3f6def7d905e_mult
+localhost,vocabulary,1,ef3a3cbb-2076-46d3-bc59-52c9c2009d52_mult,4.3,Σκούτερ,Scooter,medium,ef3a3cbb-2076-46d3-bc59-52c9c2009d52_mult
+localhost,vocabulary,1,768774b0-01e3-41cc-9ac3-19521967699f_mult,2.4,Πλοίο,Ferry,medium,768774b0-01e3-41cc-9ac3-19521967699f_mult
+localhost,vocabulary,1,95a362a8-ff9b-4590-9351-7f5d70b26c64_mult,3.3,Ταξί,Taxi,medium,95a362a8-ff9b-4590-9351-7f5d70b26c64_mult
+localhost,vocabulary,1,246bd79d-6fd9-4d78-af3b-42e5855862af_mult,4.1,Μετρό,Subway,medium,246bd79d-6fd9-4d78-af3b-42e5855862af_mult
+localhost,vocabulary,1,a734f9ca-a9e8-44f0-be6e-4e94aead064b_mult,3.3,Ασθενοφόρο,Ambulance,medium,a734f9ca-a9e8-44f0-be6e-4e94aead064b_mult
+localhost,vocabulary,1,6869cac5-5569-4cb7-96a3-9628be1520ba_mult,2.1,Πυροσβεστικό,Fire truck,medium,6869cac5-5569-4cb7-96a3-9628be1520ba_mult
+localhost,vocabulary,1,5cad54b8-4d4c-49e4-943f-0ae40b3d4b35_mult,5.6,Αμάξι αστυνομίας,Police car,medium,5cad54b8-4d4c-49e4-943f-0ae40b3d4b35_mult
+localhost,vocabulary,1,92d71290-d5d2-4b90-a9d1-7611b4cf6418_mult,2.2,Τρακτέρ,Tractor,medium,92d71290-d5d2-4b90-a9d1-7611b4cf6418_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult,30,Εγώ,I,slow,02ef263b-b093-4af2-ae2f-28e070b5ed32_mult
+localhost,vocabulary,1,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult,4.4,Εσύ,You (singular),medium,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_mult
+localhost,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_mult,1.8,Αυτός,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_mult
+localhost,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult,1.2,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_mult
+localhost,vocabulary,0,4284913e-e73c-4eb3-b04a-e3945f89d978_mult,1.7,Αυτοί,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_mult
+localhost,vocabulary,0,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult,2,Εμείς,You (plural),fast,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_mult
+localhost,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_mult,2.6,Αυτοί,They,medium,485b9992-128c-481d-9fda-51c6453d2e5d_mult
+localhost,vocabulary,1,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching,1.8,Εγώ,I,fast,02ef263b-b093-4af2-ae2f-28e070b5ed32_matching
+localhost,vocabulary,1,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching,2.2,Εσύ,You (singular),medium,05dbe4e3-d26e-48ed-a452-c67f6a5ce074_matching
+localhost,vocabulary,1,45232413-dc71-49f4-8ba1-4d720fff42d5_matching,1.3,Αυτός,He,fast,45232413-dc71-49f4-8ba1-4d720fff42d5_matching
+localhost,vocabulary,1,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching,2,Αυτή,She,fast,af210104-f23f-4c8e-988e-7f738ec9d3c3_matching
+localhost,vocabulary,1,4284913e-e73c-4eb3-b04a-e3945f89d978_matching,1.9,Εμείς,We,fast,4284913e-e73c-4eb3-b04a-e3945f89d978_matching
+localhost,vocabulary,1,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching,2.6,Εσείς,You (plural),medium,894ee1bb-15dd-4494-bbdb-27f4ad21d9a4_matching
+localhost,vocabulary,1,485b9992-128c-481d-9fda-51c6453d2e5d_matching,1.8,Αυτοί,They,fast,485b9992-128c-481d-9fda-51c6453d2e5d_matching
+localhost,vocabulary,1,b743b0a1-9345-421d-97f0-73625bad9775_fillBlanks,2.8,Εγώ,I am very happy today!,medium,b743b0a1-9345-421d-97f0-73625bad9775_fillBlanks
+localhost,vocabulary,1,78a18cdb-4ea2-4971-a476-d748d7e553f2_fillBlanks,4,Αυτή,She is my best friend.,medium,78a18cdb-4ea2-4971-a476-d748d7e553f2_fillBlanks
+localhost,vocabulary,1,80a571f8-0227-4aaf-b26f-8f79c6227704_fillBlanks,3.2,Εμείς,We are going to the park together.,medium,80a571f8-0227-4aaf-b26f-8f79c6227704_fillBlanks
+localhost,vocabulary,1,995c363a-3a96-4382-9531-667e43864d8a_fillBlanks,5.5,Εσείς,You are my classmates.,medium,995c363a-3a96-4382-9531-667e43864d8a_fillBlanks
+localhost,vocabulary,1,fd90b00d-f30d-43b1-9d4a-5e6097f83edb_fillBlanks,3.9,Αυτός,He is playing football.,medium,fd90b00d-f30d-43b1-9d4a-5e6097f83edb_fillBlanks
+localhost,vocabulary,1,c565a281-18ef-4a0a-9540-ccacf7363923_fillBlanks,5.4,Αυτοί,They are studying for the test.,medium,c565a281-18ef-4a0a-9540-ccacf7363923_fillBlanks
+localhost,vocabulary,1,95ec80e7-4b72-4716-933f-029fcf55745c_fillBlanks,4,Εσύ,You are my best friend.,medium,95ec80e7-4b72-4716-933f-029fcf55745c_fillBlanks
+localhost,vocabulary,0,3d116cf7-4738-41e8-a962-8ca9a9be743f_mult,7.7,Κάρτα γενεθλίων,Birthday,medium,3d116cf7-4738-41e8-a962-8ca9a9be743f_mult
+localhost,vocabulary,0,ec22baa6-3be1-48c1-a09e-83cdbb4b891e_mult,2.2,Δεν θέλω να χορέψουμε,Anniversary,medium,ec22baa6-3be1-48c1-a09e-83cdbb4b891e_mult
+localhost,vocabulary,0,5c02dbad-9094-4544-b6ae-6928a4294f8d_mult,2.8,Γενέθλια,Holiday,medium,5c02dbad-9094-4544-b6ae-6928a4294f8d_mult
+localhost,vocabulary,1,42093901-dd9f-4f02-89dd-c61bd92a8ec9_mult,1.7,Κηδεία,Funeral,fast,42093901-dd9f-4f02-89dd-c61bd92a8ec9_mult
+localhost,vocabulary,1,1977457e-4778-4ed8-a6d1-675c196abf86_mult,1.4,Αποφοίτηση,Graduation,fast,1977457e-4778-4ed8-a6d1-675c196abf86_mult
+localhost,vocabulary,1,da624ba5-7512-448c-936e-daa3ef972e5e_mult,1.8,Γάμος,Wedding,fast,da624ba5-7512-448c-936e-daa3ef972e5e_mult
+localhost,vocabulary,1,f45bd682-d81c-49e6-b66e-2b1beb0986eb_mult,2.1,Καλή πρωτοχρονιά!,Happy New Year,medium,f45bd682-d81c-49e6-b66e-2b1beb0986eb_mult
+localhost,vocabulary,1,c35bc69e-20f3-4b0f-9461-0f38693837ff_mult,3.3,Χρόνια πολλά,Happy birthday,medium,c35bc69e-20f3-4b0f-9461-0f38693837ff_mult
+localhost,vocabulary,1,13750e9c-4ac7-45c5-8a6a-f364d8ae69db_mult,1.5,Συγχαρητήρια,Congratulations,fast,13750e9c-4ac7-45c5-8a6a-f364d8ae69db_mult
+localhost,vocabulary,0,f364a682-5633-4324-bd5a-23388ea853e4_mult,2.3,Καλή πρωτοχρονιά!,Good luck,medium,f364a682-5633-4324-bd5a-23388ea853e4_mult
+localhost,vocabulary,0,510d4caa-3586-4aec-b086-cdc2dea18354_mult,1.2,Καλή τύχη,Gift,fast,510d4caa-3586-4aec-b086-cdc2dea18354_mult
+localhost,vocabulary,1,e553e597-d02a-4cdf-b360-c52de34c9a3f_mult,2.5,Πάρτι,Party,medium,e553e597-d02a-4cdf-b360-c52de34c9a3f_mult
+localhost,vocabulary,1,45893e86-17ea-4204-abcb-57114c35fa3f_mult,2.5,Κάρτα γενεθλίων,Birthday card,medium,45893e86-17ea-4204-abcb-57114c35fa3f_mult
+localhost,vocabulary,1,7466ed98-4b3a-4da1-9a06-0db0eef812d8_mult,3.5,Γιορτή,Celebration,medium,7466ed98-4b3a-4da1-9a06-0db0eef812d8_mult
+localhost,vocabulary,0,1530750d-63d3-4bb2-b144-837e088b3f6c_mult,2.2,Θέλεις να χορέψουμε;,Music,medium,1530750d-63d3-4bb2-b144-837e088b3f6c_mult
+localhost,vocabulary,1,478c564c-56e8-4347-b584-2abb1c503501_mult,2,Θέλεις να χορέψουμε;,Do you want to dance?,fast,478c564c-56e8-4347-b584-2abb1c503501_mult
+localhost,vocabulary,1,f698a813-e3f8-4bf9-a5ce-ca2138eccad1_mult,4,Ναι θέλω να χορέψουμε,Yes I want to dance,medium,f698a813-e3f8-4bf9-a5ce-ca2138eccad1_mult
+localhost,vocabulary,0,9a92db24-d42f-4e06-89da-915e4376cd53_mult,1.7,Συγχαρητήρια,I don’t want to dance,fast,9a92db24-d42f-4e06-89da-915e4376cd53_mult
+localhost,vocabulary,0,6a5ec50c-b889-449f-9018-718a9ed0b01c_mult,1.8,Επέτειος,Will you marry me?,fast,6a5ec50c-b889-449f-9018-718a9ed0b01c_mult
+localhost,vocabulary,1,f2e711e0-97f2-4857-b8a3-9c1e37e3da3c_mult,13,Μητέρα,Mother,slow,f2e711e0-97f2-4857-b8a3-9c1e37e3da3c_mult
+localhost,vocabulary,1,1baabb6b-76fd-4456-88a2-bea49ae76604_mult,2.3,Πατέρας,Father,medium,1baabb6b-76fd-4456-88a2-bea49ae76604_mult
+localhost,vocabulary,1,934981b4-1298-49e3-8c40-c8ac43c879fc_mult,2.3,Αδερφός,Brother,medium,934981b4-1298-49e3-8c40-c8ac43c879fc_mult
+localhost,vocabulary,1,45e106ff-b2ae-4233-87b0-2a9c61b34f12_mult,1.5,Αδερφή,Sister,fast,45e106ff-b2ae-4233-87b0-2a9c61b34f12_mult
+localhost,vocabulary,1,64ad7b91-d043-427c-97bd-80b8e14288c4_mult,2.9,Γιός,Son,medium,64ad7b91-d043-427c-97bd-80b8e14288c4_mult
+localhost,vocabulary,1,e5821a42-5f8a-4412-8e2c-f6f8e4fd9195_mult,1.5,Κόρη,Daughter,fast,e5821a42-5f8a-4412-8e2c-f6f8e4fd9195_mult
+localhost,vocabulary,1,14e8ecf5-100a-441a-8299-a1b6bfad4b04_mult,3.2,Γονείς,Parents,medium,14e8ecf5-100a-441a-8299-a1b6bfad4b04_mult
+localhost,vocabulary,1,846a0126-2c75-4ce3-8db4-c27544c42f46_mult,2.8,Παιδιά,Children,medium,846a0126-2c75-4ce3-8db4-c27544c42f46_mult
+localhost,vocabulary,1,31b23b1c-7fb0-4775-a399-22e062821ead_mult,3.9,Παιδί,Child,medium,31b23b1c-7fb0-4775-a399-22e062821ead_mult
+localhost,vocabulary,1,adf97ba1-672d-4aff-b4ad-23cf9895596d_mult,3.7,Μητριά,Stepmother,medium,adf97ba1-672d-4aff-b4ad-23cf9895596d_mult
+localhost,vocabulary,0,bb66ecf9-1e7a-45ef-ac83-e86dfc60fd9b_mult,1.3,Ετεροθαλής αδερφός,Stepfather,fast,bb66ecf9-1e7a-45ef-ac83-e86dfc60fd9b_mult
+localhost,vocabulary,0,dd045e11-0cb1-4f46-9336-1d7e89c9cb54_mult,2.3,Ετεροθαλής αδερφός,Stepsister,medium,dd045e11-0cb1-4f46-9336-1d7e89c9cb54_mult
+localhost,vocabulary,1,e8dd4a03-69f4-48b4-b37b-f7c62488ce04_mult,3.7,Ετεροθαλής αδερφός,Stepbrother,medium,e8dd4a03-69f4-48b4-b37b-f7c62488ce04_mult
+localhost,vocabulary,1,dac6ffdd-5f2a-43f0-805b-370fd3e71302_mult,6.2,Γαμπρός,Son-in-law,medium,dac6ffdd-5f2a-43f0-805b-370fd3e71302_mult
+localhost,vocabulary,1,1fc19c01-43cf-4709-9373-94b6fff81f65_mult,2.5,Νύφη,Daughter-in-law,medium,1fc19c01-43cf-4709-9373-94b6fff81f65_mult
+localhost,vocabulary,1,bd004ce8-11db-41f4-a567-ebea834721d8_mult,5.7,σύζυγος,Wife,medium,bd004ce8-11db-41f4-a567-ebea834721d8_mult
+localhost,vocabulary,1,d3632c40-278b-4969-bfe5-c7ce1c2b216a_mult,4.9,σύζυγος,Husband,medium,d3632c40-278b-4969-bfe5-c7ce1c2b216a_mult
+localhost,vocabulary,1,3d116cf7-4738-41e8-a962-8ca9a9be743f_mult,3.7,Γενέθλια,Birthday,medium,3d116cf7-4738-41e8-a962-8ca9a9be743f_mult
+localhost,vocabulary,1,ec22baa6-3be1-48c1-a09e-83cdbb4b891e_mult,1.4,Επέτειος,Anniversary,fast,ec22baa6-3be1-48c1-a09e-83cdbb4b891e_mult
+localhost,vocabulary,0,5c02dbad-9094-4544-b6ae-6928a4294f8d_mult,1.7,Καλή τύχη,Holiday,fast,5c02dbad-9094-4544-b6ae-6928a4294f8d_mult
+localhost,vocabulary,1,42093901-dd9f-4f02-89dd-c61bd92a8ec9_mult,4.1,Κηδεία,Funeral,medium,42093901-dd9f-4f02-89dd-c61bd92a8ec9_mult
+localhost,vocabulary,1,1977457e-4778-4ed8-a6d1-675c196abf86_mult,2,Αποφοίτηση,Graduation,fast,1977457e-4778-4ed8-a6d1-675c196abf86_mult
+localhost,vocabulary,1,da624ba5-7512-448c-936e-daa3ef972e5e_mult,2.7,Γάμος,Wedding,medium,da624ba5-7512-448c-936e-daa3ef972e5e_mult
+localhost,vocabulary,1,f45bd682-d81c-49e6-b66e-2b1beb0986eb_mult,3,Καλή πρωτοχρονιά!,Happy New Year,medium,f45bd682-d81c-49e6-b66e-2b1beb0986eb_mult
+localhost,vocabulary,1,c35bc69e-20f3-4b0f-9461-0f38693837ff_mult,3.7,Χρόνια πολλά,Happy birthday,medium,c35bc69e-20f3-4b0f-9461-0f38693837ff_mult
+localhost,vocabulary,0,13750e9c-4ac7-45c5-8a6a-f364d8ae69db_mult,3.1,Επέτειος,Congratulations,medium,13750e9c-4ac7-45c5-8a6a-f364d8ae69db_mult
+localhost,vocabulary,1,f364a682-5633-4324-bd5a-23388ea853e4_mult,2.9,Καλή τύχη,Good luck,medium,f364a682-5633-4324-bd5a-23388ea853e4_mult
+localhost,vocabulary,1,510d4caa-3586-4aec-b086-cdc2dea18354_mult,2.6,Δώρο,Gift,medium,510d4caa-3586-4aec-b086-cdc2dea18354_mult
+localhost,vocabulary,1,e553e597-d02a-4cdf-b360-c52de34c9a3f_mult,4.4,Πάρτι,Party,medium,e553e597-d02a-4cdf-b360-c52de34c9a3f_mult
+localhost,vocabulary,1,45893e86-17ea-4204-abcb-57114c35fa3f_mult,3.3,Κάρτα γενεθλίων,Birthday card,medium,45893e86-17ea-4204-abcb-57114c35fa3f_mult
+localhost,vocabulary,0,7466ed98-4b3a-4da1-9a06-0db0eef812d8_mult,2.4,Καλή πρωτοχρονιά!,Celebration,medium,7466ed98-4b3a-4da1-9a06-0db0eef812d8_mult
+localhost,vocabulary,1,1530750d-63d3-4bb2-b144-837e088b3f6c_mult,1.7,Μουσική,Music,fast,1530750d-63d3-4bb2-b144-837e088b3f6c_mult
+localhost,vocabulary,1,478c564c-56e8-4347-b584-2abb1c503501_mult,1.8,Θέλεις να χορέψουμε;,Do you want to dance?,fast,478c564c-56e8-4347-b584-2abb1c503501_mult
+localhost,vocabulary,1,f698a813-e3f8-4bf9-a5ce-ca2138eccad1_mult,3.4,Ναι θέλω να χορέψουμε,Yes I want to dance,medium,f698a813-e3f8-4bf9-a5ce-ca2138eccad1_mult
+localhost,vocabulary,1,9a92db24-d42f-4e06-89da-915e4376cd53_mult,3.1,Δεν θέλω να χορέψουμε,I don’t want to dance,medium,9a92db24-d42f-4e06-89da-915e4376cd53_mult
+localhost,vocabulary,1,6a5ec50c-b889-449f-9018-718a9ed0b01c_mult,4.7,Θα με παντρευτείς;,Will you marry me?,medium,6a5ec50c-b889-449f-9018-718a9ed0b01c_mult
+localhost,vocabulary,1,100661f2-d1db-42e2-b935-83a4ee834068_mult,6.1,Γαλαξίας,Galaxy,medium,100661f2-d1db-42e2-b935-83a4ee834068_mult
+localhost,vocabulary,1,c4afc98d-9d03-4cba-a2f9-957e7fe2fd49_mult,1.5,Αστέρι,Star,fast,c4afc98d-9d03-4cba-a2f9-957e7fe2fd49_mult
+localhost,vocabulary,1,1bf9a976-cddf-4ab8-8098-699a5c941073_mult,1.6,Φεγγάρι,Moon,fast,1bf9a976-cddf-4ab8-8098-699a5c941073_mult
+localhost,vocabulary,1,3f1da3b2-31d5-4aad-bb51-2c723879c77b_mult,2.7,Πλανήτης,Planet,medium,3f1da3b2-31d5-4aad-bb51-2c723879c77b_mult
+localhost,vocabulary,1,0f5371f8-2611-4215-96d6-aa44a3d03814_mult,4.2,Αστεροειδής,Asteroid,medium,0f5371f8-2611-4215-96d6-aa44a3d03814_mult
+localhost,vocabulary,1,afc706d9-de73-487e-9ec6-ea569c9dd3b0_mult,2.9,Κομήτης,Comet,medium,afc706d9-de73-487e-9ec6-ea569c9dd3b0_mult
+localhost,vocabulary,1,73fcc4ee-8bf8-4e46-aa95-43673a6ad983_mult,3.8,Μετεωρίτης,Meteor,medium,73fcc4ee-8bf8-4e46-aa95-43673a6ad983_mult
+localhost,vocabulary,1,7fb5161f-1756-41cf-9549-e9390e1de13d_mult,3.3,Διάστημα,Space,medium,7fb5161f-1756-41cf-9549-e9390e1de13d_mult
+localhost,vocabulary,1,bf96e19a-a9c4-4c6f-89ca-1f996228ef15_mult,2.2,Σύμπαν,Universe,medium,bf96e19a-a9c4-4c6f-89ca-1f996228ef15_mult
+localhost,vocabulary,1,f2ef60a9-3b97-468c-8679-f5040d3d4506_mult,3.1,Τηλεσκόπιο,Telescope,medium,f2ef60a9-3b97-468c-8679-f5040d3d4506_mult
+localhost,vocabulary,0,3abdd0ac-41ca-4845-aba4-b175b7afbc1e_mult,99,Πως σε λένε;,Hello,slow,3abdd0ac-41ca-4845-aba4-b175b7afbc1e_mult
+localhost,vocabulary,0,0a4db8c8-85cf-45b7-9203-4235fb75fc71_mult,0.8,Τι κάνεις;,Good morning,fast,0a4db8c8-85cf-45b7-9203-4235fb75fc71_mult
+localhost,vocabulary,0,d67030bf-deeb-4960-b558-857456a1162d_mult,1.1,Εσύ;,Good afternoon,fast,d67030bf-deeb-4960-b558-857456a1162d_mult
+localhost,vocabulary,0,80d45da4-3bbd-4a9b-8826-a97ba5828f3a_mult,1.2,Καλά ευχαριστώ,Good evening,fast,80d45da4-3bbd-4a9b-8826-a97ba5828f3a_mult
+localhost,vocabulary,1,6900fd9e-9029-4220-bec4-9bfc13557d09_mult,1.8,Καληνύχτα,Good night,fast,6900fd9e-9029-4220-bec4-9bfc13557d09_mult
+localhost,vocabulary,1,4d7d8a47-2da7-4160-b591-f206165a7e8a_mult,2.8,Πως σε λένε;,What is your name?,medium,4d7d8a47-2da7-4160-b591-f206165a7e8a_mult
+localhost,vocabulary,0,dc0fbe97-38cf-4a94-9679-056be973e153_mult,0.8,Καλημέρα,My name is ___,fast,dc0fbe97-38cf-4a94-9679-056be973e153_mult
+localhost,vocabulary,0,579ff486-7d9e-4175-8d87-22507921c178_mult,4.2,Αντίο,Sorry I did not hear you,medium,579ff486-7d9e-4175-8d87-22507921c178_mult
+localhost,vocabulary,0,842a0dca-d135-4928-a3bb-a331a24d9099_mult,2.5,Καληνύχτα,Where do you live?,medium,842a0dca-d135-4928-a3bb-a331a24d9099_mult
+localhost,vocabulary,0,b0beb344-106e-47e0-8a5d-b022dd128a95_mult,4.4,Πού μένεις;,Where are you from?,medium,b0beb344-106e-47e0-8a5d-b022dd128a95_mult
+localhost,vocabulary,1,0fe5eb67-066d-4072-8dd2-d5d00a98f851_mult,3.2,Τι κάνεις;,How are you?,medium,0fe5eb67-066d-4072-8dd2-d5d00a98f851_mult
+localhost,vocabulary,0,88f59223-3eb9-4a2d-bdb2-c5a83f8cfed6_mult,2.7,Συγγνώμη δεν σε άκουσα,Fine thank you,medium,88f59223-3eb9-4a2d-bdb2-c5a83f8cfed6_mult
+localhost,vocabulary,0,32529aca-83bd-4642-b963-758806ca5e8d_mult,1,Πού μένεις;,And you?,fast,32529aca-83bd-4642-b963-758806ca5e8d_mult
+localhost,vocabulary,0,51c9e926-9ed2-418f-9a6a-5459730a92f9_mult,0.9,Καλησπέρα,Nice to meet you,fast,51c9e926-9ed2-418f-9a6a-5459730a92f9_mult
+localhost,vocabulary,0,5304b5cb-c854-4ccc-9474-0577e39c97d2_mult,0.8,Τα λέμε αργότερα,Nice to see you,fast,5304b5cb-c854-4ccc-9474-0577e39c97d2_mult
+localhost,vocabulary,0,69a45535-5340-438f-bff6-cf8ba88ec409_mult,2.9,Πως σε λένε;,Have a nice day,medium,69a45535-5340-438f-bff6-cf8ba88ec409_mult
+localhost,vocabulary,0,488a2d7c-1e2c-41bc-993a-ac1c8493b5d0_mult,1.3,Γειά σου,See you later,fast,488a2d7c-1e2c-41bc-993a-ac1c8493b5d0_mult
+localhost,vocabulary,0,92ed2abd-0688-4141-88f5-9d25116db28f_mult,1.9,Συγγνώμη δεν σε άκουσα,See you tomorrow,fast,92ed2abd-0688-4141-88f5-9d25116db28f_mult
+localhost,vocabulary,1,1253ce2f-9954-4168-bdde-b6a6855d75f4_mult,2.2,Αντίο,Goodbye,medium,1253ce2f-9954-4168-bdde-b6a6855d75f4_mult
