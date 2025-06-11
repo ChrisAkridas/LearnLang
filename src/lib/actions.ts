@@ -69,6 +69,48 @@ export const getLessons = cache(async (difficulty: string = "easy") => {
   }
 });
 
+export const getRandomLesson = async (difficulty: string = "easy", currentLessonId: string) => {
+  try {
+    const lessons = await prismaClient.lesson.findMany({
+      where: {
+        id: { not: currentLessonId },
+        difficulty: difficulty,
+      },
+      select: {
+        title: true,
+        lessonNumber: true,
+        vocabulary: {
+          select: {
+            id: true,
+            english: true,
+            greek: true,
+            greeklish: true,
+          },
+        },
+        fillBlanks: {
+          select: {
+            id: true,
+            english: true,
+            greek: true,
+            pool: true,
+            correct: true,
+          },
+        },
+      },
+    });
+
+    if (lessons.length === 0) {
+      return null;
+    }
+
+    const randomIndex = Math.floor(Math.random() * lessons.length);
+    return lessons[randomIndex];
+  } catch (error) {
+    console.error("Error fetching random lesson", error);
+    notFound();
+  }
+};
+
 export async function getLessonsIds(difficulty?: string) {
   try {
     const lessons = await prismaClient.lesson.findMany({
