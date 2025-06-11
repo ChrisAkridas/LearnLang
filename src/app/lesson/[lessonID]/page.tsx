@@ -42,7 +42,17 @@ export default async function Lesson({ params }: LessonProps) {
       <div className="flex justify-between items-center mb-2">
         <h1 className="text-2xl flex items-center gap-2">
           {lesson.title}{" "}
-          <Badge className={difficulty === "easy" ? "bg-blue-400" : difficulty === "normal" ? "bg-yellow-400" : "bg-red-300"}>{difficulty}</Badge>
+          <Badge
+            className={
+              difficulty === "easy"
+                ? "bg-blue-400 hover:bg-blue-400"
+                : difficulty === "normal"
+                ? "bg-yellow-400 hover:bg-yellow-400"
+                : "bg-red-300 hover:bg-red-300"
+            }
+          >
+            {difficulty}
+          </Badge>
         </h1>
         <Link href="/" className="hover:underline">
           Home

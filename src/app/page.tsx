@@ -24,7 +24,11 @@ export default async function Home() {
             <Card className="flex relative group items-center justify-between text-opacity-80 hover:text-opacity-100 hover:bg-blue-50 hover:shadow-md hover:-translate-y-1">
               <Badge
                 className={`-top-2 -right-1 absolute text-sm ${
-                  it.difficulty === "easy" ? "bg-blue-400" : it.difficulty === "normal" ? "bg-yellow-400" : "bg-red-300"
+                  it.difficulty === "easy"
+                    ? "bg-blue-400 hover:bg-blue-400"
+                    : it.difficulty === "normal"
+                    ? "bg-yellow-400 hover:bg-yellow-400"
+                    : "bg-red-300 hover:bg-red-300"
                 }`}
               >
                 {it.difficulty}
