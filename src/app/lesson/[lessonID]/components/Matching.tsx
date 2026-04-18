@@ -1,4 +1,5 @@
 "use client";
+
 // Types
 import type { GetLessonNonNull } from "@/lib/actions";
 import type { BKTData, BKTRouteBody } from "@/types/types";
@@ -10,7 +11,6 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { twMerge } from "tailwind-merge";
 import { cva, type VariantProps } from "cva";
-// import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 // Internal
 import { shuffleArray } from "@/lib/utils";
@@ -130,13 +130,10 @@ export default function Matching({ data, nextLessonId, currentDifficulty }: Matc
     })),
     flashError: undefined,
   } as State);
-  // const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const segments = useParams();
-  // console.log("Matching.tsx diff: ", currentDifficulty);
 
-  // const activeExercise = searchParams.get("exercise");
   const showDialog = state.stats.every((it) => it.isCorrect === true);
   const timeHandler = useCallback(manageTimer(), []);
 
@@ -194,9 +191,6 @@ export default function Matching({ data, nextLessonId, currentDifficulty }: Matc
         const bktData = await response.json();
 
         const parsedData = JSON.parse(bktData);
-        // console.log("parsedData:", parsedData);
-        // const averagePrior =
-        //   parsedData.predictions.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.predictions.length;
         const { newPrior } = parsedData;
 
         setCookie("prior", String(newPrior));
@@ -227,7 +221,9 @@ export default function Matching({ data, nextLessonId, currentDifficulty }: Matc
           problem_id: it.word.id + "_matching",
           duration: +Number(it.time).toFixed(2),
           response_text:
-            it.wrongAnswers.length > 0 ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek : it.word.greek,
+            it.wrongAnswers.length > 0
+              ? state.stats.find((innerIt) => innerIt.word.id === it.wrongAnswers[0])?.word.greek
+              : it.word.greek,
           resource: it.word.english,
           multilearn: Number(it.time) <= 2 ? "fast" : Number(it.time) >= 9.6 ? "slow" : "medium",
           multigs: it.word.id + "_matching",
@@ -326,7 +322,10 @@ export default function Matching({ data, nextLessonId, currentDifficulty }: Matc
                 <div className="px-4 mt-4 grid grid-cols-5 gap-2">
                   {state.stats.map((it) => {
                     return (
-                      <Card key={it.word.id} className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                      <Card
+                        key={it.word.id}
+                        className={`${it.isCorrect ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                      >
                         <CardHeader className="relative">
                           <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                             {Number(it.time).toFixed(2) ?? NaN} sec
@@ -352,17 +351,6 @@ export default function Matching({ data, nextLessonId, currentDifficulty }: Matc
                     );
                   })}
                 </div>
-
-                {/* <DrawerFooter className="flex-row justify-center">
-              <Link href={nextLessonId ? `${nextLessonId}?exercise=${activeExercise}` : "/"}>
-                <Button className="bg-blue-300 text-black hover:bg-blue-400">{nextLessonId ? "Next Lesson" : "Home"}</Button>
-              </Link>
-              <DrawerClose>
-                <Button variant="outline" className="bg-slate-300 hover:bg-slate-400">
-                  Cancel
-                </Button>
-              </DrawerClose>
-            </DrawerFooter> */}
               </DrawerContent>
             </Drawer>
             <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">

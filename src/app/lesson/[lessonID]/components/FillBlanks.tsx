@@ -3,7 +3,6 @@
 // Types
 import type { BKTData, BKTRouteBody } from "@/types/types";
 import type { GetLessonNonNull } from "@/lib/actions";
-
 // External
 import { useEffect, useMemo, useReducer, useState } from "react";
 import Link from "next/link";
@@ -75,16 +74,14 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
   const initialState: State = {
     activeIndex: 0,
     activeWord: data[0],
-    stats: data.map((word) => ({ word } as LessonStats)),
+    stats: data.map((word) => ({ word }) as LessonStats),
     showAlert: false,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
-  // const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const segments = useParams();
-  // const activeExercise = searchParams.get("exercise");
 
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
@@ -107,7 +104,6 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
       clearInterval(intervalID);
     };
   }, [isTicking]);
-  // console.log("Fillblanks.tsx diff: ", currentDifficulty);
 
   useEffect(() => {
     async function callBktModel(data: BKTData[]) {
@@ -137,9 +133,6 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
         const bktData = await response.json();
 
         const parsedData = JSON.parse(bktData);
-        // console.log("parsedData:", parsedData);
-        // const averagePrior =
-        //   parsedData.predictions.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.predictions.length;
         const { newPrior } = parsedData;
 
         setCookie("prior", String(newPrior));
@@ -224,7 +217,9 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}</AlertDescription>
+                <AlertDescription>
+                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.correct}
+                </AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -271,17 +266,24 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
                   </div>
                   <div className="flex gap-1">
                     <span>Total time:</span>
-                    <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}</span>
+                    <span>
+                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
+                    </span>
                     <span>
                       sec
-                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}
+                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
+                        ? "s"
+                        : null}
                     </span>
                   </div>
                 </DrawerHeader>
                 <div className="mt-4 px-4 grid grid-cols-5 gap-2">
                   {state.stats.map((it, index) => {
                     return (
-                      <Card key={index} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                      <Card
+                        key={index}
+                        className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                      >
                         <CardHeader className="relative">
                           <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                             {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec
@@ -298,11 +300,10 @@ export default function FillBlanks({ data, nextLessonId, currentDifficulty }: Pr
                 </div>
               </DrawerContent>
             </Drawer>
-            <Button  disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
+            <Button disabled={isLoading} className="bg-blue-300 text-black hover:bg-blue-400">
               <Link href={nextLessonId ? `${nextLessonId}` : "/"}>{nextLessonId ? "Next Lesson" : "Home"}</Link>
             </Button>
             <Button
-              
               disabled={isLoading}
               className="bg-blue-300 text-black hover:bg-blue-400"
               onClick={() => {

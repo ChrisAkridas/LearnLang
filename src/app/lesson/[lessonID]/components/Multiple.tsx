@@ -82,17 +82,14 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
     activeIndex: 0,
     activeWord: data[0],
     showAlert: false,
-    stats: data.map((word) => ({ word } as LessonStats)),
+    stats: data.map((word) => ({ word }) as LessonStats),
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isTicking, setIsTicking] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // const searchParams = useSearchParams();
   const segments = useParams();
   const timeRef = useRef(0);
-
-  // const activeExercise = searchParams.get("exercise");
 
   const { activeIndex } = state;
   const activeWordStats = state.stats[activeIndex];
@@ -126,9 +123,6 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
         const bktData = await response.json();
 
         const parsedData = JSON.parse(bktData);
-        // console.log("parsedData:", parsedData);
-        // const averagePrior =
-        //   parsedData.predictions.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.predictions.length;
         const { newPrior } = parsedData;
 
         setCookie("prior", String(newPrior));
@@ -142,37 +136,12 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
 
         if (currentDifficulty !== difficulty) {
           setCookie("difficulty", difficulty);
-          // router.replace("/");
         }
       } catch (error: any) {
         setError(error.message);
       } finally {
         setIsLoading(false);
       }
-
-      // .then(async (data) => {
-      //   let difficulty = currentDifficulty;
-
-      //   const dataJson = await data.json();
-      //   console.log("parsedData: ", dataJson);
-      //   const parsedData = JSON.parse(dataJson);
-      //   const average = parsedData.reduce((sum: number, currentValue: number) => sum + currentValue, 0) / parsedData.length;
-
-      //   console.log("on then: ", parsedData, average);
-
-      //   if (average <= 0.6) {
-      //     difficulty = "easy";
-      //   } else if (average > 0.6 && average <= 0.8) {
-      //     difficulty = "normal";
-      //   } else {
-      //     difficulty = "hard";
-      //   }
-
-      //   if (currentDifficulty !== difficulty) {
-      //     console.log("difficulty level changed to: ", difficulty);
-      //     revalidateCustomPath("/", difficulty);
-      //   }
-      // });
     }
 
     if (state.showAlert && activeIndex >= maxIndex) {
@@ -197,8 +166,6 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
   const pool = useMemo(() => {
     return generateWordsPool(data, activeIndex, 5);
   }, [activeIndex, data]);
-
-  // let time = 0; // in ms
 
   useEffect(() => {
     let intervalID: NodeJS.Timeout;
@@ -255,7 +222,9 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
               )}
               <div>
                 <AlertTitle>{activeWordStats.correct ? "Congratulations!" : "Correct answer is:"}</AlertTitle>
-                <AlertDescription>{activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}</AlertDescription>
+                <AlertDescription>
+                  {activeWordStats.correct ? "Your answer is correct." : activeWordStats.word.greek}
+                </AlertDescription>
               </div>
             </div>
             {activeIndex < maxIndex && (
@@ -301,17 +270,24 @@ export default function Multiple({ data, nextLessonId, currentDifficulty }: Mult
                   </div>
                   <div className="flex gap-1">
                     <span>Total time:</span>
-                    <span>{state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}</span>
+                    <span>
+                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0).toFixed(2)}
+                    </span>
                     <span>
                       sec
-                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1 ? "s" : null}
+                      {state.stats.reduce((sum, currentValue) => sum + Number(currentValue.timeToComplete), 0) > 1
+                        ? "s"
+                        : null}
                     </span>
                   </div>
                 </DrawerHeader>
                 <div className="mt-4 px-4 grid grid-cols-5 gap-2">
                   {state.stats.map((it) => {
                     return (
-                      <Card key={it.word.id} className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}>
+                      <Card
+                        key={it.word.id}
+                        className={`${it.correct ? "bg-green-200 border-green-400" : "bg-red-200 border-red-400"} border-2`}
+                      >
                         <CardHeader className="relative">
                           <Badge variant="secondary" className="absolute border border-neutral-400 top-1 right-1">
                             {Number(it.timeToComplete).toFixed(2) ?? "NaN"} sec

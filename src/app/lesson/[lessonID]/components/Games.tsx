@@ -38,24 +38,13 @@ export default function Games({ data, nextLessonId, currentDifficulty }: GamePro
     } as Record<Exercise, ExerciseValue>;
   }, [data]);
 
-  // const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const activeExercise = (searchParams.get("exercise") ?? "multiple") as Exercise;
   const [activeExerciseValue, setActiveExerciseValue] = useState<Exercise>("multiple");
-  // useEffect(() => {
-  //   router.push(`?exercise=${activeExercise}`, {
-  //     scroll: false,
-  //   });
-  // }, []);
+
   return (
     <>
       <Select
         value={activeExerciseValue}
         onValueChange={(value) => {
-          // router.push(`?exercise=${value}`, {
-          //   scroll: false,
-          // });
-
           setActiveExerciseValue(value as Exercise);
         }}
       >
